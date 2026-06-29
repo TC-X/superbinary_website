@@ -5,6 +5,10 @@ input {
   font: inherit;
 }
 
+body {
+  line-height: normal;
+}
+
 button {
   cursor: pointer;
 }
@@ -1035,6 +1039,14 @@ button.download {
   backdrop-filter: blur(24px);
 }
 
+.modal-shell[data-state="open"] {
+  animation: modal-overlay-in 180ms ease-out both;
+}
+
+.modal-shell[data-state="closed"] {
+  animation: modal-overlay-out 180ms ease-in both;
+}
+
 .download-modal {
   position: relative;
   width: min(460px, 100%);
@@ -1043,6 +1055,48 @@ button.download {
   background: rgba(255, 255, 255, 0.94);
   padding: 34px;
   text-align: center;
+}
+
+.download-modal[data-state="open"] {
+  animation: modal-panel-in 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.download-modal[data-state="closed"] {
+  animation: modal-panel-out 160ms ease-in both;
+}
+
+@keyframes modal-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modal-overlay-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes modal-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes modal-panel-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(5px) scale(0.99);
+  }
 }
 
 .modal-close {
@@ -1121,4 +1175,11 @@ button.download {
 
 .modal-message.error {
   color: #b42318;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-shell,
+  .download-modal {
+    animation: none !important;
+  }
 }

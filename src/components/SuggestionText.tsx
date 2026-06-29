@@ -41,15 +41,17 @@ export function SuggestionText({
 }
 
 type ScrollSuggestionTextProps = {
+  acceptedPrefix: string;
   words: string[];
   progress: number;
   className?: string;
 };
 
-export function ScrollSuggestionText({ words, progress, className = "" }: ScrollSuggestionTextProps) {
-  const acceptedCount = Math.min(words.length, Math.max(1, Math.floor(progress * (words.length + 0.999))));
-  const accepted = words.slice(0, acceptedCount).join(" ");
+export function ScrollSuggestionText({ acceptedPrefix, words, progress, className = "" }: ScrollSuggestionTextProps) {
+  const acceptedCount = Math.min(words.length, Math.max(0, Math.floor(progress * (words.length + 0.999))));
+  const acceptedWords = words.slice(0, acceptedCount);
   const ghost = words.slice(acceptedCount).join(" ");
+  const accepted = acceptedWords.length ? `${acceptedPrefix} ${acceptedWords.join(" ")}` : acceptedPrefix;
 
   return <SuggestionText accepted={accepted} ghost={ghost ? ` ${ghost}` : ""} className={className} />;
 }

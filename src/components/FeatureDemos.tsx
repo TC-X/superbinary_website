@@ -18,10 +18,13 @@ export function MidSentenceDemo({ className = "" }: DemoProps) {
   return (
     <div className={`demo-bubble-wrap ${className}`}>
       <p className="demo-line">
-        <SuggestionText accepted="Let's meet" ghost=" before the call." ghostClassName="accepted" />
+        <span className="accepted">Let's meet</span>
+        <span className="caret" aria-hidden="true" />
+        <span className="accepted"> before the call.</span>
       </p>
       <div className="demo-bubble" aria-hidden="true">
-        <span>tomorrow morning</span>
+        <span className="demo-bubble-text">tomorrow morning</span>
+        <span className="demo-tab">tab</span>
       </div>
     </div>
   );

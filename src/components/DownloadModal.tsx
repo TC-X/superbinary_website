@@ -14,11 +14,23 @@ function isValidEmail(value: string) {
 
 export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
   const [email, setEmail] = useState("");
+  const [isMounted, setIsMounted] = useState(isOpen);
   const [state, setState] = useState<SubmitState>("idle");
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    if (!isOpen) return;
+    if (isOpen) {
+      setIsMounted(true);
+      return;
+    }
+
+    const timeout = window.setTimeout(() => setIsMounted(false), 240);
+
+    return () => window.clearTimeout(timeout);
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isMounted) return;
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
@@ -31,9 +43,9 @@ export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [isOpen, onClose]);
+  }, [isMounted, onClose]);
 
-  if (!isOpen) return null;
+  if (!isMounted) return null;
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -68,11 +80,12 @@ export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
   };
 
   return (
-    <div className="modal-shell" role="presentation" onMouseDown={onClose}>
+    <div className="modal-shell" data-state={isOpen ? "open" : "closed"} role="presentation" onMouseDown={onClose}>
       <section
         aria-labelledby="download-modal-title"
         aria-modal="true"
         className="download-modal"
+        data-state={isOpen ? "open" : "closed"}
         role="dialog"
         onMouseDown={(event) => event.stopPropagation()}
       >

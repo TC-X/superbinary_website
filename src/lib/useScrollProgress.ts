@@ -12,11 +12,8 @@ export function useScrollProgress(ref: RefObject<HTMLElement | null>) {
     const update = () => {
       frame = 0;
       const rect = element.getBoundingClientRect();
-      const viewport = window.innerHeight || 1;
-      const start = viewport * 0.64;
-      const end = -rect.height + viewport * 0.42;
-      const distance = start - end || 1;
-      const next = (start - rect.top) / distance;
+      const scrollable = Math.max(1, element.offsetHeight - window.innerHeight);
+      const next = -rect.top / scrollable;
       setProgress(Math.min(1, Math.max(0, next)));
     };
 

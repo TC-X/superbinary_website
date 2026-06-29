@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { CSSProperties, useRef, useState } from 'react'
 
 import { AppMarquee } from '../components/AppMarquee'
 import { DownloadModal } from '../components/DownloadModal'
@@ -6,8 +6,10 @@ import { InlineSuggestionDemo, MidSentenceDemo, SpellCorrectionDemo } from '../c
 import { ScrollSuggestionText, SuggestionText } from '../components/SuggestionText'
 import { useScrollProgress } from '../lib/useScrollProgress'
 
-const coreWords = 'I think the cleanest way to explain this is to show it where people already write.'.split(' ')
-const mindWords = 'Maya, I can send the notes after our Friday demo, like usual.'.split(' ')
+const corePrefix = 'I think the cleanest way to explain this is'
+const coreWords = ['to', 'show', 'it', 'where', 'people', 'already', 'write.']
+const mindPrefix = 'Maya, I can send the notes'
+const mindWords = ['after', 'our', 'Friday', 'demo,', 'like', 'usual.']
 
 type DownloadButtonProps = {
   children: string
@@ -57,9 +59,10 @@ function Hero({ onDownload }: { onDownload: () => void }) {
 function CoreInteractionStory() {
   const ref = useRef<HTMLElement | null>(null)
   const progress = useScrollProgress(ref)
+  const sectionStyle = { '--story-progress': progress.toFixed(4) } as CSSProperties
 
   return (
-    <section className="scroll-story" id="ghost-story" ref={ref} aria-labelledby="ghost-title">
+    <section className="scroll-story" id="ghost-story" ref={ref} style={sectionStyle} aria-labelledby="ghost-title">
       <div className="sticky-frame">
         <div className="stage">
           <p className="story-label">The core interaction.</p>
@@ -70,9 +73,9 @@ function CoreInteractionStory() {
               <span />
             </div>
             <p className="sentence">
-              <ScrollSuggestionText words={coreWords} progress={progress} />
+              <ScrollSuggestionText acceptedPrefix={corePrefix} words={coreWords} progress={progress} />
             </p>
-            <div className="progress-line" style={{ transform: `scaleX(${progress})` }} aria-hidden="true" />
+            <div className="progress-line" aria-hidden="true" />
           </div>
           <div className="caption">
             <h2 id="ghost-title">Accept the next word. Stay in control.</h2>
@@ -133,9 +136,10 @@ function Highlights() {
 function MindSignalStory() {
   const ref = useRef<HTMLElement | null>(null)
   const progress = useScrollProgress(ref)
+  const sectionStyle = { '--mind-progress': progress.toFixed(4) } as CSSProperties
 
   return (
-    <section className="mind-story" id="mindsignal" ref={ref} aria-labelledby="mind-title">
+    <section className="mind-story" id="mindsignal" ref={ref} style={sectionStyle} aria-labelledby="mind-title">
       <div className="sticky-frame">
         <div className="stage">
           <p className="story-label">MindSignal</p>
@@ -150,9 +154,9 @@ function MindSignalStory() {
                 <span />
               </div>
               <p className="mind-line">
-                <ScrollSuggestionText words={mindWords} progress={progress} />
+                <ScrollSuggestionText acceptedPrefix={mindPrefix} words={mindWords} progress={progress} />
               </p>
-              <div className="progress-line" style={{ transform: `scaleX(${progress})` }} aria-hidden="true" />
+              <div className="progress-line" aria-hidden="true" />
             </div>
           </div>
           <div className="caption">
