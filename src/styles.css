@@ -377,6 +377,10 @@ h3 {
   font-weight: 520;
 }
 
+.highlight-card h3 {
+  font-size: clamp(30px, 3.35vw, 48px);
+}
+
 .feature-demo {
   display: grid;
   min-height: 190px;
