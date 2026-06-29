@@ -120,7 +120,7 @@ function Hero({ onDownload }: { onDownload: () => void }) {
           A private Mac autocomplete layer for messages, notes, docs, email, and the places you write every day.
         </p>
         <DownloadButton className="mt-8.5 min-h-11.5 px-6 text-[1.0625rem]" onClick={onDownload}>
-          Download for Mac
+          Download for Apple Silicon
         </DownloadButton>
         <p className={trialClass}>14-day free trial. No credit card required.</p>
       </div>
@@ -133,12 +133,7 @@ function CoreInteractionStory() {
   const progress = useScrollProgress(ref)
 
   return (
-    <section
-      className={storySectionClass}
-      id="ghost-story"
-      ref={ref}
-      aria-labelledby="ghost-title"
-    >
+    <section className={storySectionClass} id="ghost-story" ref={ref} aria-labelledby="ghost-title">
       <div className={stickyFrameClass}>
         <div className={stageClass}>
           <p className={storyLabelClass}>The core interaction.</p>
