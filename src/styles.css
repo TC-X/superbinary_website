@@ -13,7 +13,7 @@
   --color-accepted: #111111;
   --color-ghost: #a1a1a6;
 
-  --shadow-panel: 0 28px 90px rgba(0, 0, 0, 0.07);
+  --shadow-panel: 0 1.75rem 5.625rem rgba(0, 0, 0, 0.07);
 
   --animate-blink: blink 1.06s steps(1, end) infinite;
   --animate-marquee: marquee 44s linear infinite;
@@ -67,7 +67,7 @@
   @keyframes modal-panel-in {
     from {
       opacity: 0;
-      transform: translateY(8px) scale(0.985);
+      transform: translateY(0.5rem) scale(0.985);
     }
 
     to {
@@ -84,7 +84,7 @@
 
     to {
       opacity: 0;
-      transform: translateY(5px) scale(0.99);
+      transform: translateY(0.3125rem) scale(0.99);
     }
   }
 }
@@ -92,7 +92,7 @@
 @layer base {
   :root {
     color-scheme: light;
-    --caret-width: clamp(2px, 0.022em, 3px);
+    --caret-width: clamp(0.125rem, 0.022em, 0.1875rem);
     --caret-height: 0.94em;
     --caret-align: -0.1em;
     --story-progress: 0;

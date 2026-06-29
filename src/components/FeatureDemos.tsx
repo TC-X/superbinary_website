@@ -7,7 +7,7 @@ type DemoProps = {
 };
 
 const demoLineClass = "m-0 text-lg font-[650] leading-[1.28]";
-const demoFieldClass = "flex min-h-[42px] items-center rounded-[10px] border border-black/[0.08] bg-white px-3";
+const demoFieldClass = "flex min-h-10.5 items-center rounded-[0.625rem] border border-black/[0.08] bg-white px-3";
 
 export function InlineSuggestionDemo({ className = "" }: DemoProps) {
   return (
@@ -21,18 +21,18 @@ export function InlineSuggestionDemo({ className = "" }: DemoProps) {
 
 export function MidSentenceDemo({ className = "" }: DemoProps) {
   return (
-    <div className={cx("relative min-h-[74px] pt-0.5", className)}>
+    <div className={cx("relative min-h-18.5 pt-0.5", className)}>
       <p className={demoLineClass}>
         <span className="text-accepted">Let's meet</span>
         <Caret />
         <span className="text-accepted"> before the call.</span>
       </p>
       <div
-        className="mt-3 grid w-[min(245px,100%)] grid-cols-[minmax(0,1fr)_auto] items-center gap-3.5 rounded-full border border-black/[0.16] bg-[#e8e8ed]/[0.97] py-[5px] pr-[7px] pl-3 text-[13px] leading-[1.1] font-[620] text-[#1d1d1f]"
+        className="mt-3 grid w-[min(15.3125rem,100%)] grid-cols-[minmax(0,1fr)_auto] items-center gap-3.5 rounded-full border border-black/[0.16] bg-[#e8e8ed]/[0.97] py-[0.3125rem] pr-[0.4375rem] pl-3 text-[0.8125rem] leading-[1.1] font-[620] text-[#1d1d1f]"
         aria-hidden="true"
       >
         <span className="truncate">tomorrow morning</span>
-        <span className="relative rounded-[5px] border border-black/[0.16] bg-black/[0.10] px-[7px] py-[3px] text-[11px] font-[760] text-black/[0.62] before:absolute before:-left-2 before:top-0.5 before:bottom-0.5 before:w-px before:bg-black/[0.18]">
+        <span className="relative rounded-[0.3125rem] border border-black/[0.16] bg-black/[0.10] px-[0.4375rem] py-[0.1875rem] text-[0.6875rem] font-[760] text-black/[0.62] before:absolute before:-left-2 before:top-0.5 before:bottom-0.5 before:w-[0.0625rem] before:bg-black/[0.18]">
           tab
         </span>
       </div>
@@ -45,7 +45,7 @@ export function SpellCorrectionDemo({ className = "" }: DemoProps) {
     <div className={cx(demoFieldClass, className)}>
       <p className={demoLineClass}>
         <span className="text-accepted">The </span>
-        <span className="underline decoration-[#ff3b30] decoration-wavy decoration-[1.5px] underline-offset-4">
+        <span className="underline decoration-[#ff3b30] decoration-wavy decoration-[0.09375rem] underline-offset-4">
           enviroment
         </span>
         <span className="whitespace-nowrap">
