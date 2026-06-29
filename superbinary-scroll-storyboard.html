@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -193,8 +194,16 @@
     }
 
     @keyframes blink {
-      0%, 46% { opacity: 1; }
-      47%, 100% { opacity: 0; }
+
+      0%,
+      46% {
+        opacity: 1;
+      }
+
+      47%,
+      100% {
+        opacity: 0;
+      }
     }
 
     .highlights {
@@ -465,8 +474,13 @@
     }
 
     @keyframes marquee {
-      from { translate: 0; }
-      to { translate: -50%; }
+      from {
+        translate: 0;
+      }
+
+      to {
+        translate: -50%;
+      }
     }
 
     .app-tile {
@@ -691,6 +705,7 @@
     }
 
     @media (max-width: 900px) {
+
       .highlight-grid,
       .privacy-board,
       .native-pricing {
@@ -796,6 +811,7 @@
     }
   </style>
 </head>
+
 <body>
   <header class="topbar">
     <div class="brand">Superbinary</div>
@@ -811,7 +827,8 @@
         <a class="download" href="#pricing">Download for Mac</a>
         <p class="trial">14-day free trial. No credit card required.</p>
         <div class="hero-mini" aria-hidden="true">
-          <p class="mini-line"><span class="accepted">I was thinking we could</span><span class="caret"></span><span class="ghost"> make the launch feel effortless.</span></p>
+          <p class="mini-line"><span class="accepted">I was thinking we could</span><span class="caret"></span><span
+              class="ghost"> make the launch feel effortless.</span></p>
         </div>
       </div>
     </section>
@@ -820,7 +837,8 @@
       <div class="section-head">
         <p class="eyebrow">Get the highlights.</p>
         <h2 id="highlights-title">The next words, right where you type.</h2>
-        <p>Superbinary is built around one quiet interaction: your thought starts, a few words appear, and you decide what becomes text.</p>
+        <p>Superbinary is built around one quiet interaction: your thought starts, a few words appear, and you decide
+          what becomes text.</p>
       </div>
       <div class="highlight-grid">
         <article class="highlight-card">
@@ -875,12 +893,15 @@
             <div class="context-chip chip-three">current app: Mail compose</div>
             <div class="writing-surface mind-surface">
               <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-              <p class="mind-line"><span class="accepted">Thanks for sending this over. I think the clearest next step is</span><span class="caret"></span><span class="ghost"> to turn the notes into a short launch checklist.</span></p>
+              <p class="mind-line"><span class="accepted">Thanks for sending this over. I think the clearest next step
+                  is</span><span class="caret"></span><span class="ghost"> to turn the notes into a short launch
+                  checklist.</span></p>
             </div>
           </div>
           <div class="caption">
             <h2 id="mind-title">Context that stays with you.</h2>
-            <p>MindSignal helps Superbinary understand the moment around your cursor, so suggestions feel closer to what you meant.</p>
+            <p>MindSignal helps Superbinary understand the moment around your cursor, so suggestions feel closer to what
+              you meant.</p>
           </div>
         </div>
       </div>
@@ -890,17 +911,47 @@
       <div class="section-head">
         <p class="eyebrow">Across your Mac.</p>
         <h2 id="apps-title">Not another place to write. A better way to keep writing.</h2>
-        <p>Superbinary shows up across ordinary Mac writing surfaces, so the product behavior stays the same even as your apps change.</p>
+        <p>Superbinary shows up across ordinary Mac writing surfaces, so the product behavior stays the same even as
+          your apps change.</p>
       </div>
       <div class="app-marquee" aria-hidden="true">
-        <div class="app-tile">Mail</div><div class="app-tile">Messages</div><div class="app-tile">Notes</div><div class="app-tile">Safari</div><div class="app-tile">Slack</div><div class="app-tile">Docs</div><div class="app-tile">Linear</div><div class="app-tile">Notion</div>
-        <div class="app-tile">Mail</div><div class="app-tile">Messages</div><div class="app-tile">Notes</div><div class="app-tile">Safari</div><div class="app-tile">Slack</div><div class="app-tile">Docs</div><div class="app-tile">Linear</div><div class="app-tile">Notion</div>
+        <div class="app-tile">Mail</div>
+        <div class="app-tile">Messages</div>
+        <div class="app-tile">Notes</div>
+        <div class="app-tile">Safari</div>
+        <div class="app-tile">Slack</div>
+        <div class="app-tile">Docs</div>
+        <div class="app-tile">Linear</div>
+        <div class="app-tile">Notion</div>
+        <div class="app-tile">Mail</div>
+        <div class="app-tile">Messages</div>
+        <div class="app-tile">Notes</div>
+        <div class="app-tile">Safari</div>
+        <div class="app-tile">Slack</div>
+        <div class="app-tile">Docs</div>
+        <div class="app-tile">Linear</div>
+        <div class="app-tile">Notion</div>
       </div>
       <div class="app-marquee reverse" aria-hidden="true">
-        <div class="app-tile">Chrome</div><div class="app-tile">Calendar</div><div class="app-tile">Reminders</div><div class="app-tile">Pages</div><div class="app-tile">TextEdit</div><div class="app-tile">VS Code</div><div class="app-tile">Discord</div><div class="app-tile">Forms</div>
-        <div class="app-tile">Chrome</div><div class="app-tile">Calendar</div><div class="app-tile">Reminders</div><div class="app-tile">Pages</div><div class="app-tile">TextEdit</div><div class="app-tile">VS Code</div><div class="app-tile">Discord</div><div class="app-tile">Forms</div>
+        <div class="app-tile">Chrome</div>
+        <div class="app-tile">Calendar</div>
+        <div class="app-tile">Reminders</div>
+        <div class="app-tile">Pages</div>
+        <div class="app-tile">TextEdit</div>
+        <div class="app-tile">VS Code</div>
+        <div class="app-tile">Discord</div>
+        <div class="app-tile">Forms</div>
+        <div class="app-tile">Chrome</div>
+        <div class="app-tile">Calendar</div>
+        <div class="app-tile">Reminders</div>
+        <div class="app-tile">Pages</div>
+        <div class="app-tile">TextEdit</div>
+        <div class="app-tile">VS Code</div>
+        <div class="app-tile">Discord</div>
+        <div class="app-tile">Forms</div>
       </div>
-      <p class="app-note">App names are illustrative of normal writing surfaces, not partnerships or official integrations.</p>
+      <p class="app-note">App names are illustrative of normal writing surfaces, not partnerships or official
+        integrations.</p>
     </section>
 
     <section class="privacy-story" id="privacy" aria-labelledby="privacy-title">
@@ -909,7 +960,8 @@
           <div class="privacy-demo">
             <p class="eyebrow">Privacy</p>
             <h2 id="privacy-title">Your thoughts stay with you.</h2>
-            <p>Superbinary completes your writing on your Mac. No cloud completion loop. No training on your private text.</p>
+            <p>Superbinary completes your writing on your Mac. No cloud completion loop. No training on your private
+              text.</p>
             <div class="privacy-icons" aria-hidden="true">
               <div class="privacy-icon" data-privacy-icon>Offline</div>
               <div class="privacy-icon" data-privacy-icon>Firewall</div>
@@ -951,14 +1003,15 @@
           <div class="menu-row"><span>Offline completion</span><span class="toggle"></span></div>
         </div>
         <h2>Built like it belongs on your Mac.</h2>
-        <p>Quiet menu bar presence. Native-feeling controls. Suggestions that disappear the moment you do not need them.</p>
+        <p>Quiet menu bar presence. Native-feeling controls. Suggestions that disappear the moment you do not need them.
+        </p>
       </article>
       <article class="pricing">
-        <p class="eyebrow">Early adopter offer</p>
+        <p class="eyebrow">Early bird offer</p>
         <h2>Try it free for 14 days.</h2>
         <p>No credit card required.</p>
         <div class="price">$49.99</div>
-        <div class="regular">Early adopter price. Regular $89.99.</div>
+        <div class="regular">Early bird price. Regular $89.99.</div>
         <a class="download" href="#">Download for Mac</a>
       </article>
     </section>
@@ -1079,4 +1132,5 @@
     })();
   </script>
 </body>
+
 </html>

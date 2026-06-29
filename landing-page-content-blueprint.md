@@ -15,7 +15,7 @@ write in.
   Snitch, or Radio Silence while suggestions continue working.
 - Private local app data is encrypted with keys protected by macOS Keychain.
 - Trial and pricing are final: 14-day free trial, no credit card required;
-  $49.99 early adopter price, regular $89.99.
+  $49.99 early bird price, regular $89.99.
 - Primary CTA is singular: download. No secondary CTA in the hero.
 
 ## Page Goal
@@ -327,7 +327,7 @@ Try it free for 14 days.
 
 No credit card required.
 
-Early adopters get Superbinary for $49.99. Regular price $89.99.
+Early birds get Superbinary for $49.99. Regular price $89.99.
 
 ### CTA
 

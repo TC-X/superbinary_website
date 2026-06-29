@@ -421,7 +421,7 @@ Try it free for 14 days.
 Copy:
 
 ```
-No credit card required. Early adopters get Superbinary for $49.99. Regular
+No credit card required. Early birds get Superbinary for $49.99. Regular
 price $89.99.
 ```
 
