@@ -92,9 +92,9 @@
 @layer base {
   :root {
     color-scheme: light;
-    --caret-width: clamp(2px, 0.018em, 3px);
-    --caret-height: 0.88em;
-    --caret-descent: 0.08em;
+    --caret-width: clamp(2px, 0.022em, 3px);
+    --caret-height: 0.94em;
+    --caret-align: -0.1em;
     --story-progress: 0;
     --mind-progress: 0;
     --privacy-progress: 0;

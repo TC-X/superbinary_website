@@ -52,19 +52,12 @@ type ScrollSuggestionTextProps = {
 
 export function ScrollSuggestionText({ acceptedPrefix, words, progress, className = "" }: ScrollSuggestionTextProps) {
   const acceptedCount = Math.min(words.length, Math.max(0, Math.floor(progress * (words.length + 0.999))));
-  const caret = (
-    <span
-      aria-hidden="true"
-      data-caret
-      className="pointer-events-none absolute bottom-[calc(var(--caret-descent)*-1)] left-full h-[var(--caret-height)] w-[var(--caret-width)] rounded-none bg-caret-blue will-change-[opacity] animate-blink motion-reduce:animate-none"
-    />
-  );
 
   return (
     <span className={cx("tracking-[0]", className)}>
-      <span className={cx("text-accepted", acceptedCount === 0 && "relative")}>
+      <span className="text-accepted">
         {acceptedPrefix}
-        {acceptedCount === 0 ? caret : null}
+        {acceptedCount === 0 ? <Caret /> : null}
       </span>
       {words.map((word, index) => {
         const isAccepted = index < acceptedCount;
@@ -73,9 +66,9 @@ export function ScrollSuggestionText({ acceptedPrefix, words, progress, classNam
         return (
           <Fragment key={`${word}-${index}`}>
             {" "}
-            <span className={cx("inline-block", isAccepted ? "text-accepted" : "text-ghost", hasCaret && "relative")}>
+            <span className={cx("inline-block", isAccepted ? "text-accepted" : "text-ghost")}>
               {word}
-              {hasCaret ? caret : null}
+              {hasCaret ? <Caret /> : null}
             </span>
           </Fragment>
         );
