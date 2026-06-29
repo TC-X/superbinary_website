@@ -1,0 +1,1383 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Superbinary - Product Storyboard</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f5f7;
+      --paper: #fbfbfd;
+      --ink: #0d0d0f;
+      --muted: #6e6e73;
+      --quiet: #a1a1a6;
+      --hairline: rgba(0, 0, 0, 0.08);
+      --panel: rgba(255, 255, 255, 0.78);
+      --blue: #0071e3;
+      --accepted: #111111;
+      --ghost: #a1a1a6;
+      --story-progress: 0;
+      --mind-progress: 0;
+      --privacy-progress: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 50% 6%, rgba(0, 102, 204, 0.10) 0, rgba(255, 255, 255, 0) 32rem),
+        linear-gradient(180deg, #fbfbfd 0%, #f5f5f7 38%, #ffffff 100%);
+      letter-spacing: 0;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 54px;
+      padding: 0 clamp(18px, 4vw, 54px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.045);
+      background: rgba(251, 251, 253, 0.72);
+      backdrop-filter: blur(22px);
+    }
+
+    .brand {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .topbar .download {
+      min-height: 30px;
+      padding: 0 14px;
+      font-size: 13px;
+    }
+
+    .download {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: var(--blue);
+      color: white;
+      font-weight: 650;
+      text-decoration: none;
+      box-shadow: none;
+    }
+
+    .hero,
+    .final {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 90px 24px 64px;
+      text-align: center;
+    }
+
+    .hero-inner,
+    .final-inner {
+      width: min(970px, 100%);
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: clamp(15px, 1.4vw, 19px);
+      font-weight: 650;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      color: var(--ink);
+      font-weight: 750;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      font-size: clamp(52px, 10.8vw, 126px);
+      line-height: 0.92;
+    }
+
+    h2 {
+      font-size: clamp(42px, 7vw, 94px);
+      line-height: 0.98;
+    }
+
+    h3 {
+      font-size: clamp(26px, 4vw, 52px);
+      line-height: 1.04;
+    }
+
+    .lead {
+      max-width: 720px;
+      margin: 26px auto 0;
+      color: #45454a;
+      font-size: clamp(19px, 2vw, 27px);
+      line-height: 1.24;
+      font-weight: 500;
+    }
+
+    .hero .download,
+    .final .download,
+    .pricing .download {
+      min-height: 46px;
+      margin-top: 34px;
+      padding: 0 24px;
+      font-size: 17px;
+    }
+
+    .trial {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 550;
+    }
+
+    .hero-mini {
+      width: min(760px, 100%);
+      margin: 58px auto 0;
+      padding: 22px;
+      border: 1px solid var(--hairline);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.74);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.07);
+      text-align: left;
+    }
+
+    .mini-line {
+      margin: 0;
+      font-size: clamp(22px, 3vw, 37px);
+      line-height: 1.16;
+      font-weight: 680;
+    }
+
+    .accepted {
+      color: var(--accepted);
+    }
+
+    .ghost {
+      color: var(--ghost);
+    }
+
+    .accepted-tail {
+      white-space: nowrap;
+    }
+
+    .caret {
+      position: relative;
+      display: inline-block;
+      width: 0;
+      height: 0;
+      line-height: 0;
+      margin: 0;
+      vertical-align: baseline;
+    }
+
+    .caret::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.04em;
+      width: max(2px, 0.035em);
+      height: 0.78em;
+      border-radius: 0;
+      background: var(--blue);
+      will-change: opacity;
+      animation: blink 1.08s steps(1, end) infinite;
+    }
+
+    @keyframes blink {
+      0%, 68% { opacity: 1; }
+      69%, 100% { opacity: 0.32; }
+    }
+
+    .highlights {
+      padding: 90px clamp(20px, 5vw, 70px) 120px;
+    }
+
+    .section-head {
+      width: min(980px, 100%);
+      margin: 0 auto 34px;
+      text-align: center;
+    }
+
+    .section-head p {
+      max-width: 680px;
+      margin: 20px auto 0;
+      color: var(--muted);
+      font-size: clamp(18px, 2vw, 24px);
+      line-height: 1.3;
+      font-weight: 520;
+    }
+
+    .highlight-grid {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .highlight-card {
+      min-height: 210px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px;
+      border: 1px solid var(--hairline);
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 20px 70px rgba(0, 0, 0, 0.045);
+    }
+
+    .highlight-card p {
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.34;
+      font-weight: 520;
+    }
+
+    .glyph {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: #f5f5f7;
+      color: #202023;
+      font-size: 20px;
+      font-weight: 750;
+    }
+
+    .feature-demo {
+      min-height: 116px;
+      display: grid;
+      align-content: center;
+      gap: 12px;
+      padding: 18px;
+      border: 1px solid rgba(0, 0, 0, 0.07);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.76);
+      color: #1d1d1f;
+      overflow: hidden;
+    }
+
+    .demo-line {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.28;
+      font-weight: 650;
+    }
+
+    .demo-field {
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      background: white;
+    }
+
+    .demo-bubble-wrap {
+      position: relative;
+      min-height: 74px;
+      padding-top: 2px;
+    }
+
+    .demo-bubble {
+      width: min(245px, 100%);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      margin-top: 12px;
+      padding: 5px 7px 5px 12px;
+      border: 1px solid rgba(0, 0, 0, 0.16);
+      border-radius: 999px;
+      background: rgba(232, 232, 237, 0.97);
+      color: #1d1d1f;
+      font-size: 13px;
+      line-height: 1.1;
+      font-weight: 620;
+    }
+
+    .demo-bubble-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .demo-tab {
+      position: relative;
+      padding: 3px 7px;
+      border: 1px solid rgba(0, 0, 0, 0.16);
+      border-radius: 5px;
+      background: rgba(0, 0, 0, 0.10);
+      color: rgba(0, 0, 0, 0.62);
+      font-size: 11px;
+      font-weight: 760;
+    }
+
+    .demo-tab::before {
+      content: "";
+      position: absolute;
+      left: -8px;
+      top: 2px;
+      bottom: 2px;
+      width: 1px;
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    .misspelled {
+      text-decoration-line: underline;
+      text-decoration-style: wavy;
+      text-decoration-color: #ff3b30;
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 4px;
+    }
+
+    .correction-ghost {
+      color: var(--ghost);
+      font-style: italic;
+    }
+
+    .scroll-story,
+    .mind-story,
+    .privacy-story {
+      position: relative;
+      min-height: 320vh;
+    }
+
+    .sticky-frame {
+      position: sticky;
+      top: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 72px 24px 42px;
+      overflow: hidden;
+    }
+
+    .stage {
+      width: min(1120px, 100%);
+    }
+
+    .story-label {
+      margin: 0 0 26px;
+      color: var(--muted);
+      font-size: clamp(14px, 1.4vw, 17px);
+      font-weight: 680;
+      text-align: center;
+    }
+
+    .writing-surface {
+      position: relative;
+      min-height: clamp(310px, 43vw, 480px);
+      display: grid;
+      align-items: center;
+      padding: clamp(30px, 6vw, 72px);
+      border: 1px solid var(--hairline);
+      border-radius: 30px;
+      background: var(--panel);
+      box-shadow:
+        0 48px 120px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(20px);
+    }
+
+    .window-dots {
+      position: absolute;
+      top: 22px;
+      left: 24px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .window-dots span {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: #d2d2d7;
+    }
+
+    .sentence {
+      width: 100%;
+      margin: 0;
+      font-size: clamp(34px, 6vw, 76px);
+      line-height: 1.08;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
+    .tab-pill {
+      position: absolute;
+      right: clamp(22px, 4vw, 44px);
+      bottom: clamp(20px, 4vw, 38px);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 58px;
+      height: 36px;
+      padding: 0 14px;
+      border: 1px solid rgba(0, 0, 0, 0.09);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.82);
+      color: #3c3c43;
+      font-size: 15px;
+      font-weight: 750;
+      box-shadow: none;
+      transform: translateY(calc(var(--tab-press, 0) * 3px)) scale(calc(1 - var(--tab-press, 0) * 0.035));
+      opacity: calc(0.38 + var(--tab-visible, 1) * 0.62);
+      transition: transform 160ms ease, opacity 240ms ease;
+    }
+
+    .mind-surface .tab-pill {
+      transform: translateY(calc(var(--mind-tab-press, 0) * 3px)) scale(calc(1 - var(--mind-tab-press, 0) * 0.035));
+      opacity: calc(0.38 + var(--mind-tab-visible, 1) * 0.62);
+    }
+
+    .progress-line {
+      position: absolute;
+      left: clamp(22px, 4vw, 44px);
+      right: clamp(22px, 4vw, 44px);
+      bottom: 18px;
+      height: 2px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    .progress-line::before {
+      content: "";
+      display: block;
+      width: calc(var(--story-progress) * 100%);
+      height: 100%;
+      border-radius: inherit;
+      background: rgba(0, 0, 0, 0.42);
+    }
+
+    .mind-surface .progress-line::before {
+      width: calc(var(--mind-progress) * 100%);
+    }
+
+    .caption {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: end;
+      margin-top: 24px;
+      color: #4a4a4f;
+    }
+
+    .caption p {
+      max-width: 410px;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(16px, 1.7vw, 20px);
+      line-height: 1.35;
+      font-weight: 530;
+      text-align: right;
+    }
+
+    .mind-wrap {
+      position: relative;
+      min-height: clamp(470px, 56vw, 650px);
+      display: grid;
+      place-items: center;
+    }
+
+    .context-chip {
+      position: absolute;
+      max-width: 230px;
+      padding: 13px 15px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.68);
+      color: rgba(0, 0, 0, 0.58);
+      font-size: 14px;
+      line-height: 1.28;
+      font-weight: 620;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.05);
+      opacity: clamp(0.12, var(--mind-progress), 0.72);
+      transform: translateY(calc((1 - var(--mind-progress)) * 18px));
+      transition: opacity 240ms ease, transform 240ms ease;
+    }
+
+    .chip-one {
+      top: 8%;
+      left: 4%;
+    }
+
+    .chip-two {
+      right: 4%;
+      top: 18%;
+      transition-delay: 40ms;
+    }
+
+    .chip-three {
+      left: 14%;
+      bottom: 10%;
+      transition-delay: 80ms;
+    }
+
+    .mind-surface {
+      width: min(820px, 100%);
+      z-index: 2;
+    }
+
+    .mind-line {
+      margin: 0;
+      font-size: clamp(31px, 5vw, 64px);
+      line-height: 1.1;
+      font-weight: 720;
+      text-wrap: balance;
+    }
+
+    .apps {
+      padding: 120px 0;
+      overflow: hidden;
+    }
+
+    .app-marquee {
+      display: flex;
+      gap: 14px;
+      width: max-content;
+      margin: 24px 0;
+      animation: marquee 44s linear infinite;
+    }
+
+    .app-marquee.reverse {
+      animation-direction: reverse;
+      transform: translateX(-180px);
+    }
+
+    @keyframes marquee {
+      from { translate: 0; }
+      to { translate: -50%; }
+    }
+
+    .app-tile {
+      width: 112px;
+      height: 80px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .app-logo {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+      filter: grayscale(1) saturate(0) contrast(0.95);
+      opacity: 0.52;
+      mix-blend-mode: multiply;
+    }
+
+    .app-note {
+      max-width: 620px;
+      margin: 36px auto 0;
+      padding: 0 24px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.4;
+      font-weight: 520;
+      text-align: center;
+    }
+
+    .privacy-board {
+      width: min(1060px, 100%);
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .privacy-demo,
+    .proofs {
+      border: 1px solid var(--hairline);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 42px 110px rgba(0, 0, 0, 0.07);
+    }
+
+    .privacy-demo {
+      display: grid;
+      align-content: center;
+      min-height: 430px;
+      padding: 34px;
+    }
+
+    .privacy-lock {
+      width: clamp(54px, 7vw, 82px);
+      height: clamp(54px, 7vw, 82px);
+      margin-bottom: 26px;
+      color: var(--ink);
+    }
+
+    .privacy-lock svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .privacy-demo h2 {
+      font-size: clamp(34px, 5vw, 64px);
+    }
+
+    .privacy-demo p {
+      max-width: 390px;
+      margin: 20px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.35;
+      font-weight: 530;
+    }
+
+    .privacy-icons {
+      display: flex;
+      gap: 10px;
+      margin-top: 34px;
+    }
+
+    .privacy-icon {
+      min-width: 72px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: #f5f5f7;
+      color: #2b2b30;
+      font-size: 13px;
+      font-weight: 760;
+      text-align: center;
+      opacity: 0.4;
+      transform: translateY(10px);
+      transition: opacity 260ms ease, transform 260ms ease;
+    }
+
+    .privacy-icon.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .proofs {
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+    }
+
+    .proof {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      align-items: start;
+      padding: 20px;
+      border-radius: 22px;
+      background: rgba(245, 245, 247, 0.72);
+      opacity: 0.48;
+      transform: translateY(12px);
+      transition: opacity 260ms ease, transform 260ms ease;
+    }
+
+    .proof.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .proof-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: white;
+      color: #17171a;
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .proof h3 {
+      font-size: 24px;
+    }
+
+    .proof p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.36;
+      font-weight: 520;
+    }
+
+    .native-pricing {
+      padding: 120px clamp(20px, 5vw, 70px);
+      display: grid;
+      gap: 18px;
+      grid-template-columns: minmax(0, 1.08fr) minmax(310px, 0.92fr);
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    .native,
+    .pricing {
+      min-height: 440px;
+      padding: clamp(28px, 4vw, 46px);
+      border: 1px solid var(--hairline);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 34px 100px rgba(0, 0, 0, 0.06);
+    }
+
+    .native {
+      display: grid;
+      align-content: end;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.9)),
+        radial-gradient(circle at 50% 20%, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0) 25rem);
+    }
+
+    .menubar {
+      width: min(420px, 100%);
+      margin-bottom: 56px;
+      padding: 15px;
+      border: 1px solid var(--hairline);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.08);
+    }
+
+    .menu-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 10px 8px;
+      color: #242428;
+      font-size: 15px;
+      font-weight: 620;
+    }
+
+    .toggle {
+      width: 38px;
+      height: 22px;
+      border-radius: 999px;
+      background: #007aff;
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+    }
+
+    .toggle::after {
+      content: "";
+      display: block;
+      width: 18px;
+      height: 18px;
+      margin: 2px 2px 2px auto;
+      border-radius: 999px;
+      background: white;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+    }
+
+    .native p,
+    .pricing p {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.36;
+      font-weight: 530;
+    }
+
+    .price {
+      margin: 28px 0 4px;
+      color: var(--ink);
+      font-size: clamp(50px, 7vw, 84px);
+      line-height: 0.96;
+      font-weight: 780;
+    }
+
+    .regular {
+      color: var(--muted);
+      font-size: 17px;
+      font-weight: 560;
+    }
+
+    .site-footer {
+      padding: 34px clamp(20px, 5vw, 70px) 42px;
+      border-top: 1px solid var(--hairline);
+      background: #f5f5f7;
+      color: #6e6e73;
+      font-size: 12px;
+      line-height: 1.42;
+    }
+
+    .footer-inner {
+      width: min(980px, 100%);
+      margin: 0 auto;
+    }
+
+    .footer-note,
+    .footer-legal {
+      margin: 0;
+    }
+
+    .footer-legal {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .footer-links a {
+      color: #424245;
+      text-decoration: none;
+    }
+
+    /* Product tour variation */
+    .highlight-card {
+      min-height: 236px;
+      border-radius: 22px;
+    }
+
+    .glyph {
+      background: rgba(0, 102, 204, 0.10);
+      color: #0055b8;
+    }
+
+    .writing-surface,
+    .privacy-demo,
+    .proofs,
+    .native,
+    .pricing {
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.07);
+    }
+
+    .pricing {
+      border-color: rgba(0, 102, 204, 0.18);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.78)),
+        radial-gradient(circle at 50% 0%, rgba(0, 102, 204, 0.11), rgba(0, 102, 204, 0) 18rem);
+    }
+
+    .proof.active .proof-mark,
+    .privacy-icon.active {
+      background: rgba(0, 102, 204, 0.10);
+      color: #0055b8;
+    }
+
+    .tab-pill {
+      border-color: rgba(0, 102, 204, 0.16);
+    }
+
+    @media (max-width: 900px) {
+      .highlight-grid,
+      .privacy-board,
+      .native-pricing {
+        grid-template-columns: 1fr;
+      }
+
+      .caption {
+        grid-template-columns: 1fr;
+      }
+
+      .caption p {
+        text-align: left;
+      }
+
+      .context-chip {
+        position: relative;
+        inset: auto;
+        max-width: none;
+      }
+
+      .mind-wrap {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        align-items: stretch;
+      }
+
+      .mind-surface {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .topbar {
+        padding: 0 16px;
+      }
+
+      .topbar .download {
+        display: none;
+      }
+
+      .highlight-grid {
+        gap: 10px;
+      }
+
+      .highlight-card {
+        min-height: 178px;
+        border-radius: 22px;
+      }
+
+      .writing-surface,
+      .privacy-demo,
+      .proofs,
+      .native,
+      .pricing {
+        border-radius: 24px;
+      }
+
+      .tab-pill {
+        right: 22px;
+        bottom: 28px;
+      }
+
+      .progress-line {
+        left: 22px;
+        right: 22px;
+        bottom: 14px;
+      }
+
+      .app-tile {
+        width: 132px;
+        height: 92px;
+        font-size: 15px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .caret::before,
+      .app-marquee {
+        animation: none;
+      }
+
+      .scroll-story,
+      .mind-story,
+      .privacy-story {
+        min-height: auto;
+      }
+
+      .sticky-frame {
+        position: relative;
+      }
+
+      .context-chip,
+      .proof,
+      .privacy-icon {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Superbinary</div>
+    <a class="download" href="#pricing">Download</a>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <p class="eyebrow">Superbinary</p>
+        <h1 class="completion-sentence" id="hero-title"><span class="accepted">Autocomplete </span><span class="accepted accepted-tail">your<span class="caret" aria-hidden="true"></span></span><span class="ghost"> thoughts.</span></h1>
+        <p class="lead">A private Mac autocomplete layer for messages, notes, docs, email, and the places you write every day.</p>
+        <a class="download" href="#pricing">Download for Mac</a>
+        <p class="trial">14-day free trial. No credit card required.</p>
+      </div>
+    </section>
+
+    <section class="scroll-story" id="ghost-story" aria-labelledby="ghost-title">
+      <div class="sticky-frame">
+        <div class="stage">
+          <p class="story-label">The core interaction.</p>
+          <div class="writing-surface">
+            <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+            <p class="sentence completion-sentence" id="ghostSentence"></p>
+            <div class="progress-line" aria-hidden="true"></div>
+          </div>
+          <div class="caption">
+            <h2 id="ghost-title">Accept the next word. Stay in control.</h2>
+            <p>Take the words that feel right. Keep typing when they do not.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="highlights" aria-labelledby="highlights-title">
+      <div class="section-head">
+        <p class="eyebrow">Get the highlights.</p>
+        <h2 id="highlights-title">A faster way to finish what you meant.</h2>
+        <p>Superbinary turns the typing moment into a simple flow: see the suggestion, accept the next word, keep writing.</p>
+      </div>
+      <div class="highlight-grid">
+        <article class="highlight-card">
+          <div class="feature-demo" aria-hidden="true">
+            <div class="demo-field">
+              <p class="demo-line"><span class="accepted">Send the updated</span><span class="caret"></span><span class="ghost"> proposal before lunch</span></p>
+            </div>
+          </div>
+          <div>
+            <h3>Inline Suggestion.</h3>
+            <p>The next words appear right where you are writing, so your eyes stay on the sentence.</p>
+          </div>
+        </article>
+        <article class="highlight-card">
+          <div class="feature-demo" aria-hidden="true">
+            <div class="demo-bubble-wrap">
+              <p class="demo-line"><span class="accepted">Let's meet</span><span class="caret"></span><span class="accepted"> before the call.</span></p>
+              <div class="demo-bubble">
+                <span class="demo-bubble-text">tomorrow morning</span>
+                <span class="demo-tab">tab</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3>Mid-sentence.</h3>
+            <p>Superbinary can pick up a thought while it is still forming, not only after you pause.</p>
+          </div>
+        </article>
+        <article class="highlight-card">
+          <div class="feature-demo" aria-hidden="true">
+            <div class="demo-field">
+              <p class="demo-line"><span class="accepted">The </span><span class="misspelled">enviroment</span><span class="caret"></span><span class="correction-ghost"> environment</span></p>
+            </div>
+          </div>
+          <div>
+            <h3>Spell Correction.</h3>
+            <p>When a word is off, Superbinary can offer the clean version before you leave the sentence.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="mind-story" id="mindsignal" aria-labelledby="mind-title">
+      <div class="sticky-frame">
+        <div class="stage">
+          <p class="story-label">MindSignal</p>
+          <div class="mind-wrap">
+            <div class="context-chip chip-one">person: Maya</div>
+            <div class="context-chip chip-two">your rhythm: Friday demo notes</div>
+            <div class="context-chip chip-three">current app: Messages</div>
+            <div class="writing-surface mind-surface">
+              <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+              <p class="mind-line completion-sentence" id="mindSentence"></p>
+              <div class="progress-line" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div class="caption">
+            <h2 id="mind-title">MindSignal helps the suggestion fit.</h2>
+            <p>Context around the cursor helps Superbinary offer words that match the moment, without sending completion to the cloud.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="apps" aria-labelledby="apps-title">
+      <div class="section-head">
+        <p class="eyebrow">Across your Mac.</p>
+        <h2 id="apps-title">Write where you already work.</h2>
+        <p>Messages, notes, docs, email, browser fields, and project tools. One autocomplete behavior across your Mac.</p>
+      </div>
+      <div class="app-marquee" aria-hidden="true">
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/mail.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/messages.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/notes.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/safari.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/calendar.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/reminders.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/chrome.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/slack.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/docs.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/notion.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/vscode.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/figma.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/mail.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/messages.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/notes.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/safari.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/calendar.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/reminders.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/chrome.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/slack.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/docs.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/notion.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/vscode.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/figma.png" alt=""></div>
+      </div>
+      <div class="app-marquee reverse" aria-hidden="true">
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/chatgpt.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/claude.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/firefox.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/discord.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/whatsapp.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/telegram.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/zoom.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/dropbox.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/gdrive.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/word.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/excel.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/powerpoint.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/chatgpt.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/claude.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/firefox.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/discord.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/whatsapp.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/telegram.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/zoom.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/dropbox.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/gdrive.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/word.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/excel.png" alt=""></div>
+        <div class="app-tile"><img class="app-logo" src="assets/app-logos/powerpoint.png" alt=""></div>
+      </div>
+      <p class="app-note">App names are illustrative of normal writing surfaces, not partnerships or official integrations.</p>
+    </section>
+
+    <section class="privacy-story" id="privacy" aria-labelledby="privacy-title">
+      <div class="sticky-frame">
+        <div class="privacy-board">
+          <div class="privacy-demo">
+            <div class="privacy-lock" aria-hidden="true">
+              <svg viewBox="0 0 72 72" role="img">
+                <path d="M22 32v-7.5C22 16.2 28.3 10 36 10s14 6.2 14 14.5V32h-7v-7.5c0-4.4-3.1-7.5-7-7.5s-7 3.1-7 7.5V32h-7Z" fill="currentColor"></path>
+                <path d="M18 30h36c4.4 0 8 3.6 8 8v17c0 4.4-3.6 8-8 8H18c-4.4 0-8-3.6-8-8V38c0-4.4 3.6-8 8-8Z" fill="currentColor"></path>
+              </svg>
+            </div>
+            <p class="eyebrow">Privacy</p>
+            <h2 id="privacy-title">Private by default.</h2>
+            <p>Completion happens on your Mac. The model ships with the app. Your private text is not used for training.</p>
+            <div class="privacy-icons" aria-hidden="true">
+              <div class="privacy-icon" data-privacy-icon>Offline</div>
+              <div class="privacy-icon" data-privacy-icon>Firewall</div>
+              <div class="privacy-icon" data-privacy-icon>Keychain</div>
+            </div>
+          </div>
+          <div class="proofs">
+            <article class="proof" data-proof>
+              <div class="proof-mark">1</div>
+              <div>
+                <h3>Works offline.</h3>
+                <p>The model ships with the app, so completion keeps working without the internet.</p>
+              </div>
+            </article>
+            <article class="proof" data-proof>
+              <div class="proof-mark">2</div>
+              <div>
+                <h3>Firewall-testable.</h3>
+                <p>Block outgoing connections with LuLu, Little Snitch, or Radio Silence and keep writing.</p>
+              </div>
+            </article>
+            <article class="proof" data-proof>
+              <div class="proof-mark">3</div>
+              <div>
+                <h3>Keychain protected.</h3>
+                <p>Private app data is encrypted locally with keys protected by macOS Keychain.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="native-pricing" id="pricing" aria-label="Native Mac simplicity and pricing">
+      <article class="native">
+        <div class="menubar" aria-hidden="true">
+          <div class="menu-row"><strong>Superbinary</strong><span class="toggle"></span></div>
+          <div class="menu-row"><span>MindSignal</span><span class="toggle"></span></div>
+        </div>
+        <h2>Simple enough to leave on.</h2>
+        <p>Quiet menu bar presence, clear controls, and suggestions that disappear the moment you do not need them.</p>
+      </article>
+      <article class="pricing">
+        <p class="eyebrow">Early adopter offer</p>
+        <h2>Try it free for 14 days.</h2>
+        <p>No credit card required.</p>
+        <div class="price">$49.99</div>
+        <div class="regular">Early adopter price. Regular $89.99.</div>
+        <a class="download" href="#">Download for Mac</a>
+      </article>
+    </section>
+
+    <section class="final" aria-labelledby="final-title">
+      <div class="final-inner">
+        <p class="eyebrow">Superbinary</p>
+        <h2 id="final-title">Autocomplete your thoughts.</h2>
+        <p class="lead">Download it, write a few sentences, and feel the difference before the trial ends.</p>
+        <a class="download" href="#pricing">Download for Mac</a>
+        <p class="trial">14-day free trial. No credit card required.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" aria-label="Site information">
+    <div class="footer-inner">
+      <p class="footer-note">Superbinary is an independent Mac app for private, system-wide writing autocomplete.</p>
+      <p class="footer-legal">Apple, Mac, macOS, Safari, Keychain, and related marks are trademarks of Apple Inc. Other names may be trademarks of their respective owners. Superbinary is not affiliated with or endorsed by Apple Inc.</p>
+      <nav class="footer-links" aria-label="Footer links">
+        <a href="#privacy">Privacy</a>
+        <a href="#pricing">Pricing</a>
+        <a href="mailto:hello@superbinary.app">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const ghostStory = document.getElementById("ghost-story");
+      const mindStory = document.getElementById("mindsignal");
+      const privacyStory = document.getElementById("privacy");
+      const heroTitle = document.getElementById("hero-title");
+      const ghostSentence = document.getElementById("ghostSentence");
+      const mindSentence = document.getElementById("mindSentence");
+      const proofs = Array.from(document.querySelectorAll("[data-proof]"));
+      const privacyIcons = Array.from(document.querySelectorAll("[data-privacy-icon]"));
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const prefix = "I think the cleanest way to explain this is";
+      const suggestion = ["to", "show", "it", "where", "people", "already", "write."];
+      const mindPrefix = "Maya, I can send the notes";
+      const mindSuggestion = ["after", "our", "Friday", "demo,", "like", "usual."];
+
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
+
+      function sectionProgress(section) {
+        const rect = section.getBoundingClientRect();
+        const scrollable = Math.max(1, section.offsetHeight - window.innerHeight);
+        return clamp(-rect.top / scrollable, 0, 1);
+      }
+
+      function appendSpan(target, text, className) {
+        if (!text) return;
+        const span = document.createElement("span");
+        span.className = className;
+        span.textContent = text;
+        target.appendChild(span);
+      }
+
+      function appendAcceptedWithCaret(target, acceptedText) {
+        const lastSpace = acceptedText.lastIndexOf(" ");
+        const headText = lastSpace > -1 ? acceptedText.slice(0, lastSpace + 1) : "";
+        const tailText = lastSpace > -1 ? acceptedText.slice(lastSpace + 1) : acceptedText;
+
+        appendSpan(target, headText, "accepted");
+
+        const tail = document.createElement("span");
+        tail.className = "accepted accepted-tail";
+        tail.textContent = tailText;
+
+        const caret = document.createElement("span");
+        caret.className = "caret";
+        caret.setAttribute("aria-hidden", "true");
+        tail.appendChild(caret);
+
+        target.appendChild(tail);
+      }
+
+      function renderCompletion(target, acceptedPrefix, suggestedWords, progress, controls) {
+        if (!target) return;
+        const acceptedCount = reduceMotion
+          ? suggestedWords.length
+          : clamp(Math.floor(progress * (suggestedWords.length + 0.999)), 0, suggestedWords.length);
+
+        const acceptedWords = suggestedWords.slice(0, acceptedCount);
+        const ghostWords = suggestedWords.slice(acceptedCount);
+        const acceptedText = acceptedWords.length
+          ? `${acceptedPrefix}${acceptedWords.map((word) => " " + word).join("")}`
+          : acceptedPrefix;
+        const ghostText = ghostWords.length
+          ? ghostWords.map((word) => " " + word).join("")
+          : "";
+
+        target.replaceChildren();
+        appendAcceptedWithCaret(target, acceptedText);
+        appendSpan(target, ghostText, "ghost");
+
+        target.dataset.acceptedCount = String(acceptedCount);
+        target.dataset.boundary = `${acceptedText}|${ghostText}`;
+
+        const wordProgress = progress * suggestedWords.length;
+        const nearStep = Math.abs(wordProgress - Math.round(wordProgress));
+        document.documentElement.style.setProperty(controls.visible, acceptedCount < suggestedWords.length ? "1" : "0");
+        document.documentElement.style.setProperty(controls.press, nearStep < 0.13 && acceptedCount > 0 ? "1" : "0");
+      }
+
+      function updatePrivacy(progress) {
+        const activeCount = reduceMotion ? 3 : clamp(Math.floor(progress * 3.4), 0, 3);
+        proofs.forEach((proof, index) => {
+          proof.classList.toggle("active", index < activeCount);
+        });
+        privacyIcons.forEach((icon, index) => {
+          icon.classList.toggle("active", index < activeCount);
+        });
+      }
+
+      function update() {
+        const storyProgress = reduceMotion ? 1 : sectionProgress(ghostStory);
+        const mindProgress = reduceMotion ? 1 : sectionProgress(mindStory);
+        const privacyProgress = reduceMotion ? 1 : sectionProgress(privacyStory);
+
+        document.documentElement.style.setProperty("--story-progress", storyProgress.toFixed(4));
+        document.documentElement.style.setProperty("--mind-progress", mindProgress.toFixed(4));
+        document.documentElement.style.setProperty("--privacy-progress", privacyProgress.toFixed(4));
+
+        renderCompletion(ghostSentence, prefix, suggestion, storyProgress, {
+          visible: "--tab-visible",
+          press: "--tab-press"
+        });
+        renderCompletion(mindSentence, mindPrefix, mindSuggestion, mindProgress, {
+          visible: "--mind-tab-visible",
+          press: "--mind-tab-press"
+        });
+        updatePrivacy(privacyProgress);
+      }
+
+      window.__storyboardState = () => ({
+        ghostBoundary: ghostSentence.dataset.boundary,
+        ghostAcceptedCount: ghostSentence.dataset.acceptedCount,
+        mindBoundary: mindSentence.dataset.boundary,
+        mindAcceptedCount: mindSentence.dataset.acceptedCount,
+        activeProofs: proofs.filter((proof) => proof.classList.contains("active")).length,
+        scrollY: window.scrollY
+      });
+
+      update();
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+    })();
+  </script>
+</body>
+</html>

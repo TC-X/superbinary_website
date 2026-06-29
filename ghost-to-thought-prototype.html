@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Superbinary - Ghost To Thought Prototype</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f5f7;
+      --ink: #101010;
+      --muted: #86868b;
+      --soft: #d2d2d7;
+      --panel: rgba(255, 255, 255, 0.76);
+      --hairline: rgba(0, 0, 0, 0.08);
+      --blue: #0071e3;
+      --accepted: #111111;
+      --ghost: #a1a1a6;
+      --progress: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        linear-gradient(180deg, #fbfbfd 0%, #f5f5f7 44%, #ffffff 100%);
+      letter-spacing: 0;
+    }
+
+    .intro,
+    .outro {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 56px 24px;
+      text-align: center;
+    }
+
+    .intro-inner,
+    .outro-inner {
+      width: min(820px, 100%);
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: clamp(15px, 1.6vw, 19px);
+      font-weight: 600;
+    }
+
+    h1,
+    h2 {
+      margin: 0;
+      font-weight: 700;
+      letter-spacing: 0;
+      color: var(--ink);
+    }
+
+    h1 {
+      font-size: clamp(52px, 10vw, 116px);
+      line-height: 0.94;
+    }
+
+    h2 {
+      font-size: clamp(40px, 7vw, 92px);
+      line-height: 0.98;
+    }
+
+    .lead {
+      margin: 24px auto 0;
+      max-width: 670px;
+      color: #4a4a4f;
+      font-size: clamp(19px, 2vw, 26px);
+      line-height: 1.24;
+      font-weight: 500;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      margin-top: 32px;
+      padding: 0 22px;
+      border-radius: 999px;
+      background: var(--blue);
+      color: white;
+      font-size: 17px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 10px 28px rgba(0, 113, 227, 0.24);
+    }
+
+    .trial {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .scroll-story {
+      position: relative;
+      min-height: 320vh;
+    }
+
+    .sticky-frame {
+      position: sticky;
+      top: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 42px 24px;
+      overflow: hidden;
+    }
+
+    .stage {
+      width: min(1100px, 100%);
+    }
+
+    .story-label {
+      margin: 0 0 26px;
+      color: var(--muted);
+      font-size: clamp(14px, 1.4vw, 17px);
+      font-weight: 650;
+      text-align: center;
+    }
+
+    .writing-surface {
+      position: relative;
+      min-height: clamp(290px, 43vw, 470px);
+      display: grid;
+      align-items: center;
+      padding: clamp(30px, 6vw, 72px);
+      border: 1px solid var(--hairline);
+      border-radius: 28px;
+      background: var(--panel);
+      box-shadow:
+        0 48px 120px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(20px);
+    }
+
+    .window-dots {
+      position: absolute;
+      top: 22px;
+      left: 24px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .window-dots span {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: var(--soft);
+    }
+
+    .sentence {
+      width: 100%;
+      margin: 0;
+      font-size: clamp(34px, 6vw, 76px);
+      line-height: 1.08;
+      font-weight: 650;
+      letter-spacing: 0;
+      color: var(--accepted);
+      text-wrap: balance;
+    }
+
+    .accepted,
+    .ghost {
+      display: inline;
+      white-space: pre-wrap;
+      transition:
+        color 420ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .accepted {
+      color: var(--accepted);
+    }
+
+    .ghost {
+      color: var(--ghost);
+    }
+
+    .caret {
+      display: inline-block;
+      width: 0.06em;
+      height: 0.92em;
+      margin: 0 0.025em -0.1em;
+      border-radius: 999px;
+      background: var(--accepted);
+      animation: blink 1.08s steps(1, end) infinite;
+      vertical-align: baseline;
+    }
+
+    @keyframes blink {
+      0%, 46% { opacity: 1; }
+      47%, 100% { opacity: 0; }
+    }
+
+    .tab-pill {
+      position: absolute;
+      right: clamp(22px, 4vw, 44px);
+      bottom: clamp(20px, 4vw, 38px);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 58px;
+      height: 36px;
+      padding: 0 14px;
+      border: 1px solid rgba(0, 0, 0, 0.09);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      color: #3c3c43;
+      font-size: 15px;
+      font-weight: 700;
+      box-shadow:
+        0 10px 28px rgba(0, 0, 0, 0.08),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+      transform: translateY(calc(var(--tab-press, 0) * 3px)) scale(calc(1 - var(--tab-press, 0) * 0.035));
+      transition: transform 160ms ease, opacity 240ms ease;
+      opacity: calc(0.36 + var(--tab-visible, 0) * 0.64);
+    }
+
+    .progress-line {
+      position: absolute;
+      left: clamp(22px, 4vw, 44px);
+      right: clamp(22px, 4vw, 44px);
+      bottom: 18px;
+      height: 2px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    .progress-line::before {
+      content: "";
+      display: block;
+      width: calc(var(--progress) * 100%);
+      height: 100%;
+      border-radius: inherit;
+      background: rgba(0, 0, 0, 0.42);
+    }
+
+    .caption {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: end;
+      margin-top: 24px;
+      color: #4a4a4f;
+    }
+
+    .caption h2 {
+      font-size: clamp(26px, 4vw, 46px);
+      line-height: 1.03;
+    }
+
+    .caption p {
+      max-width: 390px;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(16px, 1.7vw, 20px);
+      line-height: 1.35;
+      font-weight: 500;
+      text-align: right;
+    }
+
+    .state-readout {
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      z-index: 3;
+      padding: 8px 10px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.66);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
+      backdrop-filter: blur(14px);
+    }
+
+    @media (max-width: 760px) {
+      .writing-surface {
+        border-radius: 22px;
+      }
+
+      .caption {
+        grid-template-columns: 1fr;
+      }
+
+      .caption p {
+        text-align: left;
+      }
+
+      .tab-pill {
+        right: 22px;
+        bottom: 28px;
+      }
+
+      .progress-line {
+        left: 22px;
+        right: 22px;
+        bottom: 14px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .caret {
+        animation: none;
+      }
+
+      .accepted,
+      .ghost,
+      .tab-pill {
+        transition: none;
+      }
+
+      .scroll-story {
+        min-height: 120vh;
+      }
+
+      .sticky-frame {
+        position: relative;
+      }
+
+      .state-readout {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="intro" aria-labelledby="hero-title">
+      <div class="intro-inner">
+        <p class="eyebrow">Superbinary</p>
+        <h1 id="hero-title">Autocomplete your thoughts.</h1>
+        <p class="lead">A private, native Mac autocomplete layer that works across the apps you already write in.</p>
+        <a class="cta" href="#ghost-to-thought">Download for Mac</a>
+        <p class="trial">14-day free trial. No credit card required.</p>
+      </div>
+    </section>
+
+    <section class="scroll-story" id="ghost-to-thought" aria-labelledby="story-title">
+      <div class="sticky-frame">
+        <div class="stage">
+          <p class="story-label">Ghost text becomes yours only when accepted.</p>
+          <div class="writing-surface" aria-live="polite">
+            <div class="window-dots" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <p class="sentence" id="sentence"></p>
+            <div class="tab-pill" id="tabPill" aria-hidden="true">Tab</div>
+            <div class="progress-line" aria-hidden="true"></div>
+          </div>
+          <div class="caption">
+            <h2 id="story-title">Tap Tab. The next word lands.</h2>
+            <p>Accept one word at a time. Keep what fits. Keep typing when it does not.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="outro" aria-labelledby="outro-title">
+      <div class="outro-inner">
+        <p class="eyebrow">The caret is the boundary.</p>
+        <h2 id="outro-title">Already yours. Suggested next.</h2>
+        <p class="lead">The cursor stays at the end of accepted text. Superbinary stays just ahead of it, waiting for you.</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="state-readout" id="stateReadout" aria-hidden="true">0 words accepted</div>
+
+  <script>
+    (() => {
+      const sentenceEl = document.getElementById("sentence");
+      const storyEl = document.getElementById("ghost-to-thought");
+      const tabPill = document.getElementById("tabPill");
+      const stateReadout = document.getElementById("stateReadout");
+
+      const prefix = "I think the cleanest way to explain this is";
+      const suggestion = ["to", "show", "it", "where", "people", "already", "write."];
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let lastAccepted = -1;
+
+      function appendTextSpan(fragment, className) {
+        if (!fragment) return;
+        const span = document.createElement("span");
+        span.className = className;
+        span.textContent = fragment;
+        sentenceEl.appendChild(span);
+      }
+
+      function appendCaret() {
+        const caret = document.createElement("span");
+        caret.className = "caret";
+        caret.setAttribute("aria-hidden", "true");
+        sentenceEl.appendChild(caret);
+      }
+
+      function render(acceptedCount, progress) {
+        if (acceptedCount === lastAccepted && !reduceMotion) {
+          document.documentElement.style.setProperty("--progress", progress.toFixed(4));
+          return;
+        }
+
+        sentenceEl.replaceChildren();
+
+        const acceptedWords = suggestion.slice(0, acceptedCount);
+        const ghostWords = suggestion.slice(acceptedCount);
+        const acceptedText = acceptedWords.length
+          ? `${prefix}${acceptedWords.map((word) => " " + word).join("")}`
+          : prefix;
+        const ghostText = ghostWords.length
+          ? ghostWords.map((word) => " " + word).join("")
+          : "";
+
+        appendTextSpan(acceptedText, "accepted");
+        appendCaret();
+        appendTextSpan(ghostText, "ghost");
+
+        document.documentElement.style.setProperty("--progress", progress.toFixed(4));
+        document.documentElement.style.setProperty("--tab-visible", acceptedCount < suggestion.length ? "1" : "0");
+
+        const wordProgress = progress * suggestion.length;
+        const nearStep = Math.abs(wordProgress - Math.round(wordProgress));
+        const press = nearStep < 0.13 && acceptedCount > 0 && acceptedCount < suggestion.length + 1 ? 1 : 0;
+        document.documentElement.style.setProperty("--tab-press", String(press));
+
+        stateReadout.textContent = `${acceptedCount} ${acceptedCount === 1 ? "word" : "words"} accepted`;
+        sentenceEl.dataset.acceptedCount = String(acceptedCount);
+        sentenceEl.dataset.acceptedWords = acceptedWords.join("|");
+        sentenceEl.dataset.ghostWords = ghostWords.join("|");
+        sentenceEl.dataset.boundary = `${acceptedText}|${ghostText}`;
+        sentenceEl.setAttribute(
+          "aria-label",
+          `${acceptedText}${ghostText ? " suggested next: " + ghostText : ""}`
+        );
+        lastAccepted = acceptedCount;
+      }
+
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
+
+      function update() {
+        if (reduceMotion) {
+          render(suggestion.length, 1);
+          return;
+        }
+
+        const rect = storyEl.getBoundingClientRect();
+        const scrollable = storyEl.offsetHeight - window.innerHeight;
+        const progress = clamp(-rect.top / scrollable, 0, 1);
+        const acceptedCount = clamp(Math.floor(progress * (suggestion.length + 0.999)), 0, suggestion.length);
+        render(acceptedCount, progress);
+      }
+
+      window.__ghostState = () => {
+        const acceptedCount = Math.max(lastAccepted, 0);
+        return {
+          acceptedCount,
+          prefix,
+          acceptedWords: suggestion.slice(0, acceptedCount),
+          ghostWords: suggestion.slice(acceptedCount),
+          text: sentenceEl.textContent
+        };
+      };
+
+      update();
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+    })();
+  </script>
+</body>
+</html>
