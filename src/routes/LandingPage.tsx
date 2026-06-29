@@ -94,17 +94,6 @@ function WindowDots() {
   )
 }
 
-function ProgressLine({ variable }: { variable: '--story-progress' | '--mind-progress' }) {
-  return (
-    <div
-      className="absolute right-[clamp(1.375rem,4vw,2.75rem)] bottom-4.5 left-[clamp(1.375rem,4vw,2.75rem)] h-0.5 overflow-hidden rounded-full bg-black/[0.08] max-[38.75rem]:right-5.5 max-[38.75rem]:bottom-3.5 max-[38.75rem]:left-5.5"
-      aria-hidden="true"
-    >
-      <div className="h-full rounded-[inherit] bg-black/[0.42]" style={{ width: `calc(var(${variable}) * 100%)` }} />
-    </div>
-  )
-}
-
 function Header({ onDownload }: { onDownload: () => void }) {
   return (
     <header className="fixed inset-x-0 top-0 z-20 flex h-13.5 items-center justify-between border-b border-black/[0.045] bg-paper/[0.72] px-[clamp(1.125rem,4vw,3.375rem)] backdrop-blur-[1.375rem] max-[38.75rem]:px-4">
@@ -141,14 +130,12 @@ function Hero({ onDownload }: { onDownload: () => void }) {
 function CoreInteractionStory() {
   const ref = useRef<HTMLElement | null>(null)
   const progress = useScrollProgress(ref)
-  const sectionStyle = { '--story-progress': progress.toFixed(4) } as CSSProperties
 
   return (
     <section
       className={storySectionClass}
       id="ghost-story"
       ref={ref}
-      style={sectionStyle}
       aria-labelledby="ghost-title"
     >
       <div className={stickyFrameClass}>
@@ -159,7 +146,6 @@ function CoreInteractionStory() {
             <p className="m-0 w-full text-[clamp(2.125rem,6vw,4.75rem)] leading-[1.08] font-bold tracking-[0] text-balance">
               <ScrollSuggestionText acceptedPrefix={corePrefix} words={coreWords} progress={progress} />
             </p>
-            <ProgressLine variable="--story-progress" />
           </div>
           <div className="mt-6 grid grid-cols-[1fr_auto] items-end gap-5 text-[#4a4a4f] max-[56.25rem]:grid-cols-1">
             <h2 className={h2Class} id="ghost-title">
@@ -250,7 +236,6 @@ function MindSignalStory() {
               <p className="m-0 text-[clamp(1.9375rem,5vw,4rem)] leading-[1.1] font-[720]">
                 <ScrollSuggestionText acceptedPrefix={mindPrefix} words={mindWords} progress={progress} />
               </p>
-              <ProgressLine variable="--mind-progress" />
             </div>
           </div>
           <div className="mt-6 grid grid-cols-[1fr_auto] items-end gap-5 text-[#4a4a4f] max-[56.25rem]:grid-cols-1">

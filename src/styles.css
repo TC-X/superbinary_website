@@ -95,7 +95,6 @@
     --caret-width: clamp(0.125rem, 0.022em, 0.1875rem);
     --caret-height: 0.94em;
     --caret-align: -0.1em;
-    --story-progress: 0;
     --mind-progress: 0;
     --privacy-progress: 0;
   }
