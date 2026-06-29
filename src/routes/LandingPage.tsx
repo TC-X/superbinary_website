@@ -78,7 +78,7 @@ function Hero({ onDownload }: { onDownload: () => void }) {
   return (
     <section className="hero" id="top" aria-labelledby="hero-title">
       <div className="hero-inner">
-        <p className="eyebrow">Superbinary</p>
+        <p className="eyebrow">On-device</p>
         <h1 id="hero-title">
           <SuggestionText accepted="Autocomplete your" ghost=" thoughts." />
         </h1>
