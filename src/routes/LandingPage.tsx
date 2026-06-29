@@ -236,7 +236,7 @@ function MindSignalStory() {
             <div className={cx(chipClass, 'bottom-[10%] left-[14%] delay-[80ms]')}>current app: Messages</div>
             <div className={cx(writingSurfaceClass, 'z-[2] w-[min(820px,100%)] max-[900px]:order-first')}>
               <WindowDots />
-              <p className="m-0 text-[clamp(31px,5vw,64px)] leading-[1.1] font-[720] text-balance">
+              <p className="m-0 text-[clamp(31px,5vw,64px)] leading-[1.1] font-[720]">
                 <ScrollSuggestionText acceptedPrefix={mindPrefix} words={mindWords} progress={progress} />
               </p>
               <ProgressLine variable="--mind-progress" />
@@ -280,7 +280,7 @@ function AppsSection() {
 function PrivacySection() {
   const ref = useRef<HTMLElement | null>(null)
   const progress = useScrollProgress(ref)
-  const activeCount = Math.min(3, Math.floor(progress * 4))
+  const activeCount = Math.min(3, Math.max(0, Math.floor(progress * 3.4)))
   const proofs = [
     {
       title: 'Works offline.',
@@ -324,8 +324,10 @@ function PrivacySection() {
               {['Offline', 'Firewall', 'Keychain'].map((item, index) => (
                 <div
                   className={cx(
-                    'min-w-[72px] translate-y-2.5 rounded-2xl bg-bg px-3.5 py-3 text-center text-[13px] font-[760] text-[#2b2b30] opacity-40 transition-[opacity,transform] duration-[260ms] motion-reduce:translate-y-0 motion-reduce:opacity-100',
-                    index < activeCount && 'translate-y-0 bg-[#0066cc]/10 text-[#0055b8] opacity-100',
+                    'min-w-[72px] rounded-2xl px-3.5 py-3 text-center text-[13px] font-[760] transition-[opacity,transform] duration-[260ms] motion-reduce:translate-y-0 motion-reduce:opacity-100',
+                    index < activeCount
+                      ? 'translate-y-0 bg-[#0066cc]/10 text-[#0055b8] opacity-100'
+                      : 'translate-y-2.5 bg-bg text-[#2b2b30] opacity-40',
                   )}
                   key={item}
                 >
@@ -338,15 +340,15 @@ function PrivacySection() {
             {proofs.map((proof, index) => (
               <article
                 className={cx(
-                  'grid translate-y-3 grid-cols-[auto_1fr] items-start gap-4 rounded-[22px] bg-bg/[0.72] p-5 opacity-[0.48] transition-[opacity,transform] duration-[260ms] motion-reduce:translate-y-0 motion-reduce:opacity-100',
-                  index < activeCount && 'translate-y-0 opacity-100',
+                  'grid grid-cols-[auto_1fr] items-start gap-4 rounded-[22px] bg-bg/[0.72] p-5 transition-[opacity,transform] duration-[260ms] motion-reduce:translate-y-0 motion-reduce:opacity-100',
+                  index < activeCount ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-[0.48]',
                 )}
                 key={proof.title}
               >
                 <div
                   className={cx(
-                    'grid h-[38px] w-[38px] place-items-center rounded-[13px] bg-white text-[17px] font-extrabold text-[#17171a]',
-                    index < activeCount && 'bg-[#0066cc]/10 text-[#0055b8]',
+                    'grid h-[38px] w-[38px] place-items-center rounded-[13px] text-[17px] font-extrabold',
+                    index < activeCount ? 'bg-[#0066cc]/10 text-[#0055b8]' : 'bg-white text-[#17171a]',
                   )}
                 >
                   {index + 1}
