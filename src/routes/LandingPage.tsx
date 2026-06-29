@@ -7,8 +7,8 @@ import { ScrollSuggestionText, SuggestionText } from '../components/SuggestionTe
 import { cx } from '../lib/classes'
 import { useScrollProgress } from '../lib/useScrollProgress'
 
-const corePrefix = 'I wanted to follow up while this is still fresh'
-const coreWords = ['and', 'turn', 'it', 'into', 'a', 'plan.']
+const corePrefix = 'Can you pick up'
+const coreWords = ['milk', 'on', 'your', 'way', 'home?']
 const mindPrefix = 'For the meeting with S'
 const mindWords = ['arah', 'on', 'Tuesday', 'at', '10am.']
 const faqItems = [
