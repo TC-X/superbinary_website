@@ -7,10 +7,10 @@ import { ScrollSuggestionText, SuggestionText } from '../components/SuggestionTe
 import { cx } from '../lib/classes'
 import { useScrollProgress } from '../lib/useScrollProgress'
 
-const corePrefix = 'I think the cleanest way to explain this is'
-const coreWords = ['to', 'show', 'it', 'where', 'people', 'already', 'write.']
-const mindPrefix = 'Maya, I can send the notes'
-const mindWords = ['after', 'our', 'Friday', 'demo,', 'like', 'usual.']
+const corePrefix = 'I wanted to follow up while this is still fresh'
+const coreWords = ['and', 'turn', 'it', 'into', 'a', 'plan.']
+const mindPrefix = 'For the meeting with S'
+const mindWords = ['arah', 'on', 'Tuesday', 'at', '10am.']
 const faqItems = [
   {
     question: 'Does Superbinary work offline?',
@@ -136,7 +136,7 @@ function CoreInteractionStory() {
     <section className={storySectionClass} id="ghost-story" ref={ref} aria-labelledby="ghost-title">
       <div className={stickyFrameClass}>
         <div className={stageClass}>
-          <p className={storyLabelClass}>The core interaction.</p>
+          <p className={storyLabelClass}>The writing moment.</p>
           <div className={writingSurfaceClass}>
             <WindowDots />
             <p className="m-0 w-full text-[clamp(2.125rem,6vw,4.75rem)] leading-[1.08] font-bold tracking-[0] text-balance">
@@ -145,10 +145,10 @@ function CoreInteractionStory() {
           </div>
           <div className="mt-6 grid grid-cols-[1fr_auto] items-end gap-5 text-copy max-[56.25rem]:grid-cols-1">
             <h2 className={h2Class} id="ghost-title">
-              Accept the next word. Stay in control.
+              Let the sentence catch up to your thought.
             </h2>
             <p className="m-0 max-w-[25.625rem] text-right text-[clamp(1rem,1.7vw,1.25rem)] leading-[1.35] font-[530] text-muted max-[56.25rem]:text-left">
-              Take the words that feel right. Keep typing when they do not.
+              A few words appear at the cursor. Tap Tab for the next one. Keep typing when your thought changes.
             </p>
           </div>
         </div>
@@ -221,23 +221,28 @@ function MindSignalStory() {
         <div className={stageClass}>
           <p className={storyLabelClass}>MindSignal</p>
           <div className="relative grid min-h-[clamp(29.375rem,56vw,40.625rem)] place-items-center max-[56.25rem]:grid-cols-1 max-[56.25rem]:items-stretch max-[56.25rem]:gap-2.5">
-            <div className={cx(chipClass, 'top-[8%] left-[4%]')}>person: Maya</div>
-            <div className={cx(chipClass, 'top-[18%] right-[4%] delay-[40ms]')}>your rhythm: Friday demo notes</div>
-            <div className={cx(chipClass, 'bottom-[10%] left-[14%] delay-[80ms]')}>current app: Messages</div>
+            <div className={cx(chipClass, 'top-[8%] left-[4%]')}>Sarah</div>
+            <div className={cx(chipClass, 'top-[18%] right-[4%] delay-[40ms]')}>Tuesday 10:00 AM</div>
+            <div className={cx(chipClass, 'bottom-[10%] left-[14%] delay-[80ms]')}>meeting</div>
             <div className={cx(writingSurfaceClass, 'z-[2] w-[min(51.25rem,100%)] max-[56.25rem]:order-first')}>
               <WindowDots />
               <p className="m-0 text-[clamp(1.9375rem,5vw,4rem)] leading-[1.1] font-[720]">
-                <ScrollSuggestionText acceptedPrefix={mindPrefix} words={mindWords} progress={progress} />
+                <ScrollSuggestionText
+                  acceptedPrefix={mindPrefix}
+                  words={mindWords}
+                  progress={progress}
+                  joinFirstWordToPrefix
+                />
               </p>
             </div>
           </div>
           <div className="mt-6 grid grid-cols-[1fr_auto] items-end gap-5 text-copy max-[56.25rem]:grid-cols-1">
             <h2 className={h2Class} id="mind-title">
-              MindSignal helps the suggestion fit.
+              Context that stays with the thought.
             </h2>
             <p className="m-0 max-w-[25.625rem] text-right text-[clamp(1rem,1.7vw,1.25rem)] leading-[1.35] font-[530] text-muted max-[56.25rem]:text-left">
-              Context around the cursor helps Superbinary offer words that match the moment, without sending completion
-              to the cloud.
+              MindSignal gives Superbinary just enough of the moment around your cursor to keep the next words close to
+              the thought you already had. Completion still happens on your Mac.
             </p>
           </div>
         </div>
