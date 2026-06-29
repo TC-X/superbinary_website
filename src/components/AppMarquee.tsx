@@ -6,7 +6,7 @@ function AppTile({ name }: { name: string }) {
     <div className="grid h-20 w-28 place-items-center border-0 bg-transparent shadow-none max-[38.75rem]:h-23 max-[38.75rem]:w-33">
       <img
         alt=""
-        className="h-11.5 w-11.5 object-contain opacity-[0.52] mix-blend-multiply grayscale saturate-0 contrast-95"
+        className="h-11.5 w-11.5 object-contain opacity-[0.52] mix-blend-multiply grayscale saturate-0 contrast-95 dark:opacity-[0.62] dark:mix-blend-screen dark:invert"
         src={`/assets/app-logos/${name}.png`}
       />
     </div>

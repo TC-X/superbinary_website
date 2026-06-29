@@ -1,19 +1,23 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-bg: #f5f5f7;
-  --color-paper: #fbfbfd;
-  --color-ink: #0d0d0f;
-  --color-muted: #6e6e73;
-  --color-quiet: #a1a1a6;
-  --color-hairline: rgba(0, 0, 0, 0.08);
-  --color-panel: rgba(255, 255, 255, 0.78);
-  --color-sb-blue: #0071e3;
-  --color-caret-blue: #007aff;
-  --color-accepted: #111111;
-  --color-ghost: #a1a1a6;
+  --color-bg: var(--sb-bg);
+  --color-paper: var(--sb-paper);
+  --color-ink: var(--sb-ink);
+  --color-muted: var(--sb-muted);
+  --color-quiet: var(--sb-quiet);
+  --color-copy: var(--sb-copy);
+  --color-hairline: var(--sb-hairline);
+  --color-panel: var(--sb-panel);
+  --color-elevated: var(--sb-elevated);
+  --color-control: var(--sb-control);
+  --color-control-ink: var(--sb-control-ink);
+  --color-sb-blue: var(--sb-blue);
+  --color-caret-blue: var(--sb-caret-blue);
+  --color-accepted: var(--sb-accepted);
+  --color-ghost: var(--sb-ghost);
 
-  --shadow-panel: 0 1.75rem 5.625rem rgba(0, 0, 0, 0.07);
+  --shadow-panel: var(--sb-shadow-panel);
 
   --animate-blink: blink 1.06s steps(1, end) infinite;
   --animate-marquee: marquee 44s linear infinite;
@@ -91,7 +95,26 @@
 
 @layer base {
   :root {
-    color-scheme: light;
+    color-scheme: light dark;
+    --sb-bg: #f5f5f7;
+    --sb-paper: #fbfbfd;
+    --sb-ink: #0d0d0f;
+    --sb-muted: #6e6e73;
+    --sb-quiet: #a1a1a6;
+    --sb-copy: #45454a;
+    --sb-hairline: rgba(0, 0, 0, 0.08);
+    --sb-panel: rgba(255, 255, 255, 0.78);
+    --sb-elevated: rgba(255, 255, 255, 0.94);
+    --sb-control: rgba(232, 232, 237, 0.97);
+    --sb-control-ink: #1d1d1f;
+    --sb-blue: #0071e3;
+    --sb-caret-blue: #007aff;
+    --sb-accepted: #111111;
+    --sb-ghost: #a1a1a6;
+    --sb-shadow-panel: 0 1.75rem 5.625rem rgba(0, 0, 0, 0.07);
+    --sb-page-background:
+      radial-gradient(circle at 50% 6%, rgba(0, 102, 204, 0.1) 0, rgba(255, 255, 255, 0) 32rem),
+      linear-gradient(180deg, #fbfbfd 0%, #f5f5f7 38%, #ffffff 100%);
     --caret-width: clamp(0.125rem, 0.022em, 0.1875rem);
     --caret-height: 0.94em;
     --caret-align: -0.1em;
@@ -109,11 +132,33 @@
   body {
     margin: 0;
     overflow-x: hidden;
-    background:
-      radial-gradient(circle at 50% 6%, rgba(0, 102, 204, 0.1) 0, rgba(255, 255, 255, 0) 32rem),
-      linear-gradient(180deg, #fbfbfd 0%, #f5f5f7 38%, #ffffff 100%);
+    background: var(--sb-page-background);
     letter-spacing: 0;
     line-height: normal;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --sb-bg: #000000;
+      --sb-paper: #050506;
+      --sb-ink: #f5f5f7;
+      --sb-muted: #a1a1a6;
+      --sb-quiet: #6e6e73;
+      --sb-copy: #d2d2d7;
+      --sb-hairline: rgba(255, 255, 255, 0.14);
+      --sb-panel: rgba(29, 29, 31, 0.76);
+      --sb-elevated: rgba(28, 28, 30, 0.94);
+      --sb-control: rgba(44, 44, 46, 0.96);
+      --sb-control-ink: #f5f5f7;
+      --sb-blue: #2997ff;
+      --sb-caret-blue: #0a84ff;
+      --sb-accepted: #f5f5f7;
+      --sb-ghost: #6e6e73;
+      --sb-shadow-panel: 0 1.75rem 5.625rem rgba(0, 0, 0, 0.42);
+      --sb-page-background:
+        radial-gradient(circle at 50% 0%, rgba(10, 132, 255, 0.14) 0, rgba(0, 0, 0, 0) 32rem),
+        linear-gradient(180deg, #050506 0%, #000000 42%, #0b0b0f 100%);
+    }
   }
 
   button,

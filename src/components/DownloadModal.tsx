@@ -85,7 +85,7 @@ export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 grid place-items-center bg-[#f5f5f7]/[0.72] p-5 backdrop-blur-[1.5rem] data-[state=closed]:animate-modal-overlay-out data-[state=open]:animate-modal-overlay-in motion-reduce:animate-none"
+      className="fixed inset-0 z-50 grid place-items-center bg-bg/72 p-5 backdrop-blur-[1.5rem] data-[state=closed]:animate-modal-overlay-out data-[state=open]:animate-modal-overlay-in motion-reduce:animate-none"
       data-state={isOpen ? "open" : "closed"}
       role="presentation"
       onMouseDown={onClose}
@@ -93,14 +93,14 @@ export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
       <section
         aria-labelledby="download-modal-title"
         aria-modal="true"
-        className="relative w-[min(28.75rem,100%)] rounded-[1.375rem] border border-black/[0.10] bg-white/[0.94] p-8.5 text-center data-[state=closed]:animate-modal-panel-out data-[state=open]:animate-modal-panel-in motion-reduce:animate-none"
+        className="relative w-[min(28.75rem,100%)] rounded-[1.375rem] border border-hairline bg-elevated p-8.5 text-center shadow-panel data-[state=closed]:animate-modal-panel-out data-[state=open]:animate-modal-panel-in motion-reduce:animate-none"
         data-state={isOpen ? "open" : "closed"}
         role="dialog"
         onMouseDown={(event) => event.stopPropagation()}
       >
         <button
           aria-label="Close"
-          className="absolute top-3.5 right-3.5 grid h-7.5 w-7.5 place-items-center rounded-full border-0 bg-bg text-[#424245]"
+          className="absolute top-3.5 right-3.5 grid h-7.5 w-7.5 place-items-center rounded-full border-0 bg-bg text-copy"
           type="button"
           onClick={onClose}
         >
@@ -113,7 +113,7 @@ export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
         <h2 id="download-modal-title" className="m-0 text-[2rem] leading-[1.05] font-[750] tracking-[0] text-ink">
           Get the Mac app link.
         </h2>
-        <p className="mt-3.5 text-base leading-[1.42] text-[#45454a]">
+        <p className="mt-3.5 text-base leading-[1.42] text-copy">
           We will send the download link to your email. No credit card required for the 14-day trial.
         </p>
         <form className="mt-6 grid gap-3" onSubmit={onSubmit}>
@@ -130,7 +130,7 @@ export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
               if (state !== "submitting") setState("idle");
             }}
             placeholder="you@example.com"
-            className="h-12 w-full rounded-xl border border-black/[0.13] bg-white px-3.5 text-[#1d1d1f] outline-0 focus:border-sb-blue focus:shadow-[0_0_0_0.25rem_rgba(0,113,227,0.12)]"
+            className="h-12 w-full rounded-xl border border-hairline bg-elevated px-3.5 text-ink outline-0 placeholder:text-muted focus:border-sb-blue focus:shadow-[0_0_0_0.25rem_rgba(0,113,227,0.12)] dark:focus:shadow-[0_0_0_0.25rem_rgba(41,151,255,0.18)]"
             type="email"
             value={email}
           />
@@ -139,7 +139,7 @@ export function DownloadModal({ isOpen, onClose }: DownloadModalProps) {
           </button>
         </form>
         {message ? (
-          <p className={`mt-3.5 text-sm font-semibold ${state === "error" ? "text-[#b42318]" : "text-[#1b6b33]"}`}>
+          <p className={`mt-3.5 text-sm font-semibold ${state === "error" ? "text-[#b42318] dark:text-[#ff453a]" : "text-[#1b6b33] dark:text-[#30d158]"}`}>
             {message}
           </p>
         ) : null}

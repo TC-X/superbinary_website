@@ -61,7 +61,7 @@ const h1Class = 'm-0 text-[clamp(3.25rem,10.8vw,7.875rem)] leading-[0.92] font-[
 const h2Class = 'm-0 text-[clamp(2.625rem,7vw,5.875rem)] leading-[0.98] font-[750] tracking-[0] text-ink'
 const h3Class = 'm-0 text-[clamp(1.625rem,4vw,3.25rem)] leading-[1.04] font-[750] tracking-[0] text-ink'
 const leadClass =
-  'mx-auto mt-6.5 max-w-180 text-[clamp(1.1875rem,2vw,1.6875rem)] leading-[1.24] font-medium text-[#45454a]'
+  'mx-auto mt-6.5 max-w-180 text-[clamp(1.1875rem,2vw,1.6875rem)] leading-[1.24] font-medium text-copy'
 const trialClass = 'm-0 mt-3.5 text-[0.9375rem] font-[550] text-muted'
 const fullScreenSectionClass = 'grid min-h-screen place-items-center px-6 pt-22.5 pb-16 text-center'
 const stickyFrameClass =
@@ -75,7 +75,7 @@ const sectionHeadClass = 'mx-auto mb-8.5 w-[min(61.25rem,100%)] text-center'
 const sectionHeadCopyClass =
   'mx-auto mt-5 max-w-170 text-[clamp(1.125rem,2vw,1.5rem)] leading-[1.3] font-[520] text-muted'
 const panelCardClass =
-  'rounded-[1.875rem] border border-hairline bg-white/[0.78] shadow-panel max-[38.75rem]:rounded-3xl'
+  'rounded-[1.875rem] border border-hairline bg-panel shadow-panel max-[38.75rem]:rounded-3xl'
 
 function DownloadButton({ children, onClick, className = '' }: DownloadButtonProps) {
   return (
@@ -88,16 +88,16 @@ function DownloadButton({ children, onClick, className = '' }: DownloadButtonPro
 function WindowDots() {
   return (
     <div className="absolute top-5.5 left-6 flex gap-2" aria-hidden="true">
-      <span className="h-3 w-3 rounded-full bg-[#d2d2d7]" />
-      <span className="h-3 w-3 rounded-full bg-[#d2d2d7]" />
-      <span className="h-3 w-3 rounded-full bg-[#d2d2d7]" />
+      <span className="h-3 w-3 rounded-full bg-quiet/45" />
+      <span className="h-3 w-3 rounded-full bg-quiet/45" />
+      <span className="h-3 w-3 rounded-full bg-quiet/45" />
     </div>
   )
 }
 
 function Header({ onDownload }: { onDownload: () => void }) {
   return (
-    <header className="fixed inset-x-0 top-0 z-20 flex h-13.5 items-center justify-between border-b border-black/[0.045] bg-paper/[0.72] px-[clamp(1.125rem,4vw,3.375rem)] backdrop-blur-[1.375rem] max-[38.75rem]:px-4">
+    <header className="fixed inset-x-0 top-0 z-20 flex h-13.5 items-center justify-between border-b border-hairline bg-paper/[0.72] px-[clamp(1.125rem,4vw,3.375rem)] backdrop-blur-[1.375rem] max-[38.75rem]:px-4">
       <a className="text-[0.9375rem] font-bold" href="#top" aria-label="Superbinary home">
         Superbinary
       </a>
@@ -143,7 +143,7 @@ function CoreInteractionStory() {
               <ScrollSuggestionText acceptedPrefix={corePrefix} words={coreWords} progress={progress} />
             </p>
           </div>
-          <div className="mt-6 grid grid-cols-[1fr_auto] items-end gap-5 text-[#4a4a4f] max-[56.25rem]:grid-cols-1">
+          <div className="mt-6 grid grid-cols-[1fr_auto] items-end gap-5 text-copy max-[56.25rem]:grid-cols-1">
             <h2 className={h2Class} id="ghost-title">
               Accept the next word. Stay in control.
             </h2>
@@ -191,10 +191,10 @@ function Highlights() {
       <div className="mx-auto grid w-[min(73.75rem,100%)] grid-cols-3 gap-3.5 max-lg:grid-cols-1 max-[38.75rem]:gap-2.5">
         {cards.map((card) => (
           <article
-            className="flex min-h-59 flex-col justify-between rounded-[1.375rem] border border-hairline bg-white/[0.78] p-6 shadow-[0_1.25rem_4.375rem_rgba(0,0,0,0.045)] max-[38.75rem]:min-h-44.5"
+            className="flex min-h-59 flex-col justify-between rounded-[1.375rem] border border-hairline bg-panel p-6 shadow-panel max-[38.75rem]:min-h-44.5"
             key={card.title}
           >
-            <div className="py-4 min-h-29 gap-3 overflow-hidden text-[#1d1d1f]" aria-hidden="true">
+            <div className="min-h-29 gap-3 overflow-hidden py-4 text-ink" aria-hidden="true">
               {card.demo}
             </div>
             <div>
@@ -213,7 +213,7 @@ function MindSignalStory() {
   const progress = useScrollProgress(ref)
   const sectionStyle = { '--mind-progress': progress.toFixed(4) } as CSSProperties
   const chipClass =
-    'absolute max-w-[14.375rem] translate-y-[calc((1-var(--mind-progress))*1.125rem)] rounded-[1.125rem] border border-black/[0.06] bg-white/[0.68] px-3.75 py-3.25 text-sm leading-[1.28] font-[620] text-black/[0.58] opacity-[clamp(0.12,var(--mind-progress),0.72)] shadow-[0_1.125rem_3.75rem_rgba(0,0,0,0.05)] transition-[opacity,transform] duration-[240ms] max-[56.25rem]:relative max-[56.25rem]:inset-auto max-[56.25rem]:max-w-none motion-reduce:translate-y-0 motion-reduce:opacity-100'
+    'absolute max-w-[14.375rem] translate-y-[calc((1-var(--mind-progress))*1.125rem)] rounded-[1.125rem] border border-hairline bg-panel px-3.75 py-3.25 text-sm leading-[1.28] font-[620] text-muted opacity-[clamp(0.12,var(--mind-progress),0.72)] shadow-panel transition-[opacity,transform] duration-[240ms] max-[56.25rem]:relative max-[56.25rem]:inset-auto max-[56.25rem]:max-w-none motion-reduce:translate-y-0 motion-reduce:opacity-100'
 
   return (
     <section className={storySectionClass} id="mindsignal" ref={ref} style={sectionStyle} aria-labelledby="mind-title">
@@ -231,7 +231,7 @@ function MindSignalStory() {
               </p>
             </div>
           </div>
-          <div className="mt-6 grid grid-cols-[1fr_auto] items-end gap-5 text-[#4a4a4f] max-[56.25rem]:grid-cols-1">
+          <div className="mt-6 grid grid-cols-[1fr_auto] items-end gap-5 text-copy max-[56.25rem]:grid-cols-1">
             <h2 className={h2Class} id="mind-title">
               MindSignal helps the suggestion fit.
             </h2>
@@ -321,8 +321,8 @@ function PrivacySection() {
                   className={cx(
                     'min-w-18 rounded-2xl px-3.5 py-3 text-center text-[0.8125rem] font-[760] transition-[opacity,translate] duration-[260ms] motion-reduce:translate-y-0 motion-reduce:opacity-100',
                     index < activeCount
-                      ? 'translate-y-0 bg-[#0066cc]/10 text-[#0055b8] opacity-100'
-                      : 'translate-y-2.5 bg-bg text-[#2b2b30] opacity-40',
+                      ? 'translate-y-0 bg-sb-blue/10 text-sb-blue opacity-100'
+                      : 'translate-y-2.5 bg-bg text-muted opacity-40',
                   )}
                   key={item}
                 >
@@ -336,14 +336,14 @@ function PrivacySection() {
               <article
                 className={cx(
                   'grid grid-cols-[auto_1fr] items-start gap-4 rounded-[1.375rem] bg-bg/[0.72] p-5 transition-[opacity,translate] duration-[260ms] motion-reduce:translate-y-0 motion-reduce:opacity-100',
-                  index < activeCount ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-[0.48]',
+                  index < activeCount ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-[0.62]',
                 )}
                 key={proof.title}
               >
                 <div
                   className={cx(
                     'grid h-9.5 w-9.5 place-items-center rounded-[0.8125rem] text-[1.0625rem] font-extrabold',
-                    index < activeCount ? 'bg-[#0066cc]/10 text-[#0055b8]' : 'bg-white text-[#17171a]',
+                    index < activeCount ? 'bg-sb-blue/10 text-sb-blue' : 'bg-elevated text-ink',
                   )}
                 >
                   {index + 1}
@@ -371,20 +371,20 @@ function NativePricing({ onDownload }: { onDownload: () => void }) {
       <article
         className={cx(
           panelCardClass,
-          'grid min-h-110 content-end bg-[linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,255,255,0.9)),radial-gradient(circle_at_50%_20%,rgba(0,0,0,0.06),rgba(0,0,0,0)_25rem)] p-[clamp(1.75rem,4vw,2.875rem)]',
+          'grid min-h-110 content-end bg-[linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,255,255,0.9)),radial-gradient(circle_at_50%_20%,rgba(0,0,0,0.06),rgba(0,0,0,0)_25rem)] p-[clamp(1.75rem,4vw,2.875rem)] dark:bg-[linear-gradient(180deg,rgba(29,29,31,0.88),rgba(20,20,22,0.94)),radial-gradient(circle_at_50%_20%,rgba(255,255,255,0.08),rgba(0,0,0,0)_25rem)]',
         )}
       >
         <div
-          className="mb-14 w-[min(26.25rem,100%)] rounded-[1.375rem] border border-hairline bg-white/[0.82] p-3.75 shadow-[0_1.5rem_4.375rem_rgba(0,0,0,0.08)]"
+          className="mb-14 w-[min(26.25rem,100%)] rounded-[1.375rem] border border-hairline bg-elevated p-3.75 shadow-panel"
           aria-hidden="true"
         >
-          <div className="flex justify-between gap-4 px-2 py-2.5 text-[0.9375rem] font-[620] text-[#242428]">
+          <div className="flex justify-between gap-4 px-2 py-2.5 text-[0.9375rem] font-[620] text-control-ink">
             <strong>Superbinary</strong>
             <span className="h-5.5 w-9.5 rounded-full bg-caret-blue shadow-[inset_0_0_0_0.0625rem_rgba(0,0,0,0.05)]">
               <span className="ml-auto block h-4.5 w-4.5 rounded-full bg-white shadow-[0_0.0625rem_0.125rem_rgba(0,0,0,0.18)] [margin:0.125rem_0.125rem_0.125rem_auto]" />
             </span>
           </div>
-          <div className="flex justify-between gap-4 px-2 py-2.5 text-[0.9375rem] font-[620] text-[#242428]">
+          <div className="flex justify-between gap-4 px-2 py-2.5 text-[0.9375rem] font-[620] text-control-ink">
             <span>MindSignal</span>
             <span className="h-5.5 w-9.5 rounded-full bg-caret-blue shadow-[inset_0_0_0_0.0625rem_rgba(0,0,0,0.05)]">
               <span className="ml-auto block h-4.5 w-4.5 rounded-full bg-white shadow-[0_0.0625rem_0.125rem_rgba(0,0,0,0.18)] [margin:0.125rem_0.125rem_0.125rem_auto]" />
@@ -399,7 +399,7 @@ function NativePricing({ onDownload }: { onDownload: () => void }) {
       <article
         className={cx(
           panelCardClass,
-          'min-h-110 border-[#0066cc]/[0.18] bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(255,255,255,0.78)),radial-gradient(circle_at_50%_0%,rgba(0,102,204,0.11),rgba(0,102,204,0)_18rem)] p-[clamp(1.75rem,4vw,2.875rem)]',
+          'min-h-110 border-sb-blue/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(255,255,255,0.78)),radial-gradient(circle_at_50%_0%,rgba(0,102,204,0.11),rgba(0,102,204,0)_18rem)] p-[clamp(1.75rem,4vw,2.875rem)] dark:bg-[linear-gradient(180deg,rgba(28,28,30,0.95),rgba(17,17,19,0.86)),radial-gradient(circle_at_50%_0%,rgba(10,132,255,0.18),rgba(0,0,0,0)_18rem)]',
         )}
       >
         <p className={eyebrowClass}>Early adopter offer</p>
@@ -468,7 +468,7 @@ function FAQSection() {
         </div>
         <div className="mt-7">
           {faqItems.map((item, index) => (
-            <details className="border-b border-black/[0.18]" key={item.question} open={openItems.has(index)}>
+            <details className="border-b border-hairline" key={item.question} open={openItems.has(index)}>
               <summary
                 className="grid min-h-19 cursor-pointer list-none grid-cols-[minmax(0,1fr)_auto] items-center gap-8 py-5.5 text-2xl leading-[1.1667] font-semibold text-ink marker:hidden [&::-webkit-details-marker]:hidden max-[38.75rem]:min-h-18.5 max-[38.75rem]:gap-5.5 max-[38.75rem]:py-5 max-[38.75rem]:text-[1.375rem]"
                 onClick={(event) => {
@@ -485,7 +485,7 @@ function FAQSection() {
                   aria-hidden="true"
                 />
               </summary>
-              <p className="m-0 -mt-0.75 mb-7 max-w-190 text-[1.0625rem] leading-[1.47] font-normal text-[#424245]">
+              <p className="m-0 -mt-0.75 mb-7 max-w-190 text-[1.0625rem] leading-[1.47] font-normal text-copy">
                 {item.answer}
               </p>
             </details>
@@ -522,18 +522,18 @@ function Footer() {
     >
       <div className="mx-auto w-[min(61.25rem,100%)]">
         <p className="m-0">Superbinary is an independent Mac app for private, system-wide writing autocomplete.</p>
-        <p className="m-0 mt-3 border-t border-black/[0.08] pt-3">
+        <p className="m-0 mt-3 border-t border-hairline pt-3">
           Apple, Mac, macOS, Safari, Keychain, and related marks are trademarks of Apple Inc. Other names may be
           trademarks of their respective owners. Superbinary is not affiliated with or endorsed by Apple Inc.
         </p>
         <nav className="mt-4.5 flex flex-wrap gap-3.5" aria-label="Footer links">
-          <a className="text-[#424245] no-underline" href="#privacy">
+          <a className="text-copy no-underline" href="#privacy">
             Privacy
           </a>
-          <a className="text-[#424245] no-underline" href="#pricing">
+          <a className="text-copy no-underline" href="#pricing">
             Pricing
           </a>
-          <a className="text-[#424245] no-underline" href="mailto:hello@superbinary.ai">
+          <a className="text-copy no-underline" href="mailto:hello@superbinary.ai">
             Contact
           </a>
         </nav>

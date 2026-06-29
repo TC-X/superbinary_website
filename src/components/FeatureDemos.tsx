@@ -27,11 +27,11 @@ export function MidSentenceDemo({ className = '' }: DemoProps) {
         <span className="text-accepted"> before the call.</span>
       </p>
       <div
-        className="mt-1 ms-[13ch] grid w-fit grid-cols-[minmax(0,1fr)_auto] items-center gap-3.5 rounded-full border border-black/[0.16] bg-[#e8e8ed]/[0.97] py-[0.3125rem] pr-[0.4375rem] pl-3 text-[0.8125rem] leading-[1.1] font-[620] text-[#1d1d1f]"
+        className="mt-1 ms-[13ch] grid w-fit grid-cols-[minmax(0,1fr)_auto] items-center gap-3.5 rounded-full border border-hairline bg-control py-[0.3125rem] pr-[0.4375rem] pl-3 text-[0.8125rem] leading-[1.1] font-[620] text-control-ink"
         aria-hidden="true"
       >
         <span className="truncate">tomorrow morning</span>
-        <span className="relative rounded-[0.3125rem] border border-black/[0.16] bg-black/[0.10] px-[0.4375rem] py-[0.1875rem] text-[0.6875rem] font-[760] text-black/[0.62] before:absolute before:-left-2 before:top-0.5 before:bottom-0.5 before:w-[0.0625rem] before:bg-black/[0.18]">
+        <span className="relative rounded-[0.3125rem] border border-hairline bg-ink/10 px-[0.4375rem] py-[0.1875rem] text-[0.6875rem] font-[760] text-muted before:absolute before:-left-2 before:top-0.5 before:bottom-0.5 before:w-[0.0625rem] before:bg-hairline">
           tab
         </span>
       </div>
@@ -44,7 +44,7 @@ export function SpellCorrectionDemo({ className = '' }: DemoProps) {
     <div className={className}>
       <p className={demoLineClass}>
         <span className="text-accepted">The </span>
-        <span className="underline decoration-[#ff3b30] decoration-wavy decoration-[0.09375rem] underline-offset-4">
+        <span className="underline decoration-[#ff3b30] decoration-wavy decoration-[0.09375rem] underline-offset-4 dark:decoration-[#ff453a]">
           enviroment
         </span>
         <span className="whitespace-nowrap">
