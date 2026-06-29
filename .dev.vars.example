@@ -1,0 +1,4 @@
+RESEND_API_KEY="re_your_key"
+DOWNLOAD_FROM_EMAIL="Superbinary <download@superbinary.app>"
+DOWNLOAD_LINK_URL="https://superbinary.app/download"
+DOWNLOAD_REPLY_TO="hello@superbinary.app"
