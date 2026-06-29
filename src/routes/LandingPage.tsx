@@ -327,6 +327,14 @@ function FAQSection() {
   const [openItems, setOpenItems] = useState<Set<number>>(() => new Set())
   const allOpen = openItems.size === faqItems.length
 
+  function toggleAll() {
+    if (allOpen) {
+      setOpenItems(new Set())
+    } else {
+      setOpenItems(new Set(faqItems.map((_, index) => index)))
+    }
+  }
+
   function toggleItem(index: number) {
     setOpenItems((current) => {
       const next = new Set(current)
@@ -344,29 +352,14 @@ function FAQSection() {
   return (
     <section className="faq" id="faq" aria-labelledby="faq-title">
       <div className="faq-inner">
-        <div className="faq-head">
-          <div>
-            <p className="eyebrow">Frequently Asked Questions</p>
-            <h2 id="faq-title">Questions? Answers.</h2>
-          </div>
-          <div className="faq-controls" aria-label="FAQ controls">
-            <button
-              className="faq-control"
-              type="button"
-              onClick={() => setOpenItems(new Set(faqItems.map((_, index) => index)))}
-              disabled={allOpen}
-            >
-              Expand all
-            </button>
-            <button
-              className="faq-control"
-              type="button"
-              onClick={() => setOpenItems(new Set())}
-              disabled={!openItems.size}
-            >
-              Collapse all
-            </button>
-          </div>
+        <div className="faq-title-block">
+          <h2 id="faq-title">Frequently Asked Questions</h2>
+        </div>
+        <div className="faq-group-head">
+          <h3>Superbinary</h3>
+          <button className="faq-control" type="button" onClick={toggleAll} aria-expanded={allOpen}>
+            {allOpen ? 'Collapse all' : 'Expand all'}
+          </button>
         </div>
         <div className="faq-list">
           {faqItems.map((item, index) => (
