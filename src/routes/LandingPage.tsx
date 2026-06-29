@@ -7,10 +7,10 @@ import { ScrollSuggestionText, SuggestionText } from '../components/SuggestionTe
 import { cx } from '../lib/classes'
 import { useScrollProgress } from '../lib/useScrollProgress'
 
-const corePrefix = 'Can you pick up'
-const coreWords = ['milk', 'on', 'your', 'way', 'home?']
+const corePrefix = 'Can you pick up m'
+const coreWords = ['ilk', 'on', 'your', 'way', 'home?']
 const mindPrefix = 'For the meeting with S'
-const mindWords = ['arah', 'on', 'Tuesday', 'at', '10am.']
+const mindWords = ['arah', 'on', 'Tuesday', 'at', '10am']
 const faqItems = [
   {
     question: 'Does Superbinary work offline?',
@@ -60,8 +60,7 @@ const eyebrowClass = 'm-0 mb-2 text-[clamp(0.9375rem,1.4vw,1.1875rem)] font-[550
 const h1Class = 'm-0 text-[clamp(3.25rem,10.8vw,7.875rem)] leading-[0.92] font-[750] tracking-[0] text-ink'
 const h2Class = 'm-0 text-[clamp(2.625rem,7vw,5.875rem)] leading-[0.98] font-[750] tracking-[0] text-ink'
 const h3Class = 'm-0 text-[clamp(1.625rem,4vw,3.25rem)] leading-[1.04] font-[750] tracking-[0] text-ink'
-const leadClass =
-  'mx-auto mt-6.5 max-w-180 text-[clamp(1.1875rem,2vw,1.6875rem)] leading-[1.24] font-medium text-copy'
+const leadClass = 'mx-auto mt-6.5 max-w-180 text-[clamp(1.1875rem,2vw,1.6875rem)] leading-[1.24] font-medium text-copy'
 const trialClass = 'm-0 mt-3.5 text-[0.9375rem] font-[550] text-muted'
 const fullScreenSectionClass = 'grid min-h-screen place-items-center px-6 pt-22.5 pb-16 text-center'
 const stickyFrameClass =
@@ -74,8 +73,7 @@ const writingSurfaceClass =
 const sectionHeadClass = 'mx-auto mb-8.5 w-[min(61.25rem,100%)] text-center'
 const sectionHeadCopyClass =
   'mx-auto mt-5 max-w-170 text-[clamp(1.125rem,2vw,1.5rem)] leading-[1.3] font-[520] text-muted'
-const panelCardClass =
-  'rounded-[1.875rem] border border-hairline bg-panel shadow-panel max-[38.75rem]:rounded-3xl'
+const panelCardClass = 'rounded-[1.875rem] border border-hairline bg-panel shadow-panel max-[38.75rem]:rounded-3xl'
 
 function DownloadButton({ children, onClick, className = '' }: DownloadButtonProps) {
   return (
@@ -140,7 +138,12 @@ function CoreInteractionStory() {
           <div className={writingSurfaceClass}>
             <WindowDots />
             <p className="m-0 w-full text-[clamp(2.125rem,6vw,4.75rem)] leading-[1.08] font-bold tracking-[0] text-balance">
-              <ScrollSuggestionText acceptedPrefix={corePrefix} words={coreWords} progress={progress} />
+              <ScrollSuggestionText
+                acceptedPrefix={corePrefix}
+                words={coreWords}
+                progress={progress}
+                joinFirstWordToPrefix
+              />
             </p>
           </div>
           <div className="mt-6 grid grid-cols-[1fr_auto] items-end gap-5 text-copy max-[56.25rem]:grid-cols-1">
@@ -407,11 +410,11 @@ function NativePricing({ onDownload }: { onDownload: () => void }) {
           'min-h-110 border-sb-blue/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(255,255,255,0.78)),radial-gradient(circle_at_50%_0%,rgba(0,102,204,0.11),rgba(0,102,204,0)_18rem)] p-[clamp(1.75rem,4vw,2.875rem)] dark:bg-[linear-gradient(180deg,rgba(28,28,30,0.95),rgba(17,17,19,0.86)),radial-gradient(circle_at_50%_0%,rgba(10,132,255,0.18),rgba(0,0,0,0)_18rem)]',
         )}
       >
-        <p className={eyebrowClass}>Early adopter offer</p>
+        <p className={eyebrowClass}>Early bird offer</p>
         <h2 className={h2Class}>Try it free for 14 days.</h2>
         <p className="text-lg leading-[1.36] font-[530] text-muted">No credit card required.</p>
         <div className="mt-7 mb-1 text-[clamp(3.125rem,7vw,5.25rem)] leading-[0.96] font-[780] text-ink">$49.99</div>
-        <div className="text-[1.0625rem] font-[560] text-muted">Early adopter price. Regular $89.99.</div>
+        <div className="text-[1.0625rem] font-[560] text-muted">Early bird price. Regular $129.99.</div>
         <DownloadButton className="mt-8.5 min-h-11.5 px-6 text-[1.0625rem]" onClick={onDownload}>
           Download for Mac
         </DownloadButton>
