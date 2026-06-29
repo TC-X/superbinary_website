@@ -3,7 +3,7 @@ import { CSSProperties, useRef, useState } from 'react'
 import { AppMarquee } from '../components/AppMarquee'
 import { DownloadModal } from '../components/DownloadModal'
 import { InlineSuggestionDemo, MidSentenceDemo, SpellCorrectionDemo } from '../components/FeatureDemos'
-import { ScrollSuggestionText, SuggestionText } from '../components/SuggestionText'
+import { ScrollSuggestionText, StableScrollSuggestionText, SuggestionText } from '../components/SuggestionText'
 import { cx } from '../lib/classes'
 import { useScrollProgress } from '../lib/useScrollProgress'
 
@@ -237,7 +237,7 @@ function MindSignalStory() {
             <div className={cx(writingSurfaceClass, 'z-[2] w-[min(820px,100%)] max-[900px]:order-first')}>
               <WindowDots />
               <p className="m-0 text-[clamp(31px,5vw,64px)] leading-[1.1] font-[720]">
-                <ScrollSuggestionText acceptedPrefix={mindPrefix} words={mindWords} progress={progress} />
+                <StableScrollSuggestionText acceptedPrefix={mindPrefix} words={mindWords} progress={progress} />
               </p>
               <ProgressLine variable="--mind-progress" />
             </div>
@@ -324,7 +324,7 @@ function PrivacySection() {
               {['Offline', 'Firewall', 'Keychain'].map((item, index) => (
                 <div
                   className={cx(
-                    'min-w-[72px] rounded-2xl px-3.5 py-3 text-center text-[13px] font-[760] transition-[opacity,transform] duration-[260ms] motion-reduce:translate-y-0 motion-reduce:opacity-100',
+                    'min-w-[72px] rounded-2xl px-3.5 py-3 text-center text-[13px] font-[760] transition-[opacity,translate] duration-[260ms] motion-reduce:translate-y-0 motion-reduce:opacity-100',
                     index < activeCount
                       ? 'translate-y-0 bg-[#0066cc]/10 text-[#0055b8] opacity-100'
                       : 'translate-y-2.5 bg-bg text-[#2b2b30] opacity-40',
@@ -340,7 +340,7 @@ function PrivacySection() {
             {proofs.map((proof, index) => (
               <article
                 className={cx(
-                  'grid grid-cols-[auto_1fr] items-start gap-4 rounded-[22px] bg-bg/[0.72] p-5 transition-[opacity,transform] duration-[260ms] motion-reduce:translate-y-0 motion-reduce:opacity-100',
+                  'grid grid-cols-[auto_1fr] items-start gap-4 rounded-[22px] bg-bg/[0.72] p-5 transition-[opacity,translate] duration-[260ms] motion-reduce:translate-y-0 motion-reduce:opacity-100',
                   index < activeCount ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-[0.48]',
                 )}
                 key={proof.title}
