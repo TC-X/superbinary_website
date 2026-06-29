@@ -1,4 +1,5 @@
 import { Caret } from "./Caret";
+import { cx } from "../lib/classes";
 
 type SuggestionTextProps = {
   accepted: string;
@@ -24,14 +25,14 @@ export function SuggestionText({
   accepted,
   ghost = "",
   className = "",
-  ghostClassName = "ghost",
+  ghostClassName = "text-ghost",
 }: SuggestionTextProps) {
   const { head, tail } = splitTail(accepted);
 
   return (
-    <span className={`completion-sentence ${className}`}>
-      {head ? <span className="accepted">{head}</span> : null}
-      <span className="accepted accepted-tail">
+    <span className={cx("tracking-[0]", className)}>
+      {head ? <span className="text-accepted">{head}</span> : null}
+      <span className="whitespace-nowrap text-accepted">
         {tail}
         <Caret />
       </span>

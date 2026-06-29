@@ -4,6 +4,7 @@ import { AppMarquee } from '../components/AppMarquee'
 import { DownloadModal } from '../components/DownloadModal'
 import { InlineSuggestionDemo, MidSentenceDemo, SpellCorrectionDemo } from '../components/FeatureDemos'
 import { ScrollSuggestionText, SuggestionText } from '../components/SuggestionText'
+import { cx } from '../lib/classes'
 import { useScrollProgress } from '../lib/useScrollProgress'
 
 const corePrefix = 'I think the cleanest way to explain this is'
@@ -53,21 +54,59 @@ type DownloadButtonProps = {
   className?: string
 }
 
+const downloadButtonClass =
+  'inline-flex items-center justify-center rounded-full border-0 bg-sb-blue font-[650] text-white no-underline shadow-none'
+const eyebrowClass = 'm-0 mb-[18px] text-[clamp(15px,1.4vw,19px)] font-[650] text-muted'
+const h1Class = 'm-0 text-[clamp(52px,10.8vw,126px)] leading-[0.92] font-[750] tracking-[0] text-ink'
+const h2Class = 'm-0 text-[clamp(42px,7vw,94px)] leading-[0.98] font-[750] tracking-[0] text-ink'
+const h3Class = 'm-0 text-[clamp(26px,4vw,52px)] leading-[1.04] font-[750] tracking-[0] text-ink'
+const leadClass = 'mx-auto mt-[26px] max-w-[720px] text-[clamp(19px,2vw,27px)] leading-[1.24] font-medium text-[#45454a]'
+const trialClass = 'm-0 mt-3.5 text-[15px] font-[550] text-muted'
+const fullScreenSectionClass = 'grid min-h-screen place-items-center px-6 pt-[90px] pb-16 text-center'
+const stickyFrameClass =
+  'sticky top-0 grid min-h-screen place-items-center overflow-hidden px-6 pt-[72px] pb-[42px] motion-reduce:relative'
+const storySectionClass = 'relative min-h-[320vh] motion-reduce:min-h-auto'
+const stageClass = 'w-[min(1120px,100%)]'
+const storyLabelClass = 'm-0 mb-[26px] text-center text-[clamp(14px,1.4vw,17px)] font-[680] text-muted'
+const writingSurfaceClass =
+  'relative grid min-h-[clamp(310px,43vw,480px)] items-center rounded-[30px] border border-hairline bg-panel p-[clamp(30px,6vw,72px)] shadow-panel backdrop-blur-[20px] max-[620px]:rounded-3xl'
+const sectionHeadClass = 'mx-auto mb-[34px] w-[min(980px,100%)] text-center'
+const sectionHeadCopyClass = 'mx-auto mt-5 max-w-[680px] text-[clamp(18px,2vw,24px)] leading-[1.3] font-[520] text-muted'
+const panelCardClass = 'rounded-[30px] border border-hairline bg-white/[0.78] shadow-panel max-[620px]:rounded-3xl'
+
 function DownloadButton({ children, onClick, className = '' }: DownloadButtonProps) {
   return (
-    <button className={`download ${className}`} type="button" onClick={onClick}>
+    <button className={cx(downloadButtonClass, className)} type="button" onClick={onClick}>
       {children}
     </button>
   )
 }
 
+function WindowDots() {
+  return (
+    <div className="absolute top-[22px] left-6 flex gap-2" aria-hidden="true">
+      <span className="h-3 w-3 rounded-full bg-[#d2d2d7]" />
+      <span className="h-3 w-3 rounded-full bg-[#d2d2d7]" />
+      <span className="h-3 w-3 rounded-full bg-[#d2d2d7]" />
+    </div>
+  )
+}
+
+function ProgressLine({ variable }: { variable: '--story-progress' | '--mind-progress' }) {
+  return (
+    <div className="absolute right-[clamp(22px,4vw,44px)] bottom-[18px] left-[clamp(22px,4vw,44px)] h-0.5 overflow-hidden rounded-full bg-black/[0.08] max-[620px]:right-[22px] max-[620px]:bottom-3.5 max-[620px]:left-[22px]" aria-hidden="true">
+      <div className="h-full rounded-[inherit] bg-black/[0.42]" style={{ width: `calc(var(${variable}) * 100%)` }} />
+    </div>
+  )
+}
+
 function Header({ onDownload }: { onDownload: () => void }) {
   return (
-    <header className="topbar">
-      <a className="brand" href="#top" aria-label="Superbinary home">
+    <header className="fixed inset-x-0 top-0 z-20 flex h-[54px] items-center justify-between border-b border-black/[0.045] bg-paper/[0.72] px-[clamp(18px,4vw,54px)] backdrop-blur-[22px] max-[620px]:px-4">
+      <a className="text-[15px] font-bold" href="#top" aria-label="Superbinary home">
         Superbinary
       </a>
-      <DownloadButton className="nav-download" onClick={onDownload}>
+      <DownloadButton className="min-h-[30px] px-3.5 text-[13px] max-[620px]:hidden" onClick={onDownload}>
         Download
       </DownloadButton>
     </header>
@@ -76,17 +115,19 @@ function Header({ onDownload }: { onDownload: () => void }) {
 
 function Hero({ onDownload }: { onDownload: () => void }) {
   return (
-    <section className="hero" id="top" aria-labelledby="hero-title">
-      <div className="hero-inner">
-        <p className="eyebrow">On-device</p>
-        <h1 id="hero-title">
+    <section className={fullScreenSectionClass} id="top" aria-labelledby="hero-title">
+      <div className="w-[min(970px,100%)]">
+        <p className={eyebrowClass}>On-device</p>
+        <h1 className={h1Class} id="hero-title">
           <SuggestionText accepted="Autocomplete your" ghost=" thoughts." />
         </h1>
-        <p className="lead">
+        <p className={leadClass}>
           A private Mac autocomplete layer for messages, notes, docs, email, and the places you write every day.
         </p>
-        <DownloadButton onClick={onDownload}>Download for Mac</DownloadButton>
-        <p className="trial">14-day free trial. No credit card required.</p>
+        <DownloadButton className="mt-[34px] min-h-[46px] px-6 text-[17px]" onClick={onDownload}>
+          Download for Mac
+        </DownloadButton>
+        <p className={trialClass}>14-day free trial. No credit card required.</p>
       </div>
     </section>
   )
@@ -98,24 +139,24 @@ function CoreInteractionStory() {
   const sectionStyle = { '--story-progress': progress.toFixed(4) } as CSSProperties
 
   return (
-    <section className="scroll-story" id="ghost-story" ref={ref} style={sectionStyle} aria-labelledby="ghost-title">
-      <div className="sticky-frame">
-        <div className="stage">
-          <p className="story-label">The core interaction.</p>
-          <div className="writing-surface">
-            <div className="window-dots" aria-hidden="true">
-              <span />
-              <span />
-              <span />
-            </div>
-            <p className="sentence">
+    <section className={storySectionClass} id="ghost-story" ref={ref} style={sectionStyle} aria-labelledby="ghost-title">
+      <div className={stickyFrameClass}>
+        <div className={stageClass}>
+          <p className={storyLabelClass}>The core interaction.</p>
+          <div className={writingSurfaceClass}>
+            <WindowDots />
+            <p className="m-0 w-full text-[clamp(34px,6vw,76px)] leading-[1.08] font-bold tracking-[0] text-balance">
               <ScrollSuggestionText acceptedPrefix={corePrefix} words={coreWords} progress={progress} />
             </p>
-            <div className="progress-line" aria-hidden="true" />
+            <ProgressLine variable="--story-progress" />
           </div>
-          <div className="caption">
-            <h2 id="ghost-title">Accept the next word. Stay in control.</h2>
-            <p>Take the words that feel right. Keep typing when they do not.</p>
+          <div className="mt-6 grid grid-cols-[1fr_auto] items-end gap-5 text-[#4a4a4f] max-[900px]:grid-cols-1">
+            <h2 className={h2Class} id="ghost-title">
+              Accept the next word. Stay in control.
+            </h2>
+            <p className="m-0 max-w-[410px] text-right text-[clamp(16px,1.7vw,20px)] leading-[1.35] font-[530] text-muted max-[900px]:text-left">
+              Take the words that feel right. Keep typing when they do not.
+            </p>
           </div>
         </div>
       </div>
@@ -143,24 +184,32 @@ function Highlights() {
   ]
 
   return (
-    <section className="highlights" aria-labelledby="highlights-title">
-      <div className="section-head">
-        <p className="eyebrow">Get the highlights.</p>
-        <h2 id="highlights-title">A faster way to finish what you meant.</h2>
-        <p>
+    <section className="px-[clamp(20px,5vw,70px)] pt-[90px] pb-[120px]" aria-labelledby="highlights-title">
+      <div className={sectionHeadClass}>
+        <p className={eyebrowClass}>Get the highlights.</p>
+        <h2 className={h2Class} id="highlights-title">
+          A faster way to finish what you meant.
+        </h2>
+        <p className={sectionHeadCopyClass}>
           Superbinary turns the typing moment into a simple flow: see the suggestion, accept the next word, keep
           writing.
         </p>
       </div>
-      <div className="highlight-grid">
+      <div className="mx-auto grid w-[min(1180px,100%)] grid-cols-3 gap-3.5 max-[900px]:grid-cols-1 max-[620px]:gap-2.5">
         {cards.map((card) => (
-          <article className="highlight-card" key={card.title}>
-            <div className="feature-demo" aria-hidden="true">
+          <article
+            className="flex min-h-[236px] flex-col justify-between rounded-[22px] border border-hairline bg-white/[0.78] p-6 shadow-[0_20px_70px_rgba(0,0,0,0.045)] max-[620px]:min-h-[178px]"
+            key={card.title}
+          >
+            <div
+              className="grid min-h-[116px] content-center gap-3 overflow-hidden rounded-[18px] border border-black/[0.07] bg-white/[0.76] p-[18px] text-[#1d1d1f]"
+              aria-hidden="true"
+            >
               {card.demo}
             </div>
             <div>
-              <h3>{card.title}</h3>
-              <p>{card.body}</p>
+              <h3 className={h3Class}>{card.title}</h3>
+              <p className="m-0 mt-4 text-[17px] leading-[1.34] font-[520] text-muted">{card.body}</p>
             </div>
           </article>
         ))}
@@ -173,31 +222,31 @@ function MindSignalStory() {
   const ref = useRef<HTMLElement | null>(null)
   const progress = useScrollProgress(ref)
   const sectionStyle = { '--mind-progress': progress.toFixed(4) } as CSSProperties
+  const chipClass =
+    'absolute max-w-[230px] translate-y-[calc((1-var(--mind-progress))*18px)] rounded-[18px] border border-black/[0.06] bg-white/[0.68] px-[15px] py-[13px] text-sm leading-[1.28] font-[620] text-black/[0.58] opacity-[clamp(0.12,var(--mind-progress),0.72)] shadow-[0_18px_60px_rgba(0,0,0,0.05)] transition-[opacity,transform] duration-[240ms] max-[900px]:relative max-[900px]:inset-auto max-[900px]:max-w-none motion-reduce:translate-y-0 motion-reduce:opacity-100'
 
   return (
-    <section className="mind-story" id="mindsignal" ref={ref} style={sectionStyle} aria-labelledby="mind-title">
-      <div className="sticky-frame">
-        <div className="stage">
-          <p className="story-label">MindSignal</p>
-          <div className="mind-wrap">
-            <div className="context-chip chip-one">person: Maya</div>
-            <div className="context-chip chip-two">your rhythm: Friday demo notes</div>
-            <div className="context-chip chip-three">current app: Messages</div>
-            <div className="writing-surface mind-surface">
-              <div className="window-dots" aria-hidden="true">
-                <span />
-                <span />
-                <span />
-              </div>
-              <p className="mind-line">
+    <section className={storySectionClass} id="mindsignal" ref={ref} style={sectionStyle} aria-labelledby="mind-title">
+      <div className={stickyFrameClass}>
+        <div className={stageClass}>
+          <p className={storyLabelClass}>MindSignal</p>
+          <div className="relative grid min-h-[clamp(470px,56vw,650px)] place-items-center max-[900px]:grid-cols-1 max-[900px]:items-stretch max-[900px]:gap-2.5">
+            <div className={cx(chipClass, 'top-[8%] left-[4%]')}>person: Maya</div>
+            <div className={cx(chipClass, 'top-[18%] right-[4%] delay-[40ms]')}>your rhythm: Friday demo notes</div>
+            <div className={cx(chipClass, 'bottom-[10%] left-[14%] delay-[80ms]')}>current app: Messages</div>
+            <div className={cx(writingSurfaceClass, 'z-[2] w-[min(820px,100%)] max-[900px]:order-first')}>
+              <WindowDots />
+              <p className="m-0 text-[clamp(31px,5vw,64px)] leading-[1.1] font-[720] text-balance">
                 <ScrollSuggestionText acceptedPrefix={mindPrefix} words={mindWords} progress={progress} />
               </p>
-              <div className="progress-line" aria-hidden="true" />
+              <ProgressLine variable="--mind-progress" />
             </div>
           </div>
-          <div className="caption">
-            <h2 id="mind-title">MindSignal helps the suggestion fit.</h2>
-            <p>
+          <div className="mt-6 grid grid-cols-[1fr_auto] items-end gap-5 text-[#4a4a4f] max-[900px]:grid-cols-1">
+            <h2 className={h2Class} id="mind-title">
+              MindSignal helps the suggestion fit.
+            </h2>
+            <p className="m-0 max-w-[410px] text-right text-[clamp(16px,1.7vw,20px)] leading-[1.35] font-[530] text-muted max-[900px]:text-left">
               Context around the cursor helps Superbinary offer words that match the moment, without sending completion
               to the cloud.
             </p>
@@ -210,16 +259,18 @@ function MindSignalStory() {
 
 function AppsSection() {
   return (
-    <section className="apps" aria-labelledby="apps-title">
-      <div className="section-head">
-        <p className="eyebrow">Across your Mac.</p>
-        <h2 id="apps-title">Write where you already work.</h2>
-        <p>
+    <section className="overflow-hidden py-[120px]" aria-labelledby="apps-title">
+      <div className={sectionHeadClass}>
+        <p className={eyebrowClass}>Across your Mac.</p>
+        <h2 className={h2Class} id="apps-title">
+          Write where you already work.
+        </h2>
+        <p className={sectionHeadCopyClass}>
           Messages, notes, docs, email, browser fields, and project tools. One autocomplete behavior across your Mac.
         </p>
       </div>
       <AppMarquee />
-      <p className="app-note">
+      <p className="mx-auto mt-9 max-w-[620px] px-6 text-center text-[15px] leading-[1.4] font-[520] text-muted">
         App names are illustrative of normal writing surfaces, not partnerships or official integrations.
       </p>
     </section>
@@ -246,12 +297,12 @@ function PrivacySection() {
   ]
 
   return (
-    <section className="privacy-story" id="privacy" ref={ref} aria-labelledby="privacy-title">
-      <div className="sticky-frame">
-        <div className="privacy-board">
-          <div className="privacy-demo">
-            <div className="privacy-lock" aria-hidden="true">
-              <svg viewBox="0 0 72 72" role="img">
+    <section className={storySectionClass} id="privacy" ref={ref} aria-labelledby="privacy-title">
+      <div className={stickyFrameClass}>
+        <div className="grid w-[min(1060px,100%)] grid-cols-[0.82fr_1.18fr] items-stretch gap-[18px] max-[900px]:grid-cols-1">
+          <div className={cx(panelCardClass, 'grid min-h-[430px] content-center p-[34px]')}>
+            <div className="mb-[26px] h-[clamp(54px,7vw,82px)] w-[clamp(54px,7vw,82px)] text-ink" aria-hidden="true">
+              <svg className="block h-full w-full" viewBox="0 0 72 72" role="img">
                 <path
                   d="M22 32v-7.5C22 16.2 28.3 10 36 10s14 6.2 14 14.5V32h-7v-7.5c0-4.4-3.1-7.5-7-7.5s-7 3.1-7 7.5V32h-7Z"
                   fill="currentColor"
@@ -262,26 +313,47 @@ function PrivacySection() {
                 />
               </svg>
             </div>
-            <p className="eyebrow">Privacy</p>
-            <h2 id="privacy-title">Private by default.</h2>
-            <p>
+            <p className={eyebrowClass}>Privacy</p>
+            <h2 className="m-0 text-[clamp(34px,5vw,64px)] leading-[0.98] font-[750] tracking-[0] text-ink" id="privacy-title">
+              Private by default.
+            </h2>
+            <p className="mt-5 max-w-[390px] text-lg leading-[1.35] font-[530] text-muted">
               Completion happens on your Mac. The model ships with the app. Your private text is not used for training.
             </p>
-            <div className="privacy-icons" aria-hidden="true">
+            <div className="mt-[34px] flex gap-2.5" aria-hidden="true">
               {['Offline', 'Firewall', 'Keychain'].map((item, index) => (
-                <div className={`privacy-icon ${index < activeCount ? 'active' : ''}`} key={item}>
+                <div
+                  className={cx(
+                    'min-w-[72px] translate-y-2.5 rounded-2xl bg-bg px-3.5 py-3 text-center text-[13px] font-[760] text-[#2b2b30] opacity-40 transition-[opacity,transform] duration-[260ms] motion-reduce:translate-y-0 motion-reduce:opacity-100',
+                    index < activeCount && 'translate-y-0 bg-[#0066cc]/10 text-[#0055b8] opacity-100',
+                  )}
+                  key={item}
+                >
                   {item}
                 </div>
               ))}
             </div>
           </div>
-          <div className="proofs">
+          <div className={cx(panelCardClass, 'grid gap-3 p-[18px]')}>
             {proofs.map((proof, index) => (
-              <article className={`proof ${index < activeCount ? 'active' : ''}`} key={proof.title}>
-                <div className="proof-mark">{index + 1}</div>
+              <article
+                className={cx(
+                  'grid translate-y-3 grid-cols-[auto_1fr] items-start gap-4 rounded-[22px] bg-bg/[0.72] p-5 opacity-[0.48] transition-[opacity,transform] duration-[260ms] motion-reduce:translate-y-0 motion-reduce:opacity-100',
+                  index < activeCount && 'translate-y-0 opacity-100',
+                )}
+                key={proof.title}
+              >
+                <div
+                  className={cx(
+                    'grid h-[38px] w-[38px] place-items-center rounded-[13px] bg-white text-[17px] font-extrabold text-[#17171a]',
+                    index < activeCount && 'bg-[#0066cc]/10 text-[#0055b8]',
+                  )}
+                >
+                  {index + 1}
+                </div>
                 <div>
-                  <h3>{proof.title}</h3>
-                  <p>{proof.body}</p>
+                  <h3 className="m-0 text-2xl leading-[1.04] font-[750] tracking-[0] text-ink">{proof.title}</h3>
+                  <p className="m-0 mt-[7px] text-base leading-[1.36] font-[520] text-muted">{proof.body}</p>
                 </div>
               </article>
             ))}
@@ -294,28 +366,53 @@ function PrivacySection() {
 
 function NativePricing({ onDownload }: { onDownload: () => void }) {
   return (
-    <section className="native-pricing" id="pricing" aria-label="Native Mac simplicity and pricing">
-      <article className="native">
-        <div className="menubar" aria-hidden="true">
-          <div className="menu-row">
+    <section
+      className="mx-auto grid w-[min(1180px,100%)] grid-cols-[minmax(0,1.08fr)_minmax(310px,0.92fr)] gap-[18px] px-[clamp(20px,5vw,70px)] py-[120px] max-[900px]:grid-cols-1"
+      id="pricing"
+      aria-label="Native Mac simplicity and pricing"
+    >
+      <article
+        className={cx(
+          panelCardClass,
+          'grid min-h-[440px] content-end bg-[linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,255,255,0.9)),radial-gradient(circle_at_50%_20%,rgba(0,0,0,0.06),rgba(0,0,0,0)_25rem)] p-[clamp(28px,4vw,46px)]',
+        )}
+      >
+        <div
+          className="mb-14 w-[min(420px,100%)] rounded-[22px] border border-hairline bg-white/[0.82] p-[15px] shadow-[0_24px_70px_rgba(0,0,0,0.08)]"
+          aria-hidden="true"
+        >
+          <div className="flex justify-between gap-4 px-2 py-2.5 text-[15px] font-[620] text-[#242428]">
             <strong>Superbinary</strong>
-            <span className="toggle" />
+            <span className="h-[22px] w-[38px] rounded-full bg-caret-blue shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]">
+              <span className="ml-auto block h-[18px] w-[18px] rounded-full bg-white shadow-[0_1px_2px_rgba(0,0,0,0.18)] [margin:2px_2px_2px_auto]" />
+            </span>
           </div>
-          <div className="menu-row">
+          <div className="flex justify-between gap-4 px-2 py-2.5 text-[15px] font-[620] text-[#242428]">
             <span>MindSignal</span>
-            <span className="toggle" />
+            <span className="h-[22px] w-[38px] rounded-full bg-caret-blue shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)]">
+              <span className="ml-auto block h-[18px] w-[18px] rounded-full bg-white shadow-[0_1px_2px_rgba(0,0,0,0.18)] [margin:2px_2px_2px_auto]" />
+            </span>
           </div>
         </div>
-        <h2>Simple enough to leave on.</h2>
-        <p>Quiet menu bar presence, clear controls, and suggestions that disappear the moment you do not need them.</p>
+        <h2 className={h2Class}>Simple enough to leave on.</h2>
+        <p className="text-lg leading-[1.36] font-[530] text-muted">
+          Quiet menu bar presence, clear controls, and suggestions that disappear the moment you do not need them.
+        </p>
       </article>
-      <article className="pricing">
-        <p className="eyebrow">Early adopter offer</p>
-        <h2>Try it free for 14 days.</h2>
-        <p>No credit card required.</p>
-        <div className="price">$49.99</div>
-        <div className="regular">Early adopter price. Regular $89.99.</div>
-        <DownloadButton onClick={onDownload}>Download for Mac</DownloadButton>
+      <article
+        className={cx(
+          panelCardClass,
+          'min-h-[440px] border-[#0066cc]/[0.18] bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(255,255,255,0.78)),radial-gradient(circle_at_50%_0%,rgba(0,102,204,0.11),rgba(0,102,204,0)_18rem)] p-[clamp(28px,4vw,46px)]',
+        )}
+      >
+        <p className={eyebrowClass}>Early adopter offer</p>
+        <h2 className={h2Class}>Try it free for 14 days.</h2>
+        <p className="text-lg leading-[1.36] font-[530] text-muted">No credit card required.</p>
+        <div className="mt-7 mb-1 text-[clamp(50px,7vw,84px)] leading-[0.96] font-[780] text-ink">$49.99</div>
+        <div className="text-[17px] font-[560] text-muted">Early adopter price. Regular $89.99.</div>
+        <DownloadButton className="mt-[34px] min-h-[46px] px-6 text-[17px]" onClick={onDownload}>
+          Download for Mac
+        </DownloadButton>
       </article>
     </section>
   )
@@ -348,28 +445,45 @@ function FAQSection() {
   }
 
   return (
-    <section className="faq" id="faq" aria-labelledby="faq-title">
-      <div className="faq-inner">
-        <div className="faq-title-block">
-          <h2 id="faq-title">Questions? Answer.</h2>
+    <section className="px-[clamp(20px,5vw,70px)] py-[126px] [scroll-margin-top:72px] max-[620px]:pt-12 max-[620px]:pb-[92px]" id="faq" aria-labelledby="faq-title">
+      <div className="mx-auto w-[min(946px,100%)]">
+        <div className="text-center">
+          <h2 className="m-0 text-[clamp(40px,4.2vw,48px)] leading-[1.0625] font-semibold tracking-[0] text-ink max-[620px]:text-5xl" id="faq-title">
+            Questions? Answer.
+          </h2>
         </div>
-        <div className="faq-group-head">
-          <button className="faq-control" type="button" onClick={toggleAll} aria-expanded={allOpen}>
+        <div className="relative mt-11 grid items-end text-center max-[620px]:mt-[34px]">
+          <button
+            className="absolute right-0 bottom-1.5 border-0 bg-transparent text-sm leading-[1.35] font-normal text-sb-blue max-[620px]:static max-[620px]:mt-4 max-[620px]:justify-self-end"
+            type="button"
+            onClick={toggleAll}
+            aria-expanded={allOpen}
+          >
             {allOpen ? 'Collapse all' : 'Expand all'}
           </button>
         </div>
-        <div className="faq-list">
+        <div className="mt-7">
           {faqItems.map((item, index) => (
-            <details className="faq-item" key={item.question} open={openItems.has(index)}>
+            <details className="border-b border-black/[0.18]" key={item.question} open={openItems.has(index)}>
               <summary
+                className="grid min-h-[76px] cursor-pointer list-none grid-cols-[minmax(0,1fr)_auto] items-center gap-8 py-[22px] text-2xl leading-[1.1667] font-semibold text-ink marker:hidden [&::-webkit-details-marker]:hidden max-[620px]:min-h-[74px] max-[620px]:gap-[22px] max-[620px]:py-5 max-[620px]:text-[22px]"
                 onClick={(event) => {
                   event.preventDefault()
                   toggleItem(index)
                 }}
               >
-                {item.question}
+                <span>{item.question}</span>
+                <span
+                  className={cx(
+                    'h-[11px] w-[11px] rotate-45 border-r-[3px] border-b-[3px] border-muted transition-transform duration-[180ms]',
+                    openItems.has(index) && '-rotate-[135deg]',
+                  )}
+                  aria-hidden="true"
+                />
               </summary>
-              <p className="faq-answer">{item.answer}</p>
+              <p className="m-0 -mt-[3px] mb-7 max-w-[760px] text-[17px] leading-[1.47] font-normal text-[#424245]">
+                {item.answer}
+              </p>
             </details>
           ))}
         </div>
@@ -380,13 +494,17 @@ function FAQSection() {
 
 function FinalCta({ onDownload }: { onDownload: () => void }) {
   return (
-    <section className="final" aria-labelledby="final-title">
-      <div className="final-inner">
-        <p className="eyebrow">Superbinary</p>
-        <h2 id="final-title">Autocomplete your thoughts.</h2>
-        <p className="lead">Download it, write a few sentences, and feel the difference before the trial ends.</p>
-        <DownloadButton onClick={onDownload}>Download for Mac</DownloadButton>
-        <p className="trial">14-day free trial. No credit card required.</p>
+    <section className={fullScreenSectionClass} aria-labelledby="final-title">
+      <div className="w-[min(970px,100%)]">
+        <p className={eyebrowClass}>Superbinary</p>
+        <h2 className={h2Class} id="final-title">
+          Autocomplete your thoughts.
+        </h2>
+        <p className={leadClass}>Download it, write a few sentences, and feel the difference before the trial ends.</p>
+        <DownloadButton className="mt-[34px] min-h-[46px] px-6 text-[17px]" onClick={onDownload}>
+          Download for Mac
+        </DownloadButton>
+        <p className={trialClass}>14-day free trial. No credit card required.</p>
       </div>
     </section>
   )
@@ -394,19 +512,25 @@ function FinalCta({ onDownload }: { onDownload: () => void }) {
 
 function Footer() {
   return (
-    <footer className="site-footer" aria-label="Site information">
-      <div className="footer-inner">
-        <p className="footer-note">
+    <footer className="border-t border-hairline bg-bg px-[clamp(20px,5vw,70px)] pt-[34px] pb-[42px] text-xs leading-[1.42] text-muted" aria-label="Site information">
+      <div className="mx-auto w-[min(980px,100%)]">
+        <p className="m-0">
           Superbinary is an independent Mac app for private, system-wide writing autocomplete.
         </p>
-        <p className="footer-legal">
+        <p className="m-0 mt-3 border-t border-black/[0.08] pt-3">
           Apple, Mac, macOS, Safari, Keychain, and related marks are trademarks of Apple Inc. Other names may be
           trademarks of their respective owners. Superbinary is not affiliated with or endorsed by Apple Inc.
         </p>
-        <nav className="footer-links" aria-label="Footer links">
-          <a href="#privacy">Privacy</a>
-          <a href="#pricing">Pricing</a>
-          <a href="mailto:hello@superbinary.ai">Contact</a>
+        <nav className="mt-[18px] flex flex-wrap gap-3.5" aria-label="Footer links">
+          <a className="text-[#424245] no-underline" href="#privacy">
+            Privacy
+          </a>
+          <a className="text-[#424245] no-underline" href="#pricing">
+            Pricing
+          </a>
+          <a className="text-[#424245] no-underline" href="mailto:hello@superbinary.ai">
+            Contact
+          </a>
         </nav>
       </div>
     </footer>
