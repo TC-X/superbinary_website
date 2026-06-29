@@ -3,7 +3,7 @@ import { CSSProperties, useRef, useState } from 'react'
 import { AppMarquee } from '../components/AppMarquee'
 import { DownloadModal } from '../components/DownloadModal'
 import { InlineSuggestionDemo, MidSentenceDemo, SpellCorrectionDemo } from '../components/FeatureDemos'
-import { ScrollSuggestionText, StableScrollSuggestionText, SuggestionText } from '../components/SuggestionText'
+import { ScrollSuggestionText, SuggestionText } from '../components/SuggestionText'
 import { cx } from '../lib/classes'
 import { useScrollProgress } from '../lib/useScrollProgress'
 
@@ -237,7 +237,7 @@ function MindSignalStory() {
             <div className={cx(writingSurfaceClass, 'z-[2] w-[min(820px,100%)] max-[900px]:order-first')}>
               <WindowDots />
               <p className="m-0 text-[clamp(31px,5vw,64px)] leading-[1.1] font-[720]">
-                <StableScrollSuggestionText acceptedPrefix={mindPrefix} words={mindWords} progress={progress} />
+                <ScrollSuggestionText acceptedPrefix={mindPrefix} words={mindWords} progress={progress} />
               </p>
               <ProgressLine variable="--mind-progress" />
             </div>
