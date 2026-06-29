@@ -854,6 +854,101 @@ button.download {
       font-weight: 560;
     }
 
+    .faq {
+      padding: 28px clamp(20px, 5vw, 70px) 120px;
+      scroll-margin-top: 72px;
+    }
+
+    .faq-inner {
+      width: min(980px, 100%);
+      margin: 0 auto;
+    }
+
+    .faq-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: end;
+    }
+
+    .faq h2 {
+      font-size: clamp(42px, 6vw, 80px);
+      line-height: 0.98;
+    }
+
+    .faq-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: flex-end;
+      padding-bottom: 9px;
+    }
+
+    .faq-control {
+      border: 0;
+      background: transparent;
+      color: var(--blue);
+      font-size: 17px;
+      font-weight: 520;
+    }
+
+    .faq-control:disabled {
+      color: var(--quiet);
+      cursor: default;
+    }
+
+    .faq-list {
+      margin-top: 42px;
+      border-top: 1px solid rgba(0, 0, 0, 0.16);
+    }
+
+    .faq-item {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+    }
+
+    .faq-item summary {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: center;
+      padding: 28px 0;
+      color: var(--ink);
+      font-size: clamp(20px, 2vw, 26px);
+      line-height: 1.16;
+      font-weight: 720;
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary::after {
+      content: "+";
+      width: 28px;
+      color: var(--muted);
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 300;
+      text-align: center;
+      transform-origin: center;
+      transition: transform 180ms ease;
+    }
+
+    .faq-item[open] summary::after {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-width: 760px;
+      margin: -4px 0 30px;
+      color: var(--muted);
+      font-size: clamp(17px, 1.8vw, 21px);
+      line-height: 1.42;
+      font-weight: 520;
+    }
+
     .site-footer {
       padding: 34px clamp(20px, 5vw, 70px) 42px;
       border-top: 1px solid var(--hairline);
@@ -934,6 +1029,15 @@ button.download {
         grid-template-columns: 1fr;
       }
 
+      .faq-head {
+        grid-template-columns: 1fr;
+      }
+
+      .faq-controls {
+        justify-content: flex-start;
+        padding-bottom: 0;
+      }
+
       .caption {
         grid-template-columns: 1fr;
       }
@@ -995,6 +1099,15 @@ button.download {
         left: 22px;
         right: 22px;
         bottom: 14px;
+      }
+
+      .faq {
+        padding-bottom: 88px;
+      }
+
+      .faq-item summary {
+        gap: 18px;
+        padding: 24px 0;
       }
 
       .app-tile {

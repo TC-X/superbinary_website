@@ -10,6 +10,44 @@ const corePrefix = 'I think the cleanest way to explain this is'
 const coreWords = ['to', 'show', 'it', 'where', 'people', 'already', 'write.']
 const mindPrefix = 'Maya, I can send the notes'
 const mindWords = ['after', 'our', 'Friday', 'demo,', 'like', 'usual.']
+const faqItems = [
+  {
+    question: 'Does Superbinary work offline?',
+    answer: 'Yes. The launch version ships with the model included, so suggestions keep working without the internet.',
+  },
+  {
+    question: 'Does my writing leave my Mac?',
+    answer:
+      'No. Superbinary completes your writing locally on your Mac. There is no cloud completion loop, and your private text is not used for training.',
+  },
+  {
+    question: 'Can I test that?',
+    answer: 'Yes. Block outgoing connections with LuLu, Little Snitch, or Radio Silence and keep writing.',
+  },
+  {
+    question: 'Why does it need Mac permissions?',
+    answer:
+      'To show suggestions where you are typing, Superbinary needs permission to work with Mac text fields. Onboarding will explain each permission plainly, with controls to pause or quit the app.',
+  },
+  {
+    question: 'Is my local data protected?',
+    answer:
+      'Private app data is encrypted locally, with keys protected by macOS Keychain and your Mac user account.',
+  },
+  {
+    question: 'How do I accept a suggestion?',
+    answer: 'Tap Tab to accept the next word. Tap again if the thought is still right.',
+  },
+  {
+    question: 'What if a suggestion is not right?',
+    answer: 'Keep typing. The suggestion disappears, and Superbinary follows your new direction.',
+  },
+  {
+    question: 'Is this for teams?',
+    answer:
+      'Superbinary is starting as a personal Mac app. It is not an enterprise admin or compliance platform.',
+  },
+]
 
 type DownloadButtonProps = {
   children: string
@@ -285,6 +323,71 @@ function NativePricing({ onDownload }: { onDownload: () => void }) {
   )
 }
 
+function FAQSection() {
+  const [openItems, setOpenItems] = useState<Set<number>>(() => new Set())
+  const allOpen = openItems.size === faqItems.length
+
+  function toggleItem(index: number) {
+    setOpenItems((current) => {
+      const next = new Set(current)
+
+      if (next.has(index)) {
+        next.delete(index)
+      } else {
+        next.add(index)
+      }
+
+      return next
+    })
+  }
+
+  return (
+    <section className="faq" id="faq" aria-labelledby="faq-title">
+      <div className="faq-inner">
+        <div className="faq-head">
+          <div>
+            <p className="eyebrow">Frequently Asked Questions</p>
+            <h2 id="faq-title">Questions? Answers.</h2>
+          </div>
+          <div className="faq-controls" aria-label="FAQ controls">
+            <button
+              className="faq-control"
+              type="button"
+              onClick={() => setOpenItems(new Set(faqItems.map((_, index) => index)))}
+              disabled={allOpen}
+            >
+              Expand all
+            </button>
+            <button
+              className="faq-control"
+              type="button"
+              onClick={() => setOpenItems(new Set())}
+              disabled={!openItems.size}
+            >
+              Collapse all
+            </button>
+          </div>
+        </div>
+        <div className="faq-list">
+          {faqItems.map((item, index) => (
+            <details className="faq-item" key={item.question} open={openItems.has(index)}>
+              <summary
+                onClick={(event) => {
+                  event.preventDefault()
+                  toggleItem(index)
+                }}
+              >
+                {item.question}
+              </summary>
+              <p className="faq-answer">{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function FinalCta({ onDownload }: { onDownload: () => void }) {
   return (
     <section className="final" aria-labelledby="final-title">
@@ -335,6 +438,7 @@ export function LandingPage() {
         <AppsSection />
         <PrivacySection />
         <NativePricing onDownload={openDownload} />
+        <FAQSection />
         <FinalCta onDownload={openDownload} />
       </main>
       <Footer />
