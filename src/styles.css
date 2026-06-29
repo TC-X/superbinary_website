@@ -43,6 +43,10 @@ button.download {
       --hairline: rgba(0, 0, 0, 0.08);
       --panel: rgba(255, 255, 255, 0.78);
       --blue: #0071e3;
+      --caret-blue: #007aff;
+      --caret-width: clamp(2px, 0.018em, 3px);
+      --caret-height: 0.88em;
+      --caret-descent: 0.08em;
       --accepted: #111111;
       --ghost: #a1a1a6;
       --story-progress: 0;
@@ -226,19 +230,19 @@ button.download {
     .caret::before {
       content: "";
       position: absolute;
-      left: 0;
-      bottom: -0.04em;
-      width: max(2px, 0.035em);
-      height: 0.78em;
+      left: calc(var(--caret-width) * -0.5);
+      bottom: calc(var(--caret-descent) * -1);
+      width: var(--caret-width);
+      height: var(--caret-height);
       border-radius: 0;
-      background: var(--blue);
+      background: var(--caret-blue);
       will-change: opacity;
-      animation: blink 1.08s steps(1, end) infinite;
+      animation: blink 1.06s steps(1, end) infinite;
     }
 
     @keyframes blink {
-      0%, 68% { opacity: 1; }
-      69%, 100% { opacity: 0.32; }
+      0%, 54% { opacity: 1; }
+      55%, 100% { opacity: 0; }
     }
 
     .highlights {
