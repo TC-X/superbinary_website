@@ -31,8 +31,7 @@ const faqItems = [
   },
   {
     question: 'Is my local data protected?',
-    answer:
-      'Private app data is encrypted locally, with keys protected by macOS Keychain and your Mac user account.',
+    answer: 'Private app data is encrypted locally, with keys protected by macOS Keychain and your Mac user account.',
   },
   {
     question: 'How do I accept a suggestion?',
@@ -44,8 +43,7 @@ const faqItems = [
   },
   {
     question: 'Is this for teams?',
-    answer:
-      'Superbinary is starting as a personal Mac app. It is not an enterprise admin or compliance platform.',
+    answer: 'Superbinary is starting as a personal Mac app. It is not an enterprise admin or compliance platform.',
   },
 ]
 
@@ -353,10 +351,9 @@ function FAQSection() {
     <section className="faq" id="faq" aria-labelledby="faq-title">
       <div className="faq-inner">
         <div className="faq-title-block">
-          <h2 id="faq-title">Frequently Asked Questions</h2>
+          <h2 id="faq-title">Questions? Answer.</h2>
         </div>
         <div className="faq-group-head">
-          <h3>Superbinary</h3>
           <button className="faq-control" type="button" onClick={toggleAll} aria-expanded={allOpen}>
             {allOpen ? 'Collapse all' : 'Expand all'}
           </button>
