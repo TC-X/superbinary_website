@@ -28,13 +28,33 @@ function parseEmail(body: DownloadRequest) {
   return typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
 }
 
+function normalizeUrl(value: string | undefined) {
+  if (!value) return "";
+
+  try {
+    return new URL(value).toString();
+  } catch {
+    return "";
+  }
+}
+
+function escapeHtml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
 function buildEmailHtml(downloadUrl: string) {
+  const safeUrl = escapeHtml(downloadUrl);
+
   return `
     <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.5;color:#1d1d1f">
       <h1 style="font-size:28px;line-height:1.1;margin:0 0 16px">Your Superbinary download link</h1>
       <p style="margin:0 0 18px">Thanks for trying Superbinary. Download the Mac app here:</p>
       <p style="margin:0 0 22px">
-        <a href="${downloadUrl}" style="display:inline-block;border-radius:999px;background:#0071e3;color:#fff;padding:12px 18px;text-decoration:none;font-weight:650">Download for Mac</a>
+        <a href="${safeUrl}" style="display:inline-block;border-radius:999px;background:#0071e3;color:#fff;padding:12px 18px;text-decoration:none;font-weight:650">Download for Mac</a>
       </p>
       <p style="margin:0;color:#6e6e73;font-size:14px">14-day free trial. No credit card required.</p>
     </div>
@@ -56,7 +76,9 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return json({ error: "Enter a valid email address." }, { status: 400 });
   }
 
-  if (!env.RESEND_API_KEY || !env.DOWNLOAD_FROM_EMAIL || !env.DOWNLOAD_LINK_URL) {
+  const downloadUrl = normalizeUrl(env.DOWNLOAD_LINK_URL);
+
+  if (!env.RESEND_API_KEY || !env.DOWNLOAD_FROM_EMAIL || !downloadUrl) {
     return json({ error: "Email delivery is not configured yet." }, { status: 500 });
   }
 
@@ -72,8 +94,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       to: [email],
       reply_to: env.DOWNLOAD_REPLY_TO,
       subject: "Your Superbinary download link",
-      html: buildEmailHtml(env.DOWNLOAD_LINK_URL),
-      text: `Download Superbinary for Mac: ${env.DOWNLOAD_LINK_URL}\n\n14-day free trial. No credit card required.`,
+      html: buildEmailHtml(downloadUrl),
+      text: `Download Superbinary for Mac: ${downloadUrl}\n\n14-day free trial. No credit card required.`,
     }),
   });
 
