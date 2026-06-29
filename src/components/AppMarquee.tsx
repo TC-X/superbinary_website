@@ -11,7 +11,7 @@ function AppTile({ name }: { name: string }) {
 
 export function AppMarquee() {
   return (
-    <div aria-hidden="true" className="app-marquees">
+    <>
       <div className="app-marquee">
         {[...firstRow, ...firstRow].map((name, index) => (
           <AppTile key={`${name}-${index}`} name={name} />
@@ -22,6 +22,6 @@ export function AppMarquee() {
           <AppTile key={`${name}-${index}`} name={name} />
         ))}
       </div>
-    </div>
+    </>
   );
 }
