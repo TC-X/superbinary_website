@@ -74,7 +74,8 @@ const writingSurfaceClass =
 const sectionHeadClass = 'mx-auto mb-8.5 w-[min(61.25rem,100%)] text-center'
 const sectionHeadCopyClass =
   'mx-auto mt-5 max-w-170 text-[clamp(1.125rem,2vw,1.5rem)] leading-[1.3] font-[520] text-muted'
-const panelCardClass = 'rounded-[1.875rem] border border-hairline bg-white/[0.78] shadow-panel max-[38.75rem]:rounded-3xl'
+const panelCardClass =
+  'rounded-[1.875rem] border border-hairline bg-white/[0.78] shadow-panel max-[38.75rem]:rounded-3xl'
 
 function DownloadButton({ children, onClick, className = '' }: DownloadButtonProps) {
   return (
@@ -192,16 +193,13 @@ function Highlights() {
           writing.
         </p>
       </div>
-      <div className="mx-auto grid w-[min(73.75rem,100%)] grid-cols-3 gap-3.5 max-[56.25rem]:grid-cols-1 max-[38.75rem]:gap-2.5">
+      <div className="mx-auto grid w-[min(73.75rem,100%)] grid-cols-3 gap-3.5 max-lg:grid-cols-1 max-[38.75rem]:gap-2.5">
         {cards.map((card) => (
           <article
             className="flex min-h-59 flex-col justify-between rounded-[1.375rem] border border-hairline bg-white/[0.78] p-6 shadow-[0_1.25rem_4.375rem_rgba(0,0,0,0.045)] max-[38.75rem]:min-h-44.5"
             key={card.title}
           >
-            <div
-              className="grid min-h-29 content-center gap-3 overflow-hidden rounded-[1.125rem] border border-black/[0.07] bg-white/[0.76] p-4.5 text-[#1d1d1f]"
-              aria-hidden="true"
-            >
+            <div className="py-4 min-h-29 gap-3 overflow-hidden text-[#1d1d1f]" aria-hidden="true">
               {card.demo}
             </div>
             <div>
@@ -297,7 +295,10 @@ function PrivacySection() {
       <div className={stickyFrameClass}>
         <div className="grid w-[min(66.25rem,100%)] grid-cols-[0.82fr_1.18fr] items-stretch gap-4.5 max-[56.25rem]:grid-cols-1">
           <div className={cx(panelCardClass, 'grid min-h-107.5 content-center p-8.5')}>
-            <div className="mb-6.5 h-[clamp(3.375rem,7vw,5.125rem)] w-[clamp(3.375rem,7vw,5.125rem)] text-ink" aria-hidden="true">
+            <div
+              className="mb-6.5 h-[clamp(3.375rem,7vw,5.125rem)] w-[clamp(3.375rem,7vw,5.125rem)] text-ink"
+              aria-hidden="true"
+            >
               <svg className="block h-full w-full" viewBox="0 0 72 72" role="img">
                 <path
                   d="M22 32v-7.5C22 16.2 28.3 10 36 10s14 6.2 14 14.5V32h-7v-7.5c0-4.4-3.1-7.5-7-7.5s-7 3.1-7 7.5V32h-7Z"
