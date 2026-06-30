@@ -105,7 +105,7 @@ one sentence and one tiny product motion.
 - The next words, right where you type: ghost text appears at cursor.
 - Tab through your thought: three words turn from grey to black.
 - Works across your Mac: app surfaces pass behind one pinned writing field.
-- MindSignal understands the moment: subtle context lines fade in around the
+- Spatial Awareness understands the moment: subtle context lines fade in around the
   active sentence.
 - Offline by design: network line fades out, suggestion continues.
 - Protected by your Mac: local data tile locks with a Keychain label.
@@ -114,7 +114,7 @@ one sentence and one tiny product motion.
 
 Each highlight gets one motion only.
 
-## Concept 4: MindSignal, Quietly
+## Concept 4: Spatial Awareness, Quietly
 
 ### Idea
 
@@ -136,7 +136,7 @@ Context that stays with you.
 ```
 
 ```
-MindSignal helps Superbinary understand the context around your cursor, so the
+Spatial Awareness helps Superbinary understand the context around your cursor, so the
 next words can feel like they came from the thought you were already holding.
 ```
 
@@ -230,7 +230,7 @@ Use only four major scroll moments:
 
 1. Hero: animated typing demo.
 2. Ghost To Thought: scroll accepts ghost words from grey to black.
-3. MindSignal: context quietly informs the next words.
+3. Spatial Awareness: context quietly informs the next words.
 4. Privacy Scroll Lock: offline, firewall-testable, Keychain protected.
 
 The app-logo marquee can run quietly between sections, but it should not become a

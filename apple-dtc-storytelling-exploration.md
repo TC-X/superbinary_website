@@ -60,19 +60,19 @@ Superbinary highlights:
 ### 4. Named Technology, Used Sparingly
 
 Apple names important systems, but the name supports the story rather than
-replacing it. MindSignal can do that for Superbinary if it stays tied to an
+replacing it. Spatial Awareness can do that for Superbinary if it stays tied to an
 observable benefit.
 
 Good:
 
 ```
-MindSignal helps Superbinary understand the context around your cursor.
+Spatial Awareness helps Superbinary understand the context around your cursor.
 ```
 
 Too vague:
 
 ```
-Powered by MindSignal intelligence.
+Powered by Spatial Awareness intelligence.
 ```
 
 ### 5. Tactile Interaction As Story
@@ -238,7 +238,7 @@ Users skeptical of AI tools and gimmicks.
 
 May feel less emotionally distinctive.
 
-## Direction E: MindSignal
+## Direction E: Spatial Awareness
 
 ### Core Idea
 
@@ -249,14 +249,14 @@ helps the app feel uncannily relevant.
 
 ```
 Superbinary
-Autocomplete your thoughts with MindSignal.
+Autocomplete your thoughts with Spatial Awareness.
 
 Private context-aware suggestions, right where you type.
 ```
 
 ### Section Beats
 
-1. MindSignal follows the context around your cursor.
+1. Spatial Awareness follows the context around your cursor.
 2. Superbinary suggests the next few words.
 3. You accept only what fits.
 4. It works across apps.
@@ -268,7 +268,7 @@ A more Apple-like named-technology story.
 
 ### Risk
 
-MindSignal may compete with Superbinary in the hero. Better used as a mid-page
+Spatial Awareness may compete with Superbinary in the hero. Better used as a mid-page
 chapter unless the name tests very well.
 
 ## Recommended Apple-Like Page Arc
@@ -305,7 +305,7 @@ Accept one word at a time. Keep what fits. Keep typing when it does not.
 
 Write in messages, notes, docs, email, browser fields, and project tools.
 
-### MindSignal understands the moment.
+### Spatial Awareness understands the moment.
 
 Private context awareness helps suggestions feel tuned to what you are already
 trying to say.
@@ -336,7 +336,7 @@ follows your lead.
 
 Visual: one cinematic typing sequence, paced slowly enough to understand.
 
-## 4. MindSignal
+## 4. Spatial Awareness
 
 Headline:
 
@@ -347,7 +347,7 @@ Context that stays with you.
 Copy:
 
 ```
-MindSignal helps Superbinary understand the context around your cursor, so the
+Spatial Awareness helps Superbinary understand the context around your cursor, so the
 next words can feel like they came from the thought you were already holding.
 ```
 

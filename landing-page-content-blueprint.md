@@ -204,7 +204,7 @@ Do not imply official integrations or partnerships. This section should say the
 app works across normal editable Mac fields, not that those companies endorse or
 integrate with Superbinary.
 
-## Section 5: MindSignal
+## Section 5: Spatial Awareness
 
 ### Intent
 
@@ -213,7 +213,7 @@ the product feel gimmicky.
 
 ### Feature Name
 
-MindSignal
+Spatial Awareness
 
 ### Headline
 
@@ -221,7 +221,7 @@ Context, without the cloud.
 
 ### Copy
 
-MindSignal helps Superbinary understand the context around your cursor, so
+Spatial Awareness helps Superbinary understand the context around your cursor, so
 suggestions feel less like autocomplete and more like the thought you were
 already reaching for.
 
@@ -444,5 +444,5 @@ Download for Mac
 - Whether to say Apple Silicon only or Apple Silicon recommended.
 - Whether to mention Cotypist and Typeahead in comparison copy or keep
   competitors out of the page.
-- Whether MindSignal appears on the main page or only in deeper product copy.
+- Whether Spatial Awareness appears on the main page or only in deeper product copy.
 - Whether the first launch has a permission/privacy walkthrough.

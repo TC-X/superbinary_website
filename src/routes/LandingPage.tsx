@@ -211,7 +211,7 @@ function Highlights() {
   )
 }
 
-function MindSignalStory() {
+function SpatialAwarenessStory() {
   const ref = useRef<HTMLElement | null>(null)
   const progress = useScrollProgress(ref)
   const sectionStyle = { '--mind-progress': progress.toFixed(4) } as CSSProperties
@@ -219,10 +219,10 @@ function MindSignalStory() {
     'absolute max-w-[14.375rem] translate-y-[calc((1-var(--mind-progress))*1.125rem)] rounded-[1.125rem] border border-hairline bg-panel px-3.75 py-3.25 text-sm leading-[1.28] font-[620] text-muted opacity-[clamp(0.12,var(--mind-progress),0.72)] shadow-panel transition-[opacity,transform] duration-[240ms] max-[56.25rem]:relative max-[56.25rem]:inset-auto max-[56.25rem]:max-w-none motion-reduce:translate-y-0 motion-reduce:opacity-100'
 
   return (
-    <section className={storySectionClass} id="mindsignal" ref={ref} style={sectionStyle} aria-labelledby="mind-title">
+    <section className={storySectionClass} id="spatial-awareness" ref={ref} style={sectionStyle} aria-labelledby="mind-title">
       <div className={stickyFrameClass}>
         <div className={stageClass}>
-          <p className={storyLabelClass}>MindSignal</p>
+          <p className={storyLabelClass}>Spatial Awareness</p>
           <div className="relative grid min-h-[clamp(29.375rem,56vw,40.625rem)] place-items-center max-[56.25rem]:grid-cols-1 max-[56.25rem]:items-stretch max-[56.25rem]:gap-2.5">
             <div className={cx(chipClass, 'top-[8%] left-[4%]')}>Sarah</div>
             <div className={cx(chipClass, 'top-[18%] right-[4%] delay-[40ms]')}>Tuesday 10:00 AM</div>
@@ -244,7 +244,7 @@ function MindSignalStory() {
               Context that stays with the thought.
             </h2>
             <p className="m-0 max-w-[25.625rem] text-right text-[clamp(1rem,1.7vw,1.25rem)] leading-[1.35] font-[530] text-muted max-[56.25rem]:text-left">
-              MindSignal gives Superbinary just enough of the moment around your cursor to keep the next words close to
+              Spatial Awareness gives Superbinary just enough of the moment around your cursor to keep the next words close to
               the thought you already had. Completion still happens on your Mac.
             </p>
           </div>
@@ -393,7 +393,7 @@ function NativePricing({ onDownload }: { onDownload: () => void }) {
             </span>
           </div>
           <div className="flex justify-between gap-4 px-2 py-2.5 text-[0.9375rem] font-[620] text-control-ink">
-            <span>MindSignal</span>
+            <span>Spatial Awareness</span>
             <span className="h-5.5 w-9.5 rounded-full bg-caret-blue shadow-[inset_0_0_0_0.0625rem_rgba(0,0,0,0.05)]">
               <span className="ml-auto block h-4.5 w-4.5 rounded-full bg-white shadow-[0_0.0625rem_0.125rem_rgba(0,0,0,0.18)] [margin:0.125rem_0.125rem_0.125rem_auto]" />
             </span>
@@ -561,7 +561,7 @@ export function LandingPage() {
         <Hero onDownload={openDownload} />
         <CoreInteractionStory />
         <Highlights />
-        <MindSignalStory />
+        <SpatialAwarenessStory />
         <AppsSection />
         <PrivacySection />
         <NativePricing onDownload={openDownload} />
