@@ -1,4 +1,5 @@
 import { CSSProperties, ReactNode, useRef, useState } from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 import { DownloadModal } from '../components/DownloadModal'
 import { InlineSuggestionDemo, MidSentenceDemo, PrivateOnMacDemo, SpellCorrectionDemo } from '../components/FeatureDemos'
@@ -115,31 +116,17 @@ function Header({ onDownload }: { onDownload: () => void }) {
 
 function Hero({ onDownload }: { onDownload: () => void }) {
   return (
-    <section
-      className="relative grid min-h-screen overflow-hidden px-6 pt-20 pb-10 text-center"
-      id="top"
-      aria-labelledby="hero-title"
-    >
-      <div className="mx-auto grid min-h-[calc(100vh-7.5rem)] w-[min(73.75rem,100%)] content-end">
-        <div className="relative mx-auto mb-9 grid min-h-[clamp(24rem,44vw,34.5rem)] w-full place-items-center overflow-hidden rounded-[2.25rem] border border-hairline bg-elevated shadow-panel max-[38.75rem]:rounded-3xl">
-          <WindowDots />
-          <div className="absolute inset-x-0 top-0 h-28 bg-[linear-gradient(180deg,rgba(0,113,227,0.08),rgba(0,113,227,0))] dark:bg-[linear-gradient(180deg,rgba(41,151,255,0.13),rgba(41,151,255,0))]" />
-          <div className="relative z-[1] w-full px-[clamp(1.25rem,5vw,4.5rem)]">
-            <p className={eyebrowClass}>Superbinary</p>
-            <h1 className={cx(h1Class, 'max-[38.75rem]:text-[2.875rem]')} id="hero-title">
-              <SuggestionText accepted="Autocomplete your" ghost=" thoughts." />
-            </h1>
-            <p className={cx(leadClass, 'max-[38.75rem]:text-[1.25rem]')}>
-              Private autocomplete for the places you write on your Mac.
-            </p>
-          </div>
-        </div>
-        <div className="mx-auto flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
-          <DownloadButton className="min-h-11.5 px-6 text-[1.0625rem]" onClick={onDownload}>
-            Download for Mac
-          </DownloadButton>
-          <p className="m-0 text-[0.9375rem] font-[550] text-muted">14 days free. No credit card required.</p>
-        </div>
+    <section className={fullScreenSectionClass} id="top" aria-labelledby="hero-title">
+      <div className="w-[min(66rem,100%)]">
+        <p className={eyebrowClass}>Superbinary</p>
+        <h1 className={cx(h1Class, 'max-[38.75rem]:text-[3.25rem]')} id="hero-title">
+          <SuggestionText accepted="Autocomplete your" ghost=" thoughts." />
+        </h1>
+        <p className={leadClass}>Private autocomplete for the places you write on your Mac.</p>
+        <DownloadButton className="mt-8.5 min-h-11.5 px-6 text-[1.0625rem]" onClick={onDownload}>
+          Download for Mac
+        </DownloadButton>
+        <p className={trialClass}>14 days free. No credit card required.</p>
       </div>
     </section>
   )
@@ -180,6 +167,7 @@ function CoreInteractionStory() {
 }
 
 function Highlights() {
+  const sliderRef = useRef<HTMLDivElement | null>(null)
   const cards = [
     {
       title: 'Inline Suggestion.',
@@ -202,6 +190,17 @@ function Highlights() {
       demo: <PrivateOnMacDemo />,
     },
   ]
+  const moveSlider = (direction: -1 | 1) => {
+    const slider = sliderRef.current
+    const firstCard = slider?.querySelector<HTMLElement>('[data-highlight-card]')
+
+    if (!slider) return
+
+    slider.scrollBy({
+      left: direction * ((firstCard?.offsetWidth ?? slider.clientWidth * 0.78) + 16),
+      behavior: 'smooth',
+    })
+  }
 
   return (
     <section
@@ -219,15 +218,39 @@ function Highlights() {
             The whole idea in a few keystrokes.
           </h2>
         </div>
-        <p className="m-0 max-w-100 text-right text-[clamp(1.0625rem,1.6vw,1.3125rem)] leading-[1.3] font-[520] text-muted max-[56.25rem]:mx-auto max-[56.25rem]:text-center">
-          See the next words. Accept what feels right. Keep writing when the thought changes.
-        </p>
+        <div className="grid justify-items-end gap-5 max-[56.25rem]:justify-items-center">
+          <p className="m-0 max-w-100 text-right text-[clamp(1.0625rem,1.6vw,1.3125rem)] leading-[1.3] font-[520] text-muted max-[56.25rem]:mx-auto max-[56.25rem]:text-center">
+            See the next words. Accept what feels right. Keep writing when the thought changes.
+          </p>
+          <div className="flex gap-2" aria-label="Highlight carousel controls">
+            <button
+              aria-label="Previous highlight"
+              className="grid h-9.5 w-9.5 place-items-center rounded-full border-0 bg-control text-control-ink transition-colors hover:bg-quiet/20"
+              type="button"
+              onClick={() => moveSlider(-1)}
+            >
+              <ChevronLeft size={20} strokeWidth={2.4} />
+            </button>
+            <button
+              aria-label="Next highlight"
+              className="grid h-9.5 w-9.5 place-items-center rounded-full border-0 bg-control text-control-ink transition-colors hover:bg-quiet/20"
+              type="button"
+              onClick={() => moveSlider(1)}
+            >
+              <ChevronRight size={20} strokeWidth={2.4} />
+            </button>
+          </div>
+        </div>
       </div>
-      <div className="-mx-[clamp(1.25rem,5vw,4.375rem)] overflow-x-auto px-[clamp(1.25rem,5vw,4.375rem)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        <div className="flex w-max gap-4 pr-[clamp(1.25rem,5vw,4.375rem)]">
+      <div className="mx-auto w-[min(73.75rem,100%)]">
+        <div
+          className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          ref={sliderRef}
+        >
           {cards.map((card) => (
             <article
-              className="flex h-[32rem] w-[min(25.75rem,78vw)] flex-col justify-between rounded-[1.875rem] border border-hairline bg-panel p-7 shadow-panel max-[38.75rem]:h-[29rem] max-[38.75rem]:p-6"
+              className="flex h-[32rem] w-[min(25.75rem,78vw)] shrink-0 snap-start flex-col justify-between rounded-[1.875rem] border border-hairline bg-panel p-7 shadow-panel max-[38.75rem]:h-[29rem] max-[38.75rem]:p-6"
+              data-highlight-card
               key={card.title}
             >
               <div
@@ -398,7 +421,7 @@ function PrivacySection() {
 
   return (
     <section
-      className="overflow-hidden px-[clamp(1.25rem,5vw,4.375rem)] py-30 [scroll-margin-top:4.5rem]"
+      className="mt-24 overflow-hidden px-[clamp(1.25rem,5vw,4.375rem)] pt-36 pb-30 [scroll-margin-top:4.5rem]"
       id="privacy"
       ref={ref}
       aria-labelledby="privacy-title"
@@ -461,28 +484,55 @@ function NativePricing({ onDownload }: { onDownload: () => void }) {
     >
       <div className={sectionHeadClass}>
         <p className={eyebrowClass}>Built for Mac.</p>
-        <h2 className={h2Class}>Quiet enough to leave on.</h2>
+        <h2 className={h2Class}>Feels native from the first keystroke.</h2>
         <p className={sectionHeadCopyClass}>
-          A menu bar app, native controls, and suggestions that disappear the moment you do not need them.
+          A menu bar app with keyboard-first acceptance, system controls, and no workspace to manage.
         </p>
       </div>
-      <div className="mx-auto w-[min(47.5rem,100%)] rounded-[1.875rem] border border-hairline bg-panel p-4.5 shadow-panel">
-        <div
-          className="w-full rounded-[1.375rem] border border-hairline bg-elevated p-3.75"
-          aria-hidden="true"
-        >
-          <div className="flex justify-between gap-4 px-2 py-2.5 text-[0.9375rem] font-[620] text-control-ink">
-            <strong>Superbinary</strong>
-            <span className="h-5.5 w-9.5 rounded-full bg-caret-blue shadow-[inset_0_0_0_0.0625rem_rgba(0,0,0,0.05)]">
-              <span className="ml-auto block h-4.5 w-4.5 rounded-full bg-white shadow-[0_0.0625rem_0.125rem_rgba(0,0,0,0.18)] [margin:0.125rem_0.125rem_0.125rem_auto]" />
-            </span>
+      <div className="mx-auto w-[min(73.75rem,100%)] overflow-hidden rounded-[2.25rem] border border-hairline bg-elevated shadow-panel">
+        <div className="flex h-10 items-center justify-between border-b border-hairline bg-panel px-4 text-[0.8125rem] font-[650] text-muted">
+          <span>Superbinary</span>
+          <span className="rounded-full bg-sb-blue/10 px-2.5 py-1 text-sb-blue">Active</span>
+        </div>
+        <div className="grid min-h-[clamp(28rem,45vw,36rem)] grid-cols-[minmax(0,1fr)_minmax(18rem,0.45fr)] gap-6 p-[clamp(1.25rem,4vw,3rem)] max-[56.25rem]:grid-cols-1">
+          <div className="grid content-center rounded-[1.75rem] bg-bg/[0.72] p-[clamp(1.5rem,5vw,4rem)]">
+            <p className="m-0 text-[clamp(2rem,5.8vw,5rem)] leading-[1.08] font-[750] tracking-[0] text-ink">
+              <SuggestionText accepted="Turn these notes into" ghost=" a short launch update." />
+            </p>
           </div>
-          <div className="flex justify-between gap-4 px-2 py-2.5 text-[0.9375rem] font-[620] text-control-ink">
-            <span>Spatial Awareness</span>
-            <span className="h-5.5 w-9.5 rounded-full bg-caret-blue shadow-[inset_0_0_0_0.0625rem_rgba(0,0,0,0.05)]">
-              <span className="ml-auto block h-4.5 w-4.5 rounded-full bg-white shadow-[0_0.0625rem_0.125rem_rgba(0,0,0,0.18)] [margin:0.125rem_0.125rem_0.125rem_auto]" />
-            </span>
+          <div className="grid content-between rounded-[1.75rem] bg-panel p-5">
+            <div>
+              <p className="m-0 text-[1.0625rem] font-[750] text-ink">Menu bar controls</p>
+              <p className="m-0 mt-2 text-sm leading-[1.38] font-[520] text-muted">
+                Pause, resume, and tune Superbinary without opening a workspace.
+              </p>
+            </div>
+            <div className="mt-8 grid gap-3">
+              {['Superbinary', 'Spatial Awareness'].map((item) => (
+                <div className="flex items-center justify-between gap-4 text-[0.9375rem] font-[620] text-control-ink" key={item}>
+                  <span>{item}</span>
+                  <span className="h-5.5 w-9.5 rounded-full bg-caret-blue shadow-[inset_0_0_0_0.0625rem_rgba(0,0,0,0.05)]">
+                    <span className="ml-auto block h-4.5 w-4.5 rounded-full bg-white shadow-[0_0.0625rem_0.125rem_rgba(0,0,0,0.18)] [margin:0.125rem_0.125rem_0.125rem_auto]" />
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div className="mt-8 rounded-[1.125rem] bg-bg px-4 py-3 text-[0.875rem] leading-[1.35] font-[620] text-muted">
+              Tab accepts the next word. Typing keeps you in control.
+            </div>
           </div>
+        </div>
+        <div className="grid grid-cols-3 border-t border-hairline bg-panel/[0.64] max-[56.25rem]:grid-cols-1">
+          {[
+            ['Menu bar quiet.', 'Present when you need it. Out of the way when you do not.'],
+            ['Keyboard first.', 'Accept a word without leaving the sentence.'],
+            ['Native controls.', 'Simple settings that behave like they belong on macOS.'],
+          ].map(([title, body]) => (
+            <div className="border-r border-hairline p-5 last:border-r-0 max-[56.25rem]:border-r-0 max-[56.25rem]:border-b max-[56.25rem]:last:border-b-0" key={title}>
+              <h3 className="m-0 text-[1.125rem] font-[750] text-ink">{title}</h3>
+              <p className="m-0 mt-1.5 text-sm leading-[1.4] font-[520] text-muted">{body}</p>
+            </div>
+          ))}
         </div>
       </div>
       <div className="mx-auto mt-8 grid w-[min(61.25rem,100%)] grid-cols-[1fr_auto] items-center gap-5 rounded-[1.875rem] border border-hairline bg-elevated px-[clamp(1.5rem,4vw,2.75rem)] py-6 shadow-panel max-[56.25rem]:grid-cols-1 max-[56.25rem]:text-center">
