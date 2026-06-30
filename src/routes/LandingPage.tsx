@@ -1,8 +1,8 @@
-import { CSSProperties, useRef, useState } from 'react'
+import { CSSProperties, ReactNode, useRef, useState } from 'react'
 
 import { AppMarquee } from '../components/AppMarquee'
 import { DownloadModal } from '../components/DownloadModal'
-import { InlineSuggestionDemo, MidSentenceDemo, SpellCorrectionDemo } from '../components/FeatureDemos'
+import { InlineSuggestionDemo, MidSentenceDemo, PrivateOnMacDemo, SpellCorrectionDemo } from '../components/FeatureDemos'
 import { ScrollSuggestionText, SuggestionText } from '../components/SuggestionText'
 import { cx } from '../lib/classes'
 import { useScrollProgress } from '../lib/useScrollProgress'
@@ -110,15 +110,15 @@ function Hero({ onDownload }: { onDownload: () => void }) {
   return (
     <section className={fullScreenSectionClass} id="top" aria-labelledby="hero-title">
       <div className="w-[min(60.625rem,100%)]">
-        <p className={eyebrowClass}>On-device</p>
+        <p className={eyebrowClass}>Superbinary</p>
         <h1 className={h1Class} id="hero-title">
           <SuggestionText accepted="Autocomplete your" ghost=" thoughts." />
         </h1>
         <p className={leadClass}>
-          A private Mac autocomplete layer for messages, notes, docs, email, and the places you write every day.
+          A private Mac autocomplete layer for messages, notes, docs, email, and everywhere your writing begins.
         </p>
         <DownloadButton className="mt-8.5 min-h-11.5 px-6 text-[1.0625rem]" onClick={onDownload}>
-          Download for Apple Silicon
+          Download for Mac
         </DownloadButton>
         <p className={trialClass}>14-day free trial. No credit card required.</p>
       </div>
@@ -134,7 +134,7 @@ function CoreInteractionStory() {
     <section className={storySectionClass} id="ghost-story" ref={ref} aria-labelledby="ghost-title">
       <div className={stickyFrameClass}>
         <div className={stageClass}>
-          <p className={storyLabelClass}>The writing moment.</p>
+          <p className={storyLabelClass}>The core interaction.</p>
           <div className={writingSurfaceClass}>
             <WindowDots />
             <p className="m-0 w-full text-[clamp(2.125rem,6vw,4.75rem)] leading-[1.08] font-bold tracking-[0] text-balance">
@@ -148,10 +148,10 @@ function CoreInteractionStory() {
           </div>
           <div className="mt-6 grid grid-cols-[1fr_auto] items-end gap-5 text-copy max-[56.25rem]:grid-cols-1">
             <h2 className={h2Class} id="ghost-title">
-              Let the sentence catch up to your thought.
+              Tap. The thought keeps going.
             </h2>
             <p className="m-0 max-w-[25.625rem] text-right text-[clamp(1rem,1.7vw,1.25rem)] leading-[1.35] font-[530] text-muted max-[56.25rem]:text-left">
-              A few words appear at the cursor. Tap Tab for the next one. Keep typing when your thought changes.
+              Tap Tab when the suggestion sounds like you. Keep typing when it does not.
             </p>
           </div>
         </div>
@@ -164,18 +164,23 @@ function Highlights() {
   const cards = [
     {
       title: 'Inline Suggestion.',
-      body: 'The next words appear right where you are writing, so your eyes stay on the sentence.',
+      body: 'The next words appear in the sentence, exactly where your attention already is.',
       demo: <InlineSuggestionDemo />,
     },
     {
       title: 'Mid-sentence.',
-      body: 'Superbinary can pick up a thought while it is still forming, not only after you pause.',
+      body: 'Superbinary can join a thought while it is still forming, without asking you to stop and prompt.',
       demo: <MidSentenceDemo />,
     },
     {
       title: 'Spell Correction.',
-      body: 'When a word is off, Superbinary can offer the clean version before you leave the sentence.',
+      body: 'When a word is off, the clean version can appear before the sentence loses momentum.',
       demo: <SpellCorrectionDemo />,
+    },
+    {
+      title: 'Private on Mac.',
+      body: 'Suggestions are completed locally, so your writing does not need a cloud round trip.',
+      demo: <PrivateOnMacDemo />,
     },
   ]
 
@@ -184,14 +189,13 @@ function Highlights() {
       <div className={sectionHeadClass}>
         <p className={eyebrowClass}>Get the highlights.</p>
         <h2 className={h2Class} id="highlights-title">
-          A faster way to finish what you meant.
+          The whole idea in a few keystrokes.
         </h2>
         <p className={sectionHeadCopyClass}>
-          Superbinary turns the typing moment into a simple flow: see the suggestion, accept the next word, keep
-          writing.
+          See the next words. Accept what feels right. Keep writing when the thought changes.
         </p>
       </div>
-      <div className="mx-auto grid w-[min(73.75rem,100%)] grid-cols-3 gap-3.5 max-lg:grid-cols-1 max-[38.75rem]:gap-2.5">
+      <div className="mx-auto grid w-[min(80rem,100%)] grid-cols-4 gap-3.5 max-xl:grid-cols-2 max-lg:grid-cols-1 max-[38.75rem]:gap-2.5">
         {cards.map((card) => (
           <article
             className="flex min-h-59 flex-col justify-between rounded-[1.375rem] border border-hairline bg-panel p-6 shadow-panel max-[38.75rem]:min-h-44.5"
@@ -241,16 +245,44 @@ function SpatialAwarenessStory() {
           </div>
           <div className="mt-6 grid grid-cols-[1fr_auto] items-end gap-5 text-copy max-[56.25rem]:grid-cols-1">
             <h2 className={h2Class} id="mind-title">
-              Context that stays with the thought.
+              Close to what you mean.
             </h2>
             <p className="m-0 max-w-[25.625rem] text-right text-[clamp(1rem,1.7vw,1.25rem)] leading-[1.35] font-[530] text-muted max-[56.25rem]:text-left">
-              Spatial Awareness gives Superbinary just enough of the moment around your cursor to keep the next words close to
-              the thought you already had. Completion still happens on your Mac.
+              Spatial Awareness helps Superbinary use the moment around your cursor, then completes the thought locally on
+              your Mac.
             </p>
           </div>
         </div>
       </div>
     </section>
+  )
+}
+
+type DesktopWindowProps = {
+  app: string
+  icon: string
+  className: string
+  children: ReactNode
+}
+
+function DesktopWindow({ app, icon, className, children }: DesktopWindowProps) {
+  return (
+    <article
+      className={cx(
+        'absolute rounded-[1.375rem] border border-hairline bg-elevated shadow-panel backdrop-blur-[1.25rem] max-[56.25rem]:relative max-[56.25rem]:inset-auto max-[56.25rem]:w-full',
+        className,
+      )}
+    >
+      <div className="flex h-11 items-center gap-2.5 border-b border-hairline px-4 text-[0.8125rem] font-[650] text-muted">
+        <img
+          alt=""
+          className="h-4.5 w-4.5 object-contain opacity-[0.56] grayscale saturate-0 contrast-95 dark:invert"
+          src={`/assets/app-logos/${icon}.png`}
+        />
+        <span>{app}</span>
+      </div>
+      <div className="p-4.5">{children}</div>
+    </article>
   )
 }
 
@@ -260,13 +292,40 @@ function AppsSection() {
       <div className={sectionHeadClass}>
         <p className={eyebrowClass}>Across your Mac.</p>
         <h2 className={h2Class} id="apps-title">
-          Write where you already work.
+          Wherever the thought starts, Superbinary is there.
         </h2>
         <p className={sectionHeadCopyClass}>
-          Messages, notes, docs, email, browser fields, and project tools. One autocomplete behavior across your Mac.
+          Messages, notes, docs, email, browser fields, and project tools all get the same quiet writing reflex.
         </p>
       </div>
-      <AppMarquee />
+      <div className="relative mx-auto mt-14 min-h-[clamp(34rem,58vw,45rem)] w-[min(73.75rem,100%)] px-6 max-[56.25rem]:grid max-[56.25rem]:min-h-0 max-[56.25rem]:gap-3">
+        <div
+          className="absolute inset-x-0 top-1/2 -z-[1] -translate-y-1/2 opacity-[0.36] [mask-image:linear-gradient(90deg,transparent,black_20%,black_80%,transparent)] max-[56.25rem]:hidden"
+          aria-hidden="true"
+        >
+          <AppMarquee />
+        </div>
+        <DesktopWindow app="Messages" icon="messages" className="top-[4%] left-[3%] z-[2] w-[28rem]">
+          <p className="m-0 text-[1.125rem] leading-[1.35] font-[620] text-ink">
+            <SuggestionText accepted="Running ten late. Can you save me" ghost=" a seat near the front?" />
+          </p>
+        </DesktopWindow>
+        <DesktopWindow app="Notes" icon="notes" className="top-[19%] right-[4%] z-[3] w-[32rem]">
+          <p className="m-0 text-[1.5rem] leading-[1.22] font-[720] text-ink">
+            <SuggestionText accepted="Launch checklist:" ghost=" demo, pricing, download email, final copy." />
+          </p>
+        </DesktopWindow>
+        <DesktopWindow app="Mail" icon="mail" className="bottom-[12%] left-[13%] z-[4] w-[34rem]">
+          <p className="m-0 text-[1.375rem] leading-[1.24] font-[700] text-ink">
+            <SuggestionText accepted="Thanks Sarah. I’ll send the concise version" ghost=" before our Tuesday review." />
+          </p>
+        </DesktopWindow>
+        <DesktopWindow app="Docs" icon="docs" className="right-[11%] bottom-[3%] z-[1] w-[25rem] opacity-[0.86]">
+          <p className="m-0 text-[1.0625rem] leading-[1.38] font-[620] text-ink">
+            <SuggestionText accepted="The main idea is simple:" ghost=" less typing, more thinking." />
+          </p>
+        </DesktopWindow>
+      </div>
       <p className="mx-auto mt-9 max-w-155 px-6 text-center text-[0.9375rem] leading-[1.4] font-[520] text-muted">
         App names are illustrative of normal writing surfaces, not partnerships or official integrations.
       </p>
@@ -277,19 +336,19 @@ function AppsSection() {
 function PrivacySection() {
   const ref = useRef<HTMLElement | null>(null)
   const progress = useScrollProgress(ref)
-  const activeCount = Math.min(3, Math.max(0, Math.floor(progress * 3.4)))
+  const itemProgress = (index: number) => Math.min(1, Math.max(0, (progress - index * 0.16) / 0.28))
   const proofs = [
     {
-      title: 'Works offline.',
-      body: 'The model ships with the app, so completion keeps working without the internet.',
+      title: 'Model included.',
+      body: 'The launch version ships with the model, so suggestions keep working without the internet.',
     },
     {
-      title: 'Firewall-testable.',
-      body: 'Block outgoing connections with LuLu, Little Snitch, or Radio Silence and keep writing.',
+      title: 'No cloud completion loop.',
+      body: 'Your writing is completed locally and is not used to train a server-side model.',
     },
     {
-      title: 'Keychain protected.',
-      body: 'Private app data is encrypted locally with keys protected by macOS Keychain.',
+      title: 'Locked with macOS security.',
+      body: 'Private app data is encrypted locally with keys protected by Keychain and your Mac account.',
     },
   ]
 
@@ -318,41 +377,45 @@ function PrivacySection() {
               className="m-0 text-[clamp(2.125rem,5vw,4rem)] leading-[0.98] font-[750] tracking-[0] text-ink"
               id="privacy-title"
             >
-              Private by default.
+              Private because it happens on your Mac.
             </h2>
             <p className="mt-5 max-w-[24.375rem] text-lg leading-[1.35] font-[530] text-muted">
-              Completion happens on your Mac. The model ships with the app. Your private text is not used for training.
+              Superbinary is designed so the writing moment does not need to leave the machine in front of you.
             </p>
             <div className="mt-8.5 flex gap-2.5" aria-hidden="true">
-              {['Offline', 'Firewall', 'Keychain'].map((item, index) => (
+              {['Offline', 'Local', 'Keychain'].map((item, index) => {
+                const amount = itemProgress(index)
+
+                return (
                 <div
-                  className={cx(
-                    'min-w-18 rounded-2xl px-3.5 py-3 text-center text-[0.8125rem] font-[760] transition-[opacity,translate] duration-[260ms] motion-reduce:translate-y-0 motion-reduce:opacity-100',
-                    index < activeCount
-                      ? 'translate-y-0 bg-sb-blue/10 text-sb-blue opacity-100'
-                      : 'translate-y-2.5 bg-bg text-muted opacity-40',
-                  )}
+                  className="min-w-18 rounded-2xl bg-sb-blue/10 px-3.5 py-3 text-center text-[0.8125rem] font-[760] text-sb-blue will-change-[opacity,transform] motion-reduce:translate-y-0 motion-reduce:opacity-100"
+                  style={{
+                    opacity: 0.36 + amount * 0.64,
+                    transform: `translateY(${(1 - amount) * 0.625}rem)`,
+                  }}
                   key={item}
                 >
                   {item}
                 </div>
-              ))}
+                )
+              })}
             </div>
           </div>
           <div className={cx(panelCardClass, 'grid gap-3 p-4.5')}>
-            {proofs.map((proof, index) => (
-              <article
-                className={cx(
-                  'grid grid-cols-[auto_1fr] items-start gap-4 rounded-[1.375rem] bg-bg/[0.72] p-5 transition-[opacity,translate] duration-[260ms] motion-reduce:translate-y-0 motion-reduce:opacity-100',
-                  index < activeCount ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-[0.62]',
-                )}
-                key={proof.title}
-              >
+            {proofs.map((proof, index) => {
+              const amount = itemProgress(index)
+
+              return (
+                <article
+                  className="grid grid-cols-[auto_1fr] items-start gap-4 rounded-[1.375rem] bg-bg/[0.72] p-5 will-change-[opacity,transform] motion-reduce:translate-y-0 motion-reduce:opacity-100"
+                  style={{
+                    opacity: 0.58 + amount * 0.42,
+                    transform: `translateY(${(1 - amount) * 0.875}rem)`,
+                  }}
+                  key={proof.title}
+                >
                 <div
-                  className={cx(
-                    'grid h-9.5 w-9.5 place-items-center rounded-[0.8125rem] text-[1.0625rem] font-extrabold',
-                    index < activeCount ? 'bg-sb-blue/10 text-sb-blue' : 'bg-elevated text-ink',
-                  )}
+                  className="grid h-9.5 w-9.5 place-items-center rounded-[0.8125rem] bg-sb-blue/10 text-[1.0625rem] font-extrabold text-sb-blue"
                 >
                   {index + 1}
                 </div>
@@ -361,7 +424,8 @@ function PrivacySection() {
                   <p className="m-0 mt-1.75 text-base leading-[1.36] font-[520] text-muted">{proof.body}</p>
                 </div>
               </article>
-            ))}
+              )
+            })}
           </div>
         </div>
       </div>
@@ -559,10 +623,10 @@ export function LandingPage() {
       <Header onDownload={openDownload} />
       <main>
         <Hero onDownload={openDownload} />
-        <CoreInteractionStory />
         <Highlights />
-        <SpatialAwarenessStory />
+        <CoreInteractionStory />
         <AppsSection />
+        <SpatialAwarenessStory />
         <PrivacySection />
         <NativePricing onDownload={openDownload} />
         <FAQSection />
