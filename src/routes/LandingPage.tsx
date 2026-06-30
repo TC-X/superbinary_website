@@ -1,6 +1,5 @@
 import { CSSProperties, ReactNode, useRef, useState } from 'react'
 
-import { AppMarquee } from '../components/AppMarquee'
 import { DownloadModal } from '../components/DownloadModal'
 import { InlineSuggestionDemo, MidSentenceDemo, PrivateOnMacDemo, SpellCorrectionDemo } from '../components/FeatureDemos'
 import { ScrollSuggestionText, SuggestionText } from '../components/SuggestionText'
@@ -59,7 +58,6 @@ const downloadButtonClass =
 const eyebrowClass = 'm-0 mb-2 text-[clamp(0.9375rem,1.4vw,1.1875rem)] font-[550] text-muted'
 const h1Class = 'm-0 text-[clamp(3.25rem,10.8vw,7.875rem)] leading-[0.92] font-[750] tracking-[0] text-ink'
 const h2Class = 'm-0 text-[clamp(2.625rem,7vw,5.875rem)] leading-[0.98] font-[750] tracking-[0] text-ink'
-const h3Class = 'm-0 text-[clamp(1.625rem,4vw,3.25rem)] leading-[1.04] font-[750] tracking-[0] text-ink'
 const leadClass = 'mx-auto mt-6.5 max-w-180 text-[clamp(1.1875rem,2vw,1.6875rem)] leading-[1.24] font-medium text-copy'
 const trialClass = 'm-0 mt-3.5 text-[0.9375rem] font-[550] text-muted'
 const fullScreenSectionClass = 'grid min-h-screen place-items-center px-6 pt-22.5 pb-16 text-center'
@@ -73,7 +71,8 @@ const writingSurfaceClass =
 const sectionHeadClass = 'mx-auto mb-8.5 w-[min(61.25rem,100%)] text-center'
 const sectionHeadCopyClass =
   'mx-auto mt-5 max-w-170 text-[clamp(1.125rem,2vw,1.5rem)] leading-[1.3] font-[520] text-muted'
-const panelCardClass = 'rounded-[1.875rem] border border-hairline bg-panel shadow-panel max-[38.75rem]:rounded-3xl'
+const localNavClass =
+  'hidden items-center gap-7 text-[0.8125rem] font-[520] text-muted md:flex [&_a]:no-underline [&_a:hover]:text-ink'
 
 function DownloadButton({ children, onClick, className = '' }: DownloadButtonProps) {
   return (
@@ -95,32 +94,52 @@ function WindowDots() {
 
 function Header({ onDownload }: { onDownload: () => void }) {
   return (
-    <header className="fixed inset-x-0 top-0 z-20 flex h-13.5 items-center justify-between border-b border-hairline bg-paper/[0.72] px-[clamp(1.125rem,4vw,3.375rem)] backdrop-blur-[1.375rem] max-[38.75rem]:px-4">
-      <a className="text-[0.9375rem] font-bold" href="#top" aria-label="Superbinary home">
-        Superbinary
-      </a>
-      <DownloadButton className="min-h-7.5 px-3.5 text-[0.8125rem] max-[38.75rem]:hidden" onClick={onDownload}>
-        Download
-      </DownloadButton>
+    <header className="fixed inset-x-0 top-0 z-20 border-b border-hairline bg-paper/[0.76] px-[clamp(1.125rem,4vw,3.375rem)] backdrop-blur-[1.375rem] max-[38.75rem]:px-4">
+      <div className="mx-auto flex h-13.5 w-[min(73.75rem,100%)] items-center justify-between">
+        <a className="text-[0.9375rem] font-bold" href="#top" aria-label="Superbinary home">
+          Superbinary
+        </a>
+        <nav className={localNavClass} aria-label="Superbinary sections">
+          <a href="#top">Overview</a>
+          <a href="#highlights">Features</a>
+          <a href="#privacy">Privacy</a>
+          <a href="#pricing">Pricing</a>
+        </nav>
+        <DownloadButton className="min-h-7.5 px-3.5 text-[0.8125rem] max-[38.75rem]:hidden" onClick={onDownload}>
+          Download
+        </DownloadButton>
+      </div>
     </header>
   )
 }
 
 function Hero({ onDownload }: { onDownload: () => void }) {
   return (
-    <section className={fullScreenSectionClass} id="top" aria-labelledby="hero-title">
-      <div className="w-[min(60.625rem,100%)]">
-        <p className={eyebrowClass}>Superbinary</p>
-        <h1 className={h1Class} id="hero-title">
-          <SuggestionText accepted="Autocomplete your" ghost=" thoughts." />
-        </h1>
-        <p className={leadClass}>
-          A private Mac autocomplete layer for messages, notes, docs, email, and everywhere your writing begins.
-        </p>
-        <DownloadButton className="mt-8.5 min-h-11.5 px-6 text-[1.0625rem]" onClick={onDownload}>
-          Download for Mac
-        </DownloadButton>
-        <p className={trialClass}>14-day free trial. No credit card required.</p>
+    <section
+      className="relative grid min-h-screen overflow-hidden px-6 pt-20 pb-10 text-center"
+      id="top"
+      aria-labelledby="hero-title"
+    >
+      <div className="mx-auto grid min-h-[calc(100vh-7.5rem)] w-[min(73.75rem,100%)] content-end">
+        <div className="relative mx-auto mb-9 grid min-h-[clamp(24rem,44vw,34.5rem)] w-full place-items-center overflow-hidden rounded-[2.25rem] border border-hairline bg-elevated shadow-panel max-[38.75rem]:rounded-3xl">
+          <WindowDots />
+          <div className="absolute inset-x-0 top-0 h-28 bg-[linear-gradient(180deg,rgba(0,113,227,0.08),rgba(0,113,227,0))] dark:bg-[linear-gradient(180deg,rgba(41,151,255,0.13),rgba(41,151,255,0))]" />
+          <div className="relative z-[1] w-full px-[clamp(1.25rem,5vw,4.5rem)]">
+            <p className={eyebrowClass}>Superbinary</p>
+            <h1 className={cx(h1Class, 'max-[38.75rem]:text-[2.875rem]')} id="hero-title">
+              <SuggestionText accepted="Autocomplete your" ghost=" thoughts." />
+            </h1>
+            <p className={cx(leadClass, 'max-[38.75rem]:text-[1.25rem]')}>
+              Private autocomplete for the places you write on your Mac.
+            </p>
+          </div>
+        </div>
+        <div className="mx-auto flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
+          <DownloadButton className="min-h-11.5 px-6 text-[1.0625rem]" onClick={onDownload}>
+            Download for Mac
+          </DownloadButton>
+          <p className="m-0 text-[0.9375rem] font-[550] text-muted">14 days free. No credit card required.</p>
+        </div>
       </div>
     </section>
   )
@@ -134,7 +153,7 @@ function CoreInteractionStory() {
     <section className={storySectionClass} id="ghost-story" ref={ref} aria-labelledby="ghost-title">
       <div className={stickyFrameClass}>
         <div className={stageClass}>
-          <p className={storyLabelClass}>The core interaction.</p>
+          <p className={storyLabelClass}>Take a closer look.</p>
           <div className={writingSurfaceClass}>
             <WindowDots />
             <p className="m-0 w-full text-[clamp(2.125rem,6vw,4.75rem)] leading-[1.08] font-bold tracking-[0] text-balance">
@@ -148,10 +167,10 @@ function CoreInteractionStory() {
           </div>
           <div className="mt-6 grid grid-cols-[1fr_auto] items-end gap-5 text-copy max-[56.25rem]:grid-cols-1">
             <h2 className={h2Class} id="ghost-title">
-              Tap. The thought keeps going.
+              Tap. Keep going.
             </h2>
             <p className="m-0 max-w-[25.625rem] text-right text-[clamp(1rem,1.7vw,1.25rem)] leading-[1.35] font-[530] text-muted max-[56.25rem]:text-left">
-              Tap Tab when the suggestion sounds like you. Keep typing when it does not.
+              Accept the next word when it feels right. Ignore it when it does not.
             </p>
           </div>
         </div>
@@ -164,52 +183,68 @@ function Highlights() {
   const cards = [
     {
       title: 'Inline Suggestion.',
-      body: 'The next words appear in the sentence, exactly where your attention already is.',
+      body: 'The next words appear where your eyes already are.',
       demo: <InlineSuggestionDemo />,
     },
     {
       title: 'Mid-sentence.',
-      body: 'Superbinary can join a thought while it is still forming, without asking you to stop and prompt.',
+      body: 'It joins the thought without asking you to stop and prompt.',
       demo: <MidSentenceDemo />,
     },
     {
       title: 'Spell Correction.',
-      body: 'When a word is off, the clean version can appear before the sentence loses momentum.',
+      body: 'A cleaner word can appear before the sentence loses momentum.',
       demo: <SpellCorrectionDemo />,
     },
     {
       title: 'Private on Mac.',
-      body: 'Suggestions are completed locally, so your writing does not need a cloud round trip.',
+      body: 'Completion happens locally, without a cloud round trip.',
       demo: <PrivateOnMacDemo />,
     },
   ]
 
   return (
-    <section className="px-[clamp(1.25rem,5vw,4.375rem)] pt-22.5 pb-30" aria-labelledby="highlights-title">
-      <div className={sectionHeadClass}>
-        <p className={eyebrowClass}>Get the highlights.</p>
-        <h2 className={h2Class} id="highlights-title">
-          The whole idea in a few keystrokes.
-        </h2>
-        <p className={sectionHeadCopyClass}>
+    <section
+      className="overflow-hidden px-[clamp(1.25rem,5vw,4.375rem)] pt-22.5 pb-30 [scroll-margin-top:4.5rem]"
+      id="highlights"
+      aria-labelledby="highlights-title"
+    >
+      <div className="mx-auto mb-10 grid w-[min(73.75rem,100%)] grid-cols-[1fr_auto] items-end gap-6 max-[56.25rem]:grid-cols-1">
+        <div>
+          <p className={eyebrowClass}>Get the highlights.</p>
+          <h2
+            className="m-0 max-w-210 text-left text-[clamp(2.625rem,7vw,5.875rem)] leading-[0.98] font-[750] tracking-[0] text-ink max-[56.25rem]:text-center"
+            id="highlights-title"
+          >
+            The whole idea in a few keystrokes.
+          </h2>
+        </div>
+        <p className="m-0 max-w-100 text-right text-[clamp(1.0625rem,1.6vw,1.3125rem)] leading-[1.3] font-[520] text-muted max-[56.25rem]:mx-auto max-[56.25rem]:text-center">
           See the next words. Accept what feels right. Keep writing when the thought changes.
         </p>
       </div>
-      <div className="mx-auto grid w-[min(80rem,100%)] grid-cols-4 gap-3.5 max-xl:grid-cols-2 max-lg:grid-cols-1 max-[38.75rem]:gap-2.5">
-        {cards.map((card) => (
-          <article
-            className="flex min-h-59 flex-col justify-between rounded-[1.375rem] border border-hairline bg-panel p-6 shadow-panel max-[38.75rem]:min-h-44.5"
-            key={card.title}
-          >
-            <div className="min-h-29 gap-3 overflow-hidden py-4 text-ink" aria-hidden="true">
-              {card.demo}
-            </div>
-            <div>
-              <h3 className={h3Class}>{card.title}</h3>
-              <p className="m-0 mt-4 text-[1.0625rem] leading-[1.34] font-[520] text-muted">{card.body}</p>
-            </div>
-          </article>
-        ))}
+      <div className="-mx-[clamp(1.25rem,5vw,4.375rem)] overflow-x-auto px-[clamp(1.25rem,5vw,4.375rem)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="flex w-max gap-4 pr-[clamp(1.25rem,5vw,4.375rem)]">
+          {cards.map((card) => (
+            <article
+              className="flex h-[32rem] w-[min(25.75rem,78vw)] flex-col justify-between rounded-[1.875rem] border border-hairline bg-panel p-7 shadow-panel max-[38.75rem]:h-[29rem] max-[38.75rem]:p-6"
+              key={card.title}
+            >
+              <div
+                className="grid min-h-50 place-items-center overflow-hidden rounded-[1.375rem] bg-bg/[0.72] px-5 py-8 text-ink"
+                aria-hidden="true"
+              >
+                {card.demo}
+              </div>
+              <div>
+                <h3 className="m-0 text-[clamp(2.125rem,4vw,3.375rem)] leading-[0.98] font-[750] tracking-[0] text-ink">
+                  {card.title}
+                </h3>
+                <p className="m-0 mt-4 text-[1.125rem] leading-[1.3] font-[520] text-muted">{card.body}</p>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   )
@@ -220,7 +255,7 @@ function SpatialAwarenessStory() {
   const progress = useScrollProgress(ref)
   const sectionStyle = { '--mind-progress': progress.toFixed(4) } as CSSProperties
   const chipClass =
-    'absolute max-w-[14.375rem] translate-y-[calc((1-var(--mind-progress))*1.125rem)] rounded-[1.125rem] border border-hairline bg-panel px-3.75 py-3.25 text-sm leading-[1.28] font-[620] text-muted opacity-[clamp(0.12,var(--mind-progress),0.72)] shadow-panel transition-[opacity,transform] duration-[240ms] max-[56.25rem]:relative max-[56.25rem]:inset-auto max-[56.25rem]:max-w-none motion-reduce:translate-y-0 motion-reduce:opacity-100'
+    'absolute max-w-[14.375rem] translate-y-[calc((1-var(--mind-progress))*1.125rem)] rounded-full border border-hairline bg-panel/60 px-3.75 py-2.5 text-sm leading-[1.28] font-[620] text-muted opacity-[clamp(0.08,calc(var(--mind-progress)*0.26),0.26)] backdrop-blur-[1rem] transition-[opacity,transform] duration-[240ms] max-[56.25rem]:hidden motion-reduce:translate-y-0 motion-reduce:opacity-20'
 
   return (
     <section className={storySectionClass} id="spatial-awareness" ref={ref} style={sectionStyle} aria-labelledby="mind-title">
@@ -228,9 +263,9 @@ function SpatialAwarenessStory() {
         <div className={stageClass}>
           <p className={storyLabelClass}>Spatial Awareness</p>
           <div className="relative grid min-h-[clamp(29.375rem,56vw,40.625rem)] place-items-center max-[56.25rem]:grid-cols-1 max-[56.25rem]:items-stretch max-[56.25rem]:gap-2.5">
-            <div className={cx(chipClass, 'top-[8%] left-[4%]')}>Sarah</div>
-            <div className={cx(chipClass, 'top-[18%] right-[4%] delay-[40ms]')}>Tuesday 10:00 AM</div>
-            <div className={cx(chipClass, 'bottom-[10%] left-[14%] delay-[80ms]')}>meeting</div>
+            <div className={cx(chipClass, 'top-[8%] left-[4%]')}>recipient</div>
+            <div className={cx(chipClass, 'top-[18%] right-[4%] delay-[40ms]')}>calendar</div>
+            <div className={cx(chipClass, 'bottom-[10%] left-[14%] delay-[80ms]')}>thread</div>
             <div className={cx(writingSurfaceClass, 'z-[2] w-[min(51.25rem,100%)] max-[56.25rem]:order-first')}>
               <WindowDots />
               <p className="m-0 text-[clamp(1.9375rem,5vw,4rem)] leading-[1.1] font-[720]">
@@ -245,11 +280,11 @@ function SpatialAwarenessStory() {
           </div>
           <div className="mt-6 grid grid-cols-[1fr_auto] items-end gap-5 text-copy max-[56.25rem]:grid-cols-1">
             <h2 className={h2Class} id="mind-title">
-              Close to what you mean.
+              More like what you meant.
             </h2>
             <p className="m-0 max-w-[25.625rem] text-right text-[clamp(1rem,1.7vw,1.25rem)] leading-[1.35] font-[530] text-muted max-[56.25rem]:text-left">
-              Spatial Awareness helps Superbinary use the moment around your cursor, then completes the thought locally on
-              your Mac.
+              Spatial Awareness helps the suggestion stay near the thought you were already writing. Completion still
+              happens on your Mac.
             </p>
           </div>
         </div>
@@ -298,33 +333,42 @@ function AppsSection() {
           Messages, notes, docs, email, browser fields, and project tools all get the same quiet writing reflex.
         </p>
       </div>
-      <div className="relative mx-auto mt-14 min-h-[clamp(34rem,58vw,45rem)] w-[min(73.75rem,100%)] px-6 max-[56.25rem]:grid max-[56.25rem]:min-h-0 max-[56.25rem]:gap-3">
-        <div
-          className="absolute inset-x-0 top-1/2 -z-[1] -translate-y-1/2 opacity-[0.36] [mask-image:linear-gradient(90deg,transparent,black_20%,black_80%,transparent)] max-[56.25rem]:hidden"
-          aria-hidden="true"
-        >
-          <AppMarquee />
+      <div className="relative mx-auto mt-14 min-h-[clamp(35rem,58vw,43rem)] w-[min(73.75rem,100%)] overflow-hidden rounded-[2.25rem] border border-hairline bg-elevated shadow-panel max-[56.25rem]:grid max-[56.25rem]:min-h-0 max-[56.25rem]:gap-3 max-[56.25rem]:overflow-visible max-[56.25rem]:rounded-none max-[56.25rem]:border-0 max-[56.25rem]:bg-transparent max-[56.25rem]:shadow-none">
+        <div className="absolute inset-x-0 top-0 z-[1] flex h-9 items-center justify-between border-b border-hairline bg-panel px-4 text-[0.75rem] font-[650] text-muted max-[56.25rem]:hidden">
+          <span>Superbinary</span>
+          <span className="rounded-full bg-sb-blue/10 px-2.5 py-1 text-sb-blue">On</span>
         </div>
-        <DesktopWindow app="Messages" icon="messages" className="top-[4%] left-[3%] z-[2] w-[28rem]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_18%,rgba(0,113,227,0.12),transparent_16rem),radial-gradient(circle_at_78%_68%,rgba(0,0,0,0.06),transparent_18rem)] dark:bg-[radial-gradient(circle_at_24%_18%,rgba(41,151,255,0.18),transparent_16rem),radial-gradient(circle_at_78%_68%,rgba(255,255,255,0.06),transparent_18rem)] max-[56.25rem]:hidden" />
+        <DesktopWindow app="Messages" icon="messages" className="top-[13%] left-[5%] z-[3] w-[29rem]">
           <p className="m-0 text-[1.125rem] leading-[1.35] font-[620] text-ink">
             <SuggestionText accepted="Running ten late. Can you save me" ghost=" a seat near the front?" />
           </p>
         </DesktopWindow>
-        <DesktopWindow app="Notes" icon="notes" className="top-[19%] right-[4%] z-[3] w-[32rem]">
+        <DesktopWindow app="Notes" icon="notes" className="top-[24%] right-[6%] z-[4] w-[33rem]">
           <p className="m-0 text-[1.5rem] leading-[1.22] font-[720] text-ink">
             <SuggestionText accepted="Launch checklist:" ghost=" demo, pricing, download email, final copy." />
           </p>
         </DesktopWindow>
-        <DesktopWindow app="Mail" icon="mail" className="bottom-[12%] left-[13%] z-[4] w-[34rem]">
+        <DesktopWindow app="Mail" icon="mail" className="bottom-[16%] left-[14%] z-[5] w-[35rem]">
           <p className="m-0 text-[1.375rem] leading-[1.24] font-[700] text-ink">
             <SuggestionText accepted="Thanks Sarah. I’ll send the concise version" ghost=" before our Tuesday review." />
           </p>
         </DesktopWindow>
-        <DesktopWindow app="Docs" icon="docs" className="right-[11%] bottom-[3%] z-[1] w-[25rem] opacity-[0.86]">
+        <DesktopWindow app="Docs" icon="docs" className="right-[9%] bottom-[8%] z-[2] w-[25rem] opacity-[0.86]">
           <p className="m-0 text-[1.0625rem] leading-[1.38] font-[620] text-ink">
             <SuggestionText accepted="The main idea is simple:" ghost=" less typing, more thinking." />
           </p>
         </DesktopWindow>
+        <div className="absolute bottom-4 left-1/2 z-[6] flex -translate-x-1/2 gap-2 rounded-[1.25rem] border border-hairline bg-panel/80 px-3 py-2 backdrop-blur-[1.25rem] max-[56.25rem]:hidden" aria-hidden="true">
+          {['messages', 'notes', 'mail', 'docs'].map((icon) => (
+            <img
+              alt=""
+              className="h-7 w-7 object-contain opacity-[0.5] grayscale saturate-0 contrast-95 dark:invert"
+              key={icon}
+              src={`/assets/app-logos/${icon}.png`}
+            />
+          ))}
+        </div>
       </div>
       <p className="mx-auto mt-9 max-w-155 px-6 text-center text-[0.9375rem] leading-[1.4] font-[520] text-muted">
         App names are illustrative of normal writing surfaces, not partnerships or official integrations.
@@ -353,80 +397,55 @@ function PrivacySection() {
   ]
 
   return (
-    <section className={storySectionClass} id="privacy" ref={ref} aria-labelledby="privacy-title">
-      <div className={stickyFrameClass}>
-        <div className="grid w-[min(66.25rem,100%)] grid-cols-[0.82fr_1.18fr] items-stretch gap-4.5 max-[56.25rem]:grid-cols-1">
-          <div className={cx(panelCardClass, 'grid min-h-107.5 content-center p-8.5')}>
-            <div
-              className="mb-6.5 h-[clamp(3.375rem,7vw,5.125rem)] w-[clamp(3.375rem,7vw,5.125rem)] text-ink"
-              aria-hidden="true"
-            >
-              <svg className="block h-full w-full" viewBox="0 0 72 72" role="img">
-                <path
-                  d="M22 32v-7.5C22 16.2 28.3 10 36 10s14 6.2 14 14.5V32h-7v-7.5c0-4.4-3.1-7.5-7-7.5s-7 3.1-7 7.5V32h-7Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M18 30h36c4.4 0 8 3.6 8 8v17c0 4.4-3.6 8-8 8H18c-4.4 0-8-3.6-8-8V38c0-4.4 3.6-8 8-8Z"
-                  fill="currentColor"
-                />
-              </svg>
-            </div>
-            <p className={eyebrowClass}>Privacy</p>
-            <h2
-              className="m-0 text-[clamp(2.125rem,5vw,4rem)] leading-[0.98] font-[750] tracking-[0] text-ink"
-              id="privacy-title"
-            >
-              Private because it happens on your Mac.
-            </h2>
-            <p className="mt-5 max-w-[24.375rem] text-lg leading-[1.35] font-[530] text-muted">
-              Superbinary is designed so the writing moment does not need to leave the machine in front of you.
-            </p>
-            <div className="mt-8.5 flex gap-2.5" aria-hidden="true">
-              {['Offline', 'Local', 'Keychain'].map((item, index) => {
-                const amount = itemProgress(index)
-
-                return (
-                <div
-                  className="min-w-18 rounded-2xl bg-sb-blue/10 px-3.5 py-3 text-center text-[0.8125rem] font-[760] text-sb-blue will-change-[opacity,transform] motion-reduce:translate-y-0 motion-reduce:opacity-100"
-                  style={{
-                    opacity: 0.36 + amount * 0.64,
-                    transform: `translateY(${(1 - amount) * 0.625}rem)`,
-                  }}
-                  key={item}
-                >
-                  {item}
-                </div>
-                )
-              })}
-            </div>
+    <section
+      className="overflow-hidden px-[clamp(1.25rem,5vw,4.375rem)] py-30 [scroll-margin-top:4.5rem]"
+      id="privacy"
+      ref={ref}
+      aria-labelledby="privacy-title"
+    >
+      <div className="mx-auto w-[min(73.75rem,100%)]">
+        <div className="mx-auto max-w-220 text-center">
+          <div
+            className="mx-auto mb-7 h-[clamp(4rem,8vw,6rem)] w-[clamp(4rem,8vw,6rem)] text-ink"
+            aria-hidden="true"
+          >
+            <svg className="block h-full w-full" viewBox="0 0 72 72" role="img">
+              <path
+                d="M22 32v-7.5C22 16.2 28.3 10 36 10s14 6.2 14 14.5V32h-7v-7.5c0-4.4-3.1-7.5-7-7.5s-7 3.1-7 7.5V32h-7Z"
+                fill="currentColor"
+              />
+              <path
+                d="M18 30h36c4.4 0 8 3.6 8 8v17c0 4.4-3.6 8-8 8H18c-4.4 0-8-3.6-8-8V38c0-4.4 3.6-8 8-8Z"
+                fill="currentColor"
+              />
+            </svg>
           </div>
-          <div className={cx(panelCardClass, 'grid gap-3 p-4.5')}>
-            {proofs.map((proof, index) => {
-              const amount = itemProgress(index)
+          <p className={eyebrowClass}>Privacy</p>
+          <h2 className={h2Class} id="privacy-title">
+            Your writing stays on your Mac.
+          </h2>
+          <p className={sectionHeadCopyClass}>
+            Superbinary is designed so the writing moment does not need to leave the machine in front of you.
+          </p>
+        </div>
+        <div className="mx-auto mt-12 grid w-[min(61.25rem,100%)] grid-cols-3 gap-3.5 max-[56.25rem]:grid-cols-1">
+          {proofs.map((proof, index) => {
+            const amount = itemProgress(index)
 
-              return (
-                <article
-                  className="grid grid-cols-[auto_1fr] items-start gap-4 rounded-[1.375rem] bg-bg/[0.72] p-5 will-change-[opacity,transform] motion-reduce:translate-y-0 motion-reduce:opacity-100"
-                  style={{
-                    opacity: 0.58 + amount * 0.42,
-                    transform: `translateY(${(1 - amount) * 0.875}rem)`,
-                  }}
-                  key={proof.title}
-                >
-                <div
-                  className="grid h-9.5 w-9.5 place-items-center rounded-[0.8125rem] bg-sb-blue/10 text-[1.0625rem] font-extrabold text-sb-blue"
-                >
-                  {index + 1}
-                </div>
-                <div>
-                  <h3 className="m-0 text-2xl leading-[1.04] font-[750] tracking-[0] text-ink">{proof.title}</h3>
-                  <p className="m-0 mt-1.75 text-base leading-[1.36] font-[520] text-muted">{proof.body}</p>
-                </div>
+            return (
+              <article
+                className="rounded-[1.375rem] border border-hairline bg-panel p-6 text-left shadow-panel will-change-[opacity,transform] motion-reduce:translate-y-0 motion-reduce:opacity-100"
+                style={{
+                  opacity: 0.62 + amount * 0.38,
+                  transform: `translateY(${(1 - amount) * 0.75}rem)`,
+                }}
+                key={proof.title}
+              >
+                <h3 className="m-0 text-[1.5rem] leading-[1.08] font-[750] tracking-[0] text-ink">{proof.title}</h3>
+                <p className="m-0 mt-3 text-base leading-[1.38] font-[520] text-muted">{proof.body}</p>
               </article>
-              )
-            })}
-          </div>
+            )
+          })}
         </div>
       </div>
     </section>
@@ -436,18 +455,20 @@ function PrivacySection() {
 function NativePricing({ onDownload }: { onDownload: () => void }) {
   return (
     <section
-      className="mx-auto grid w-[min(73.75rem,100%)] grid-cols-[minmax(0,1.08fr)_minmax(19.375rem,0.92fr)] gap-4.5 px-[clamp(1.25rem,5vw,4.375rem)] py-30 max-[56.25rem]:grid-cols-1"
+      className="px-[clamp(1.25rem,5vw,4.375rem)] py-30 [scroll-margin-top:4.5rem]"
       id="pricing"
       aria-label="Native Mac simplicity and pricing"
     >
-      <article
-        className={cx(
-          panelCardClass,
-          'grid min-h-110 content-end bg-[linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,255,255,0.9)),radial-gradient(circle_at_50%_20%,rgba(0,0,0,0.06),rgba(0,0,0,0)_25rem)] p-[clamp(1.75rem,4vw,2.875rem)] dark:bg-[linear-gradient(180deg,rgba(29,29,31,0.88),rgba(20,20,22,0.94)),radial-gradient(circle_at_50%_20%,rgba(255,255,255,0.08),rgba(0,0,0,0)_25rem)]',
-        )}
-      >
+      <div className={sectionHeadClass}>
+        <p className={eyebrowClass}>Built for Mac.</p>
+        <h2 className={h2Class}>Quiet enough to leave on.</h2>
+        <p className={sectionHeadCopyClass}>
+          A menu bar app, native controls, and suggestions that disappear the moment you do not need them.
+        </p>
+      </div>
+      <div className="mx-auto w-[min(47.5rem,100%)] rounded-[1.875rem] border border-hairline bg-panel p-4.5 shadow-panel">
         <div
-          className="mb-14 w-[min(26.25rem,100%)] rounded-[1.375rem] border border-hairline bg-elevated p-3.75 shadow-panel"
+          className="w-full rounded-[1.375rem] border border-hairline bg-elevated p-3.75"
           aria-hidden="true"
         >
           <div className="flex justify-between gap-4 px-2 py-2.5 text-[0.9375rem] font-[620] text-control-ink">
@@ -463,26 +484,21 @@ function NativePricing({ onDownload }: { onDownload: () => void }) {
             </span>
           </div>
         </div>
-        <h2 className={h2Class}>Simple enough to leave on.</h2>
-        <p className="text-lg leading-[1.36] font-[530] text-muted">
-          Quiet menu bar presence, clear controls, and suggestions that disappear the moment you do not need them.
-        </p>
-      </article>
-      <article
-        className={cx(
-          panelCardClass,
-          'min-h-110 border-sb-blue/20 bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(255,255,255,0.78)),radial-gradient(circle_at_50%_0%,rgba(0,102,204,0.11),rgba(0,102,204,0)_18rem)] p-[clamp(1.75rem,4vw,2.875rem)] dark:bg-[linear-gradient(180deg,rgba(28,28,30,0.95),rgba(17,17,19,0.86)),radial-gradient(circle_at_50%_0%,rgba(10,132,255,0.18),rgba(0,0,0,0)_18rem)]',
-        )}
-      >
-        <p className={eyebrowClass}>Early bird offer</p>
-        <h2 className={h2Class}>Try it free for 14 days.</h2>
-        <p className="text-lg leading-[1.36] font-[530] text-muted">No credit card required.</p>
-        <div className="mt-7 mb-1 text-[clamp(3.125rem,7vw,5.25rem)] leading-[0.96] font-[780] text-ink">$49.99</div>
-        <div className="text-[1.0625rem] font-[560] text-muted">Early bird price. Regular $129.99.</div>
-        <DownloadButton className="mt-8.5 min-h-11.5 px-6 text-[1.0625rem]" onClick={onDownload}>
+      </div>
+      <div className="mx-auto mt-8 grid w-[min(61.25rem,100%)] grid-cols-[1fr_auto] items-center gap-5 rounded-[1.875rem] border border-hairline bg-elevated px-[clamp(1.5rem,4vw,2.75rem)] py-6 shadow-panel max-[56.25rem]:grid-cols-1 max-[56.25rem]:text-center">
+        <div>
+          <p className="m-0 text-[1.0625rem] font-[700] text-ink">Superbinary</p>
+          <p className="m-0 mt-1.5 text-[clamp(1.25rem,2.4vw,1.75rem)] leading-[1.18] font-[650] text-ink">
+            14 days free. Then $49.99.
+          </p>
+          <p className="m-0 mt-2 text-[0.9375rem] font-[520] text-muted">
+            Early bird price. Regular $129.99. No credit card required.
+          </p>
+        </div>
+        <DownloadButton className="min-h-11.5 px-6 text-[1.0625rem] max-[56.25rem]:justify-self-center" onClick={onDownload}>
           Download for Mac
         </DownloadButton>
-      </article>
+      </div>
     </section>
   )
 }
