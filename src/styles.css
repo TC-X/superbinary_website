@@ -125,7 +125,8 @@
   html {
     background: var(--color-bg);
     color: var(--color-ink);
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+    font-family:
+      -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
     scroll-behavior: smooth;
   }
 

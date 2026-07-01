@@ -181,7 +181,7 @@ function Highlights() {
       demo: <InlineSuggestionDemo />,
     },
     {
-      title: 'Mid-sentence.',
+      title: 'Mid-sentence Suggestion.',
       body: 'It joins the thought without asking you to stop and prompt.',
       demo: <MidSentenceDemo />,
     },
@@ -191,8 +191,8 @@ function Highlights() {
       demo: <SpellCorrectionDemo />,
     },
     {
-      title: 'Private on Mac.',
-      body: 'Completion happens locally, without a cloud round trip.',
+      title: 'Private on Your Mac.',
+      body: 'Superbinary operates fully locally on your Mac, works offline, and requires zero cloud.',
       demo: <PrivateOnMacDemo />,
     },
   ]
@@ -270,7 +270,7 @@ function Highlights() {
               {card.demo}
             </div>
             <div>
-              <h3 className="m-0 text-[clamp(2.125rem,4vw,3.375rem)] leading-[0.98] font-[750] tracking-[0] text-ink">
+              <h3 className="m-0 text-[clamp(2.125rem,4vw,3.375rem)] leading-[0.98] font-[750] tracking-[0] text-ink text-balance">
                 {card.title}
               </h3>
               <p className="m-0 mt-4 text-[1.125rem] leading-[1.3] font-[520] text-muted">{card.body}</p>

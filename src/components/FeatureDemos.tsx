@@ -12,7 +12,7 @@ export function InlineSuggestionDemo({ className = '' }: DemoProps) {
   return (
     <div className={className}>
       <p className={demoLineClass}>
-        <SuggestionText accepted="The next words appear" ghost=" right where you type." />
+        <SuggestionText accepted="The next words app" ghost="ear right where you type." />
       </p>
     </div>
   )
@@ -27,11 +27,14 @@ export function MidSentenceDemo({ className = '' }: DemoProps) {
         <span className="text-accepted"> before the call.</span>
       </p>
       <div
-        className="mt-1 ms-[13ch] grid w-fit grid-cols-[minmax(0,1fr)_auto] items-center gap-3.5 rounded-full border border-hairline bg-control py-[0.3125rem] pr-[0.4375rem] pl-3 text-[0.8125rem] leading-[1.1] font-[620] text-control-ink"
+        className="mt-1 ms-[13ch] grid w-fit grid-cols-[minmax(0,1fr)_auto] items-center gap-3.5 rounded-full border border-black/25 bg-control py-[0.3125rem] pr-[0.4375rem] pl-3 text-[0.8125rem] leading-[1.1] font-[620] text-control-ink"
         aria-hidden="true"
       >
-        <span className="truncate">tomorrow morning</span>
-        <span className="relative rounded-[0.3125rem] border border-hairline bg-ink/10 px-[0.4375rem] py-[0.1875rem] text-[0.6875rem] font-[760] text-muted before:absolute before:-left-2 before:top-0.5 before:bottom-0.5 before:w-[0.0625rem] before:bg-hairline">
+        <div>
+          <span className="text-ghost">to</span>
+          <span className="truncate">morrow morning</span>
+        </div>
+        <span className="relative rounded-[0.3125rem] border border-black/10 bg-ink/10 px-[0.25rem] py-[0.1rem] text-[0.6875rem] font-[500] before:absolute before:-left-2 before:top-0 before:bottom-0 before:w-[0.0625rem] before:bg-black/40">
           tab
         </span>
       </div>
@@ -60,7 +63,7 @@ export function PrivateOnMacDemo({ className = '' }: DemoProps) {
   return (
     <div className={cx('w-full', className)}>
       <p className={demoLineClass}>
-        <SuggestionText accepted="What happens on your Mac," ghost=" stays on your Mac." />
+        <SuggestionText accepted="What happens on your Mac, stay o" ghost="n your Mac." />
       </p>
     </div>
   )
