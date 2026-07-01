@@ -2,7 +2,12 @@ import { CSSProperties, ReactNode, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 import { DownloadModal } from '../components/DownloadModal'
-import { InlineSuggestionDemo, MidSentenceDemo, PrivateOnMacDemo, SpellCorrectionDemo } from '../components/FeatureDemos'
+import {
+  InlineSuggestionDemo,
+  MidSentenceDemo,
+  PrivateOnMacDemo,
+  SpellCorrectionDemo,
+} from '../components/FeatureDemos'
 import { ScrollSuggestionText, SuggestionText } from '../components/SuggestionText'
 import { cx } from '../lib/classes'
 import { useScrollProgress } from '../lib/useScrollProgress'
@@ -209,7 +214,9 @@ function Highlights() {
       id="highlights"
       aria-labelledby="highlights-title"
     >
-      <div className={cx(wideRailInsetClass, 'mb-10 grid grid-cols-[1fr_auto] items-end gap-6 max-[56.25rem]:grid-cols-1')}>
+      <div
+        className={cx(wideRailInsetClass, 'mb-10 grid grid-cols-[1fr_auto] items-end gap-6 max-[56.25rem]:grid-cols-1')}
+      >
         <div>
           <p className={eyebrowClass}>Get the highlights.</p>
           <h2
@@ -252,7 +259,7 @@ function Highlights() {
       >
         {cards.map((card) => (
           <article
-            className="flex h-[32rem] w-[min(25.75rem,78vw)] shrink-0 snap-start flex-col justify-between rounded-[1.875rem] border border-hairline bg-panel p-7 shadow-panel max-[38.75rem]:h-[29rem] max-[38.75rem]:p-6"
+            className="flex h-[32rem] w-[min(28rem,80vw)] shrink-0 snap-start flex-col justify-between rounded-[1.875rem] border border-hairline bg-panel p-7 shadow-panel max-[38.75rem]:h-[29rem] max-[38.75rem]:p-6"
             data-highlight-card
             key={card.title}
           >
@@ -283,7 +290,13 @@ function SpatialAwarenessStory() {
     'absolute max-w-[14.375rem] translate-y-[calc((1-var(--mind-progress))*1.125rem)] rounded-full border border-hairline bg-panel/60 px-3.75 py-2.5 text-sm leading-[1.28] font-[620] text-muted opacity-[clamp(0.08,calc(var(--mind-progress)*0.26),0.26)] backdrop-blur-[1rem] transition-[opacity,transform] duration-[240ms] max-[56.25rem]:hidden motion-reduce:translate-y-0 motion-reduce:opacity-20'
 
   return (
-    <section className={storySectionClass} id="spatial-awareness" ref={ref} style={sectionStyle} aria-labelledby="mind-title">
+    <section
+      className={storySectionClass}
+      id="spatial-awareness"
+      ref={ref}
+      style={sectionStyle}
+      aria-labelledby="mind-title"
+    >
       <div className={stickyFrameClass}>
         <div className={stageClass}>
           <p className={storyLabelClass}>Spatial Awareness</p>
@@ -376,7 +389,10 @@ function AppsSection() {
         </DesktopWindow>
         <DesktopWindow app="Mail" icon="mail" className="bottom-[16%] left-[14%] z-[5] w-[35rem]">
           <p className="m-0 text-[1.375rem] leading-[1.24] font-[700] text-ink">
-            <SuggestionText accepted="Thanks Sarah. I’ll send the concise version" ghost=" before our Tuesday review." />
+            <SuggestionText
+              accepted="Thanks Sarah. I’ll send the concise version"
+              ghost=" before our Tuesday review."
+            />
           </p>
         </DesktopWindow>
         <DesktopWindow app="Docs" icon="docs" className="right-[9%] bottom-[8%] z-[2] w-[25rem] opacity-[0.86]">
@@ -384,7 +400,10 @@ function AppsSection() {
             <SuggestionText accepted="The main idea is simple:" ghost=" less typing, more thinking." />
           </p>
         </DesktopWindow>
-        <div className="absolute bottom-4 left-1/2 z-[6] flex -translate-x-1/2 gap-2 rounded-[1.25rem] border border-hairline bg-panel/80 px-3 py-2 backdrop-blur-[1.25rem] max-[56.25rem]:hidden" aria-hidden="true">
+        <div
+          className="absolute bottom-4 left-1/2 z-[6] flex -translate-x-1/2 gap-2 rounded-[1.25rem] border border-hairline bg-panel/80 px-3 py-2 backdrop-blur-[1.25rem] max-[56.25rem]:hidden"
+          aria-hidden="true"
+        >
           {['messages', 'notes', 'mail', 'docs'].map((icon) => (
             <img
               alt=""
@@ -430,10 +449,7 @@ function PrivacySection() {
     >
       <div className="mx-auto w-[min(73.75rem,100%)]">
         <div className="mx-auto max-w-220 text-center">
-          <div
-            className="mx-auto mb-7 h-[clamp(4rem,8vw,6rem)] w-[clamp(4rem,8vw,6rem)] text-ink"
-            aria-hidden="true"
-          >
+          <div className="mx-auto mb-7 h-[clamp(4rem,8vw,6rem)] w-[clamp(4rem,8vw,6rem)] text-ink" aria-hidden="true">
             <svg className="block h-full w-full" viewBox="0 0 72 72" role="img">
               <path
                 d="M22 32v-7.5C22 16.2 28.3 10 36 10s14 6.2 14 14.5V32h-7v-7.5c0-4.4-3.1-7.5-7-7.5s-7 3.1-7 7.5V32h-7Z"
@@ -494,7 +510,8 @@ function NativePricing({ onDownload }: { onDownload: () => void }) {
         <p className={eyebrowClass}>Built for Mac.</p>
         <h2 className={h2Class}>Quiet by default.</h2>
         <p className={sectionHeadCopyClass}>
-          Superbinary lives in the menu bar, follows the keyboard, and stays out of the way until the next words are useful.
+          Superbinary lives in the menu bar, follows the keyboard, and stays out of the way until the next words are
+          useful.
         </p>
       </div>
       <div className="mx-auto mt-11 w-[min(61.25rem,100%)] border-y border-hairline">
@@ -517,7 +534,10 @@ function NativePricing({ onDownload }: { onDownload: () => void }) {
             Early bird price. Regular $129.99. No credit card required.
           </p>
         </div>
-        <DownloadButton className="min-h-11.5 px-6 text-[1.0625rem] max-[56.25rem]:justify-self-center" onClick={onDownload}>
+        <DownloadButton
+          className="min-h-11.5 px-6 text-[1.0625rem] max-[56.25rem]:justify-self-center"
+          onClick={onDownload}
+        >
           Download for Mac
         </DownloadButton>
       </div>

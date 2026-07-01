@@ -12,7 +12,7 @@ export function InlineSuggestionDemo({ className = '' }: DemoProps) {
   return (
     <div className={className}>
       <p className={demoLineClass}>
-        <SuggestionText accepted="Send the updated" ghost=" proposal before lunch" />
+        <SuggestionText accepted="The next words appear" ghost=" right where you type." />
       </p>
     </div>
   )
@@ -22,7 +22,7 @@ export function MidSentenceDemo({ className = '' }: DemoProps) {
   return (
     <div className={cx('relative min-h-18.5 pt-0.5', className)}>
       <p className={`${demoLineClass} line-clamp-1`}>
-        <span className="text-accepted">Let's meet</span>
+        <span className="text-accepted">Let's meet to</span>
         <Caret />
         <span className="text-accepted"> before the call.</span>
       </p>
@@ -43,14 +43,14 @@ export function SpellCorrectionDemo({ className = '' }: DemoProps) {
   return (
     <div className={className}>
       <p className={demoLineClass}>
-        <span className="text-accepted">The </span>
+        <span className="text-accepted">The suggestion’s speed is </span>
         <span className="underline decoration-[#ff3b30] decoration-wavy decoration-[0.09375rem] underline-offset-4 dark:decoration-[#ff453a]">
-          enviroment
+          unparralleled
         </span>
         <span className="whitespace-nowrap">
           <Caret />
         </span>
-        <span className="text-ghost italic"> environment</span>
+        <span className="text-ghost italic"> unparalleled.</span>
       </p>
     </div>
   )
@@ -59,8 +59,8 @@ export function SpellCorrectionDemo({ className = '' }: DemoProps) {
 export function PrivateOnMacDemo({ className = '' }: DemoProps) {
   return (
     <div className={cx('w-full', className)}>
-      <p className="m-0 leading-[1.28] font-[650] min-[56.25rem]:text-xl">
-        <SuggestionText accepted="Everything stays" ghost=" on your Mac." />
+      <p className={demoLineClass}>
+        <SuggestionText accepted="What happens on your Mac," ghost=" stays on your Mac." />
       </p>
     </div>
   )
