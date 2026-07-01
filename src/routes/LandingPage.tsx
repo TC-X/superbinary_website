@@ -72,6 +72,7 @@ const writingSurfaceClass =
 const sectionHeadClass = 'mx-auto mb-8.5 w-[min(61.25rem,100%)] text-center'
 const sectionHeadCopyClass =
   'mx-auto mt-5 max-w-170 text-[clamp(1.125rem,2vw,1.5rem)] leading-[1.3] font-[520] text-muted'
+const wideRailInsetClass = 'px-[max(clamp(1.25rem,5vw,4.375rem),calc((100vw_-_73.75rem)/2))]'
 const localNavClass =
   'hidden items-center gap-7 text-[0.8125rem] font-[520] text-muted md:flex [&_a]:no-underline [&_a:hover]:text-ink'
 
@@ -204,11 +205,11 @@ function Highlights() {
 
   return (
     <section
-      className="overflow-hidden px-[clamp(1.25rem,5vw,4.375rem)] pt-22.5 pb-30 [scroll-margin-top:4.5rem]"
+      className="overflow-hidden pt-22.5 pb-30 [scroll-margin-top:4.5rem]"
       id="highlights"
       aria-labelledby="highlights-title"
     >
-      <div className="mx-auto mb-10 grid w-[min(73.75rem,100%)] grid-cols-[1fr_auto] items-end gap-6 max-[56.25rem]:grid-cols-1">
+      <div className={cx(wideRailInsetClass, 'mb-10 grid grid-cols-[1fr_auto] items-end gap-6 max-[56.25rem]:grid-cols-1')}>
         <div>
           <p className={eyebrowClass}>Get the highlights.</p>
           <h2
@@ -242,32 +243,33 @@ function Highlights() {
           </div>
         </div>
       </div>
-      <div className="mx-auto w-[min(73.75rem,100%)]">
-        <div
-          className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          ref={sliderRef}
-        >
-          {cards.map((card) => (
-            <article
-              className="flex h-[32rem] w-[min(25.75rem,78vw)] shrink-0 snap-start flex-col justify-between rounded-[1.875rem] border border-hairline bg-panel p-7 shadow-panel max-[38.75rem]:h-[29rem] max-[38.75rem]:p-6"
-              data-highlight-card
-              key={card.title}
+      <div
+        className={cx(
+          wideRailInsetClass,
+          'flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 scroll-px-[max(clamp(1.25rem,5vw,4.375rem),calc((100vw_-_73.75rem)/2))] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+        )}
+        ref={sliderRef}
+      >
+        {cards.map((card) => (
+          <article
+            className="flex h-[32rem] w-[min(25.75rem,78vw)] shrink-0 snap-start flex-col justify-between rounded-[1.875rem] border border-hairline bg-panel p-7 shadow-panel max-[38.75rem]:h-[29rem] max-[38.75rem]:p-6"
+            data-highlight-card
+            key={card.title}
+          >
+            <div
+              className="grid min-h-50 place-items-center overflow-hidden rounded-[1.375rem] bg-bg/[0.72] px-5 py-8 text-ink"
+              aria-hidden="true"
             >
-              <div
-                className="grid min-h-50 place-items-center overflow-hidden rounded-[1.375rem] bg-bg/[0.72] px-5 py-8 text-ink"
-                aria-hidden="true"
-              >
-                {card.demo}
-              </div>
-              <div>
-                <h3 className="m-0 text-[clamp(2.125rem,4vw,3.375rem)] leading-[0.98] font-[750] tracking-[0] text-ink">
-                  {card.title}
-                </h3>
-                <p className="m-0 mt-4 text-[1.125rem] leading-[1.3] font-[520] text-muted">{card.body}</p>
-              </div>
-            </article>
-          ))}
-        </div>
+              {card.demo}
+            </div>
+            <div>
+              <h3 className="m-0 text-[clamp(2.125rem,4vw,3.375rem)] leading-[0.98] font-[750] tracking-[0] text-ink">
+                {card.title}
+              </h3>
+              <p className="m-0 mt-4 text-[1.125rem] leading-[1.3] font-[520] text-muted">{card.body}</p>
+            </div>
+          </article>
+        ))}
       </div>
     </section>
   )
