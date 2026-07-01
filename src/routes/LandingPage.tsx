@@ -476,6 +476,12 @@ function PrivacySection() {
 }
 
 function NativePricing({ onDownload }: { onDownload: () => void }) {
+  const macDetails = [
+    ['Menu bar quiet.', 'Open, pause, or quit from the place Mac utilities already live.'],
+    ['Keyboard first.', 'Tap Tab for the next word. Keep typing when the thought changes.'],
+    ['No workspace.', 'Superbinary appears in the apps you already use, not another window to manage.'],
+  ]
+
   return (
     <section
       className="px-[clamp(1.25rem,5vw,4.375rem)] py-30 [scroll-margin-top:4.5rem]"
@@ -484,58 +490,22 @@ function NativePricing({ onDownload }: { onDownload: () => void }) {
     >
       <div className={sectionHeadClass}>
         <p className={eyebrowClass}>Built for Mac.</p>
-        <h2 className={h2Class}>Feels native from the first keystroke.</h2>
+        <h2 className={h2Class}>Quiet by default.</h2>
         <p className={sectionHeadCopyClass}>
-          A menu bar app with keyboard-first acceptance, system controls, and no workspace to manage.
+          Superbinary lives in the menu bar, follows the keyboard, and stays out of the way until the next words are useful.
         </p>
       </div>
-      <div className="mx-auto w-[min(73.75rem,100%)] overflow-hidden rounded-[2.25rem] border border-hairline bg-elevated shadow-panel">
-        <div className="flex h-10 items-center justify-between border-b border-hairline bg-panel px-4 text-[0.8125rem] font-[650] text-muted">
-          <span>Superbinary</span>
-          <span className="rounded-full bg-sb-blue/10 px-2.5 py-1 text-sb-blue">Active</span>
-        </div>
-        <div className="grid min-h-[clamp(28rem,45vw,36rem)] grid-cols-[minmax(0,1fr)_minmax(18rem,0.45fr)] gap-6 p-[clamp(1.25rem,4vw,3rem)] max-[56.25rem]:grid-cols-1">
-          <div className="grid content-center rounded-[1.75rem] bg-bg/[0.72] p-[clamp(1.5rem,5vw,4rem)]">
-            <p className="m-0 text-[clamp(2rem,5.8vw,5rem)] leading-[1.08] font-[750] tracking-[0] text-ink">
-              <SuggestionText accepted="Turn these notes into" ghost=" a short launch update." />
-            </p>
-          </div>
-          <div className="grid content-between rounded-[1.75rem] bg-panel p-5">
-            <div>
-              <p className="m-0 text-[1.0625rem] font-[750] text-ink">Menu bar controls</p>
-              <p className="m-0 mt-2 text-sm leading-[1.38] font-[520] text-muted">
-                Pause, resume, and tune Superbinary without opening a workspace.
-              </p>
-            </div>
-            <div className="mt-8 grid gap-3">
-              {['Superbinary', 'Spatial Awareness'].map((item) => (
-                <div className="flex items-center justify-between gap-4 text-[0.9375rem] font-[620] text-control-ink" key={item}>
-                  <span>{item}</span>
-                  <span className="h-5.5 w-9.5 rounded-full bg-caret-blue shadow-[inset_0_0_0_0.0625rem_rgba(0,0,0,0.05)]">
-                    <span className="ml-auto block h-4.5 w-4.5 rounded-full bg-white shadow-[0_0.0625rem_0.125rem_rgba(0,0,0,0.18)] [margin:0.125rem_0.125rem_0.125rem_auto]" />
-                  </span>
-                </div>
-              ))}
-            </div>
-            <div className="mt-8 rounded-[1.125rem] bg-bg px-4 py-3 text-[0.875rem] leading-[1.35] font-[620] text-muted">
-              Tab accepts the next word. Typing keeps you in control.
-            </div>
-          </div>
-        </div>
-        <div className="grid grid-cols-3 border-t border-hairline bg-panel/[0.64] max-[56.25rem]:grid-cols-1">
-          {[
-            ['Menu bar quiet.', 'Present when you need it. Out of the way when you do not.'],
-            ['Keyboard first.', 'Accept a word without leaving the sentence.'],
-            ['Native controls.', 'Simple settings that behave like they belong on macOS.'],
-          ].map(([title, body]) => (
-            <div className="border-r border-hairline p-5 last:border-r-0 max-[56.25rem]:border-r-0 max-[56.25rem]:border-b max-[56.25rem]:last:border-b-0" key={title}>
-              <h3 className="m-0 text-[1.125rem] font-[750] text-ink">{title}</h3>
-              <p className="m-0 mt-1.5 text-sm leading-[1.4] font-[520] text-muted">{body}</p>
-            </div>
+      <div className="mx-auto mt-11 w-[min(61.25rem,100%)] border-y border-hairline">
+        <div className="grid grid-cols-3 divide-x divide-hairline max-[56.25rem]:grid-cols-1 max-[56.25rem]:divide-x-0 max-[56.25rem]:divide-y">
+          {macDetails.map(([title, body]) => (
+            <article className="px-7 py-8 text-left max-[56.25rem]:px-0 max-[56.25rem]:py-6" key={title}>
+              <h3 className="m-0 text-[1.25rem] leading-[1.12] font-[750] tracking-[0] text-ink">{title}</h3>
+              <p className="m-0 mt-2.5 text-[1.0625rem] leading-[1.38] font-[520] text-muted">{body}</p>
+            </article>
           ))}
         </div>
       </div>
-      <div className="mx-auto mt-8 grid w-[min(61.25rem,100%)] grid-cols-[1fr_auto] items-center gap-5 rounded-[1.875rem] border border-hairline bg-elevated px-[clamp(1.5rem,4vw,2.75rem)] py-6 shadow-panel max-[56.25rem]:grid-cols-1 max-[56.25rem]:text-center">
+      <div className="mx-auto mt-12 grid w-[min(61.25rem,100%)] grid-cols-[1fr_auto] items-center gap-5 border-b border-hairline pb-8 max-[56.25rem]:grid-cols-1 max-[56.25rem]:justify-items-center max-[56.25rem]:text-center">
         <div>
           <p className="m-0 text-[1.0625rem] font-[700] text-ink">Superbinary</p>
           <p className="m-0 mt-1.5 text-[clamp(1.25rem,2.4vw,1.75rem)] leading-[1.18] font-[650] text-ink">
