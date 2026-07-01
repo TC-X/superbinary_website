@@ -246,7 +246,7 @@ function Highlights() {
       <div
         className={cx(
           wideRailInsetClass,
-          'flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 scroll-px-[max(clamp(1.25rem,5vw,4.375rem),calc((100vw_-_73.75rem)/2))] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+          '-my-16 flex snap-x snap-mandatory gap-4 overflow-x-auto py-16 scroll-px-[max(clamp(1.25rem,5vw,4.375rem),calc((100vw_-_73.75rem)/2))] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
         )}
         ref={sliderRef}
       >
