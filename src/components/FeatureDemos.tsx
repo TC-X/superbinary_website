@@ -58,19 +58,10 @@ export function SpellCorrectionDemo({ className = '' }: DemoProps) {
 
 export function PrivateOnMacDemo({ className = '' }: DemoProps) {
   return (
-    <div className={cx('grid min-h-18.5 place-items-center', className)}>
-      <div className="grid grid-cols-[auto_1fr] items-center gap-3 text-left">
-        <span
-          className="relative block h-12 w-12 rounded-[0.875rem] border border-hairline bg-bg"
-          aria-hidden="true"
-        >
-          <span className="absolute top-2.5 left-1/2 h-4.5 w-5 -translate-x-1/2 rounded-t-[0.625rem] border-[0.1875rem] border-ink border-b-0" />
-          <span className="absolute right-2 bottom-2 left-2 h-6 rounded-[0.375rem] bg-ink" />
-        </span>
-        <span className="text-[1.0625rem] leading-[1.2] font-[650] text-accepted">
-          Completion stays on your Mac.
-        </span>
-      </div>
+    <div className={cx('w-full', className)}>
+      <p className="m-0 leading-[1.28] font-[650] min-[56.25rem]:text-xl">
+        <SuggestionText accepted="Everything stays" ghost=" on your Mac." />
+      </p>
     </div>
   )
 }
